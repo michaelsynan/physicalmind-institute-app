@@ -4,4 +4,10 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ["@nuxtjs/ionic"],
   css: ["@/theme/variables.css"],
+  ionic: {
+    integrations: { },
+    css: {
+      utilities: true,
+    },
+  },
 })
