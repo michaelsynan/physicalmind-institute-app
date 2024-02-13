@@ -11,20 +11,20 @@
           <ion-title size="large">Nuxt Ionic</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div id="container">
-        <div>
-        </div>
+      <div id="container" class="my-10 max-w-5xl mx-auto">
         <div class="flex justify-center items-center">
-  <nuxt-img provider="cloudinary" src="v1700979853/cld-sample-5.jpg" width="300" height="200" />
-</div>
-
+          <nuxt-img provider="cloudinary" src="v1700979853/cld-sample-5.jpg" width="300" height="200" />
+        </div>
         <h1>Very Cool Fitness App</h1>
-        <ion-grid :fixed="true">
+        <ion-grid>
           <ion-row>
-            <ion-col> <ion-card>
-                <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen class="w-full"></iframe>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
                 <ion-card-header>
                   <ion-card-title>Card Title</ion-card-title>
                   <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
@@ -34,10 +34,13 @@
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            <ion-col> <ion-card>
-                <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen class="w-full"></iframe>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
                 <ion-card-header>
                   <ion-card-title>Card Title</ion-card-title>
                   <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
@@ -47,10 +50,13 @@
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            <ion-col> <ion-card>
-                <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen class="w-full"></iframe>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
                 <ion-card-header>
                   <ion-card-title>Card Title</ion-card-title>
                   <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
@@ -60,6 +66,72 @@
                 </ion-card-content>
               </ion-card>
             </ion-col>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>Card Title</ion-card-title>
+                  <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  Here's a small text description for the card content. Nothing more, nothing less.
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>Card Title</ion-card-title>
+                  <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  Here's a small text description for the card content. Nothing more, nothing less.
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>Card Title</ion-card-title>
+                  <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  Here's a small text description for the card content. Nothing more, nothing less.
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-md="3">
+              <ion-card>
+                <div class="video-responsive">
+                  <iframe src="https://player.vimeo.com/video/857228700" title="Video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>Card Title</ion-card-title>
+                  <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  Here's a small text description for the card content. Nothing more, nothing less.
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+
+            <!-- Repeat for other columns, ensure each iframe is wrapped with .video-responsive -->
           </ion-row>
         </ion-grid>
         <ion-button router-link="/resources">Get Started</ion-button>
@@ -68,16 +140,9 @@
   </ion-page>
 </template>
 
-<style scoped>
-#container {
-  text-align: center;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
+<style scoped>
+
 
 #container strong {
   font-size: 20px;
@@ -87,13 +152,30 @@
 #container p {
   font-size: 16px;
   line-height: 22px;
-
   color: #8c8c8c;
-
   margin: 0;
 }
 
 #container a {
   text-decoration: none;
+}
+.video-responsive {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.video-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#container {
+  text-align: center;
+  
 }
 </style>
