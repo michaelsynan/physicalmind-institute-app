@@ -1,4 +1,4 @@
-import{ad as t}from"./entry.S3XyNdax.js";/*!
+import{ad as t}from"./entry.BiYNSH06.js";/*!
  * (C) Ionic http://ionicframework.com - MIT License
  */const r=()=>{if(t!==void 0)return t.Capacitor};/*!
  * (C) Ionic http://ionicframework.com - MIT License
