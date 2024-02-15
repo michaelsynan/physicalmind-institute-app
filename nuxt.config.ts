@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true }, 
   ssr: false,
-  modules: ["@nuxtjs/ionic", '@nuxtjs/tailwindcss', '@nuxt/image-edge', "@nuxt/image"],
+  modules: ["@nuxtjs/ionic", '@nuxt/image-edge', "@nuxt/image", '@nuxt/ui'],
   css: ["@/theme/variables.css"],
   ionic: {
     integrations: { },
