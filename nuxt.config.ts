@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true }, 
   ssr: false,
   modules: ["@nuxtjs/ionic", '@nuxt/image-edge', "@nuxt/image", '@nuxt/ui'],
-  css: ["@/theme/variables.css"],
+  css: ["/theme/variables.css", "/assets/css/main.css"],
   ionic: {
     integrations: { },
     css: {
