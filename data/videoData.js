@@ -14,13 +14,6 @@ export const videoData = [
       tags: ['pilates', 'yoga'],
     },
     {
-      name: 'Basic Bungee Ties',
-      vimeoId: '791262957',
-      description: 'Basic bungee ties.',
-      instructor: 'Joan',
-      tags: ['pilates'],
-    },
-    {
       name: 'Basic Bungee Ties for Tye4',
       vimeoId: '772125292',
       description: 'Strengthen your core with Pilates exercises.',
