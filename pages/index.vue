@@ -17,7 +17,7 @@
         <div class="flex justify-center items-center">
           <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
         </div>
-        <div class="flex flex-row gap-20 justify-center items-center my-8 w-full max-w-8xl">
+        <div class="flex flex-col md:flex-row gap-4 md:gap-20 justify-center items-center my-8 w-full max-w-8xl">
   <div class="flex flex-row gap-4 items-center">
     <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')" class="cursor-pointer py-1 px-3 rounded-full">New</UBadge>
     <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')" class="cursor-pointer  py-1 px-3 rounded-full">All Videos</UBadge>
