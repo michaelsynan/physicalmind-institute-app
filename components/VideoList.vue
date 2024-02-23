@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>Selected Tag: {{ tag }}</p>
     <ion-grid>
       <!-- Conditional rendering based on filteredVideos length -->
       <div v-if="filteredVideos.length > 0">

@@ -2,14 +2,13 @@
   <ion-menu content-id="main-content" >
     <ion-header class="ion-no-border transparent">
       <ion-toolbar>
-        <ion-title>TYE4 APP</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <div class="flex flex-col h-full justify-between">
         <ion-list>
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
-          <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Instructors</ion-item>
+          <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item>
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Shop</ion-item>
           <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
           <ion-item @click="closeMenu" router-link="/help" class="cursor-pointer">Help</ion-item>

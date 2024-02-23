@@ -5,7 +5,6 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Fitness Studio App</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -20,19 +19,18 @@
         </div>
         <div class="flex flex-row gap-20 justify-center items-center my-8 w-full max-w-8xl">
   <div class="flex flex-row gap-4 items-center">
-    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')" class="cursor-pointer">New</UBadge>
-    <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')" class="cursor-pointer">All Videos</UBadge>
-    <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')" class="cursor-pointer">Dance</UBadge>
-    <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')" class="cursor-pointer">Golf</UBadge>
+    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')" class="cursor-pointer py-1 px-3 rounded-full">New</UBadge>
+    <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')" class="cursor-pointer  py-1 px-3 rounded-full">All Videos</UBadge>
+    <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')" class="cursor-pointer  py-1 px-3 rounded-full">Dance</UBadge>
+    <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')" class="cursor-pointer  py-1 px-3 rounded-full">Golf</UBadge>
   </div>
   <ion-list class="flex items-center">
     <ion-item>
       <ion-select label="Instructor" placeholder="All" v-model="selectedInstructor">
-  <ion-select-option value="Joan">Joan</ion-select-option>
-  <ion-select-option value="Yuu">Yuu</ion-select-option>
-  <ion-select-option value="Igor">Igor</ion-select-option>
-</ion-select>
-
+        <ion-select-option v-for="instructor in instructorData" :key="instructor.value" :value="instructor.value">
+          {{ instructor.name }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
   </ion-list>
 </div>
@@ -45,6 +43,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { instructorData } from '@/data/instructorData.js' // Adjust the path as necessary
 
 definePageMeta({
   middleware: ["logger"]
