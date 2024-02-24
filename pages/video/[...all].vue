@@ -27,6 +27,7 @@
         </ion-card-header>
         <ion-card-content v-if="video">
           {{ video.description }}
+          ;lkj;lkj
         </ion-card-content>
       </ion-card>
       </div>
@@ -47,12 +48,13 @@ const videoId = computed(() => {
   return pathArray[pathArray.length - 1];
 });
 
-// Find the video by ID
-const video = computed(() => videoData.find((v) => v.id === videoId.value));
+// Find the video by vimeoId, not id
+const video = computed(() => videoData.find((v) => v.vimeoId === videoId.value));
 
 // Construct video URL
 const videoUrl = computed(() => `https://player.vimeo.com/video/${videoId.value}`);
 </script>
+
 
 <style scoped>
 
