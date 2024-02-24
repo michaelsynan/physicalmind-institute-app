@@ -5,29 +5,24 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>Toolbar</ion-title>
+        <ion-title class="justify-center text-center">{{ video.name }}</ion-title>
         <!-- Show loading bar only when isLoading is true -->
         <ion-progress-bar v-if="isLoading" type="indeterminate"></ion-progress-bar>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <div id="container" class="my-10 max-w-5xl mx-auto">
-        <ion-card>
-          <div class="video-responsive">
+        <ion-card type="medium">
+          <div class="video-responsive bg-stone-300">
             <!-- Loading Overlay -->
-            <div v-if="isLoading" class="loading-overlay">Loading...</div>
-            <iframe
-              :src="videoUrl"
-              title="Video player"
-              frameborder="0"
+            <div v-if="isLoading" class="loading-overlay text-opacity-50">Loading...</div>
+            <iframe :src="videoUrl" title="Video player" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              @load="videoLoaded"
-            ></iframe>
+              allowfullscreen @load="videoLoaded"></iframe>
           </div>
           <!-- Display video details if available -->
           <ion-card-header v-if="video">
-            <ion-card-title>{{ video.name }}</ion-card-title>
+            <ion-card-title class="hidden">{{ video.name }}</ion-card-title>
             <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content v-if="video">
@@ -68,14 +63,14 @@ const videoLoaded = () => {
 
 
 <style scoped>
-
 .video-responsive {
   position: relative;
   width: 100%;
   /* Use padding-top to create an aspect ratio */
-  padding-top: 56.25%; /* Example for 16:9 aspect ratio */
+  padding-top: 56.25%;
+  /* Example for 16:9 aspect ratio */
   overflow: hidden;
-  
+
 }
 
 .video-responsive iframe {
@@ -85,7 +80,7 @@ const videoLoaded = () => {
   width: 100%;
   height: 100%;
   border: rgba(0, 0, 0, .1) 1px solid;
-  
+
 }
 
 
@@ -102,5 +97,4 @@ const videoLoaded = () => {
   color: #000;
   font-size: 20px;
 }
-
 </style>

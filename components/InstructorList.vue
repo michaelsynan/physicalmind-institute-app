@@ -44,8 +44,13 @@ const filteredInstructors = computed(() => {
   if (props.instructor && props.instructor !== 'All') {
     result = instructorData.filter(instructor => instructor.name === props.instructor);
   }
+  
+  // Sort instructors alphabetically by name
+  result.sort((a, b) => a.name.localeCompare(b.name));
+  
   return result;
 });
+
 </script>
 
 <style scoped>
