@@ -5,6 +5,8 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
+        <ion-title class="justify-center text-center">Help</ion-title>
+
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">

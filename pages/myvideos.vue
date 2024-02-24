@@ -1,4 +1,14 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+const myVideos = useState('myVideos', () => []);
+
+onMounted(() => {
+  console.log("From my videos list:", JSON.stringify(myVideos.value));
+  // Or, to log the array directly:
+  console.log("From my videos list:", myVideos.value);
+});
+
+</script>
 
 <template>
   <ion-page>
@@ -7,8 +17,7 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center">Instructors</ion-title>
-
+        <ion-title class="justify-center text-center">My Videos</ion-title>
 
       </ion-toolbar>
     </ion-header>
@@ -16,7 +25,9 @@
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
-     <InstructorList />
+            <ion-text>
+              My videos
+            </ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>

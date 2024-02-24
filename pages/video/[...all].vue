@@ -5,7 +5,6 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>Video Details</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
