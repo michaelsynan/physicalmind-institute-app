@@ -12,7 +12,7 @@
           <ion-item @click="closeMenu" router-link="/myvideos" class="cursor-pointer">My Videos</ion-item>
           <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
           <ion-item @click="closeMenu" router-link="/help" class="cursor-pointer">Help</ion-item>
-          <ion-item @click="closeMenu" router-link="https://google.com" class="cursor-pointer">
+          <ion-item @click="closeMenu" href="https://google.com" class="cursor-pointer" target="_blank">
             <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> Shop
           </ion-item>
         </ion-list>
