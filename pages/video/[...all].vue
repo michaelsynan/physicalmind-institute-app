@@ -23,9 +23,9 @@
           <!-- Display video details if available -->
           <ion-card-header v-if="video">
             <ion-card-title class="hidden">{{ video.name }}</ion-card-title>
-            <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
+            <ion-card-subtitle class="text-left">Instructor: {{ video.instructor }}</ion-card-subtitle>
           </ion-card-header>
-          <ion-card-content v-if="video">
+          <ion-card-content class="text-left" v-if="video">
             {{ video.description }}
           </ion-card-content>
         </ion-card>

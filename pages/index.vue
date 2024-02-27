@@ -19,7 +19,7 @@
         </div>
         <div class="flex flex-col md:flex-row gap-4 md:gap-20 justify-center items-center mt-8 mb-4 w-full max-w-8xl">
   <div class="flex flex-row gap-4 items-center">
-    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')" class="cursor-pointer py-1.5 px-3 rounded-full">New</UBadge>
+    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')" class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-80 border-primary">New</UBadge>
     <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')" class="cursor-pointer  py-1.5 px-3 rounded-full">All Videos</UBadge>
     <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')" class="cursor-pointer  py-1.5 px-3 rounded-full">Dance</UBadge>
     <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')" class="cursor-pointer  py-1.5 px-3 rounded-full">Golf</UBadge>

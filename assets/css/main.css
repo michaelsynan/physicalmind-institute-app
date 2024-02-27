@@ -17,3 +17,11 @@
     --ion-color-primary-tint: #fff; 
 }
  */
+
+ ion-card {
+  --background: var(--ion-color-light);
+}
+
+ion-card-title {font-weight: bold;
+  text-transform: uppercase;
+}

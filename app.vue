@@ -21,7 +21,7 @@
             <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
 
             <ion-item>
-              <ion-toggle :checked="themeToggle" @ionChange="toggleChange($event)">
+              <ion-icon :md="currentIcon" :ios="currentIcon" slot="start"></ion-icon>              <ion-toggle :checked="themeToggle" @ionChange="toggleChange($event)">
                 {{ themeToggle ? 'Light Mode' : 'Dark Mode' }}
               </ion-toggle>
             </ion-item>
@@ -37,7 +37,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue';
+
 const themeToggle = ref(false);
+
+// Use a computed property to dynamically change the icon
+const currentIcon = computed(() => themeToggle.value ? 'ioniconsMoon' : 'ioniconsBulb');
 
 const toggleChange = (event) => {
   toggleDarkTheme(event.detail.checked);
@@ -53,6 +58,8 @@ const closeMenu = async () => {
   menu.close();
 };
 </script>
+nan
+
 
 <style scoped>
 ion-item {
@@ -65,6 +72,12 @@ ion-item::part(native) {
   border-bottom: none;
 }
 
+
+ion-item:hover {
+  background-color: rgba(var(--background-hover), 0.4);
+}
+
+
 a {
   color: inherit;
   text-decoration: none;
@@ -73,4 +86,5 @@ a {
   height: 100%;
   width: 100%;
 }
+
 </style>
