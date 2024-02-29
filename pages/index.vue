@@ -14,33 +14,40 @@
         </ion-toolbar>
       </ion-header>
       <div id="container" class="my-10 max-w-full mx-auto">
-        <div class="flex justify-center items-center">
+        <!-- <div class="flex justify-center items-center">
           <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
+        </div> -->
+        <div>
+          <TheSwiper />
         </div>
         <div class="flex flex-col md:flex-row gap-4 md:gap-20 justify-center items-center mt-8 mb-4 w-full max-w-8xl">
-  <div class="flex flex-row gap-4 items-center">
-    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')" class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-80 border-primary">New</UBadge>
-    <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')" class="cursor-pointer  py-1.5 px-3 rounded-full">All Videos</UBadge>
-    <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')" class="cursor-pointer  py-1.5 px-3 rounded-full">Dance</UBadge>
-    <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')" class="cursor-pointer  py-1.5 px-3 rounded-full">Golf</UBadge>
-  </div>
-<ion-list class="flex items-center bg-transparent" size="small">
-    <ion-item class="border-b-0">
-      <ion-select label="Instructor" placeholder="All" v-model="selectedInstructor" shape="round">
-  <!-- Static "All" option -->
-  <ion-select-option value="All">All</ion-select-option>
-  
-  <!-- Dynamic options from your data -->
-  <ion-select-option v-for="instructor in instructorData" :key="instructor.value" :value="instructor.value">
-    {{ instructor.name }}
-  </ion-select-option>
-</ion-select>
+          <div class="flex flex-row gap-4 items-center">
+            <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
+              class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-80 border-primary">New</UBadge>
+            <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
+              class="cursor-pointer  py-1.5 px-3 rounded-full">All Videos</UBadge>
+            <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
+              class="cursor-pointer  py-1.5 px-3 rounded-full">Dance</UBadge>
+            <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
+              class="cursor-pointer  py-1.5 px-3 rounded-full">Golf</UBadge>
+          </div>
+          <ion-list class="flex items-center bg-transparent" size="small">
+            <ion-item class="border-b-0">
+              <ion-select label="Instructor" placeholder="All" v-model="selectedInstructor" shape="round">
+                <!-- Static "All" option -->
+                <ion-select-option value="All">All</ion-select-option>
 
-    </ion-item>
-  </ion-list>
-</div>
+                <!-- Dynamic options from your data -->
+                <ion-select-option v-for="instructor in instructorData" :key="instructor.value" :value="instructor.value">
+                  {{ instructor.name }}
+                </ion-select-option>
+              </ion-select>
 
-<VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto" />
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto" />
       </div>
     </ion-content>
   </ion-page>
@@ -122,9 +129,12 @@ ion-item {
   --border-color: transparent;
 }
 
-ion-item:hover, ion-item:active, ion-item.item-interactive:item-interactive-hover {
+ion-item:hover,
+ion-item:active,
+ion-item.item-interactive:item-interactive-hover {
   --background: transparent;
-  --ion-item-background-hover: transparent; /* For hover state */
+  --ion-item-background-hover: transparent;
+  /* For hover state */
 }
 
 </style>

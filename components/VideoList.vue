@@ -23,17 +23,18 @@
                     :ios="ioniconsStar" slot="end"></ion-icon></button>
               </div>
               <ion-card-header>
-                <div class="flex flex-row w-full justify-between h-full">
-                  <div>
-                    <ion-card-title>
-                      <NuxtLink :to="`/video/${video.vimeoId}`">{{ video.name }}</NuxtLink>
-                    </ion-card-title>
-                  </div>
-                  <div class="flex flex-col justify-end h-full">
-                    <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
-                  </div>
-                </div>
-              </ion-card-header>
+  <div class="flex flex-col w-full h-full items-start">
+    <div>
+      <ion-card-title>
+        <NuxtLink :to="`/video/${video.vimeoId}`">{{ video.name }}</NuxtLink>
+      </ion-card-title>
+    </div>
+    <div class="flex flex-col justify-end h-full">
+      <ion-card-subtitle><span class="font-bold">Instructor:</span> {{ video.instructor }}</ion-card-subtitle>
+    </div>
+  </div>
+</ion-card-header>
+
               <ion-card-content class="text-left">
                 {{ video.description }}
               </ion-card-content>

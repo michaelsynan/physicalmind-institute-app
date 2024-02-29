@@ -1,8 +1,12 @@
 <template>
 
   <ion-menu content-id="main-content">
-    <ion-header class="ion-no-border transparent">
-      <ion-toolbar></ion-toolbar>
+    <ion-header :translucent="true" class="ion-no-border transparent">
+      <ion-toolbar>
+        <div class="flex justify-center items-center mt-8 mb-4">
+          <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="40" />
+        </div>
+      </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <div class="flex flex-col h-full justify-between">
@@ -12,16 +16,19 @@
           <ion-item @click="closeMenu" router-link="/myvideos" class="cursor-pointer">My Videos</ion-item>
           <ion-item @click="closeMenu" router-link="/help" class="cursor-pointer">FAQ</ion-item>
           <ion-item @click="closeMenu" router-link="/certification" class="cursor-pointer">Certification</ion-item>
+          <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
+
           <ion-item @click="closeMenu" href="https://google.com" class="cursor-pointer" target="_blank">
             <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> Shop
           </ion-item>
         </ion-list>
         <div>
           <ion-list>
-            <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
-
             <ion-item>
-              <ion-icon :md="currentIcon" :ios="currentIcon" slot="start"></ion-icon>              <ion-toggle :checked="themeToggle" @ionChange="toggleChange($event)">
+              <ion-icon v-if="themeToggle" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
+
+              <ion-icon v-else :md="ioniconsSunnyOutline" :ios="ioniconsSunnyOutline" slot="start"></ion-icon>
+              <ion-toggle :checked="themeToggle" @ionChange="toggleChange($event)">
                 {{ themeToggle ? 'Light Mode' : 'Dark Mode' }}
               </ion-toggle>
             </ion-item>
@@ -42,7 +49,7 @@ import { ref, computed } from 'vue';
 const themeToggle = ref(false);
 
 // Use a computed property to dynamically change the icon
-const currentIcon = computed(() => themeToggle.value ? 'ioniconsMoon' : 'ioniconsBulb');
+const currentIcon = 'ioniconsGlobeOutline';
 
 const toggleChange = (event) => {
   toggleDarkTheme(event.detail.checked);
@@ -58,33 +65,18 @@ const closeMenu = async () => {
   menu.close();
 };
 </script>
-nan
-
 
 <style scoped>
-ion-item {
-  --background: transparent;
-  --ion-item-background: transparent;
-  --border-color: transparent;
-}
 
 ion-item::part(native) {
   border-bottom: none;
 }
-
-
-ion-item:hover {
-  background-color: rgba(var(--background-hover), 0.4);
-}
-
-
-a {
-  color: inherit;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+ion-header,
+ion-toolbar {
+  --background: transparent !important; /* Makes the background transparent */
+  --ion-background-color: transparent !important; /* Additional override for background color */
+  --border-color: transparent !important; /* Removes any border */
+  --box-shadow: none !important; /* Removes shadow */
 }
 
 </style>
