@@ -18,19 +18,19 @@
                   allowfullscreen
                 ></iframe> -->
                 <!-- Save button -->
-                <button class="save-btn" @click="saveVideo(video.vimeoId)"> 
+                <!-- <button class="save-btn" @click="saveVideo(video.vimeoId)"> 
                   <ion-icon :md="ioniconsStarOutline"
-                    :ios="ioniconsStar" slot="end"></ion-icon></button>
+                    :ios="ioniconsStar" slot="end"></ion-icon></button> -->
               </div>
               <ion-card-header>
   <div class="flex flex-col w-full h-full items-start">
     <div>
-      <ion-card-title>
+      <ion-card-title class="mb-1.5">
         <NuxtLink :to="`/video/${video.vimeoId}`">{{ video.name }}</NuxtLink>
       </ion-card-title>
     </div>
     <div class="flex flex-col justify-end h-full">
-      <ion-card-subtitle><span class="font-bold">Instructor:</span> {{ video.instructor }}</ion-card-subtitle>
+      <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
     </div>
   </div>
 </ion-card-header>
@@ -149,6 +149,17 @@ function saveVideo(vimeoId) {
   opacity: 0;
 }
 
+ion-card {
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  /* Smooth transition for shadow and transform effects */
+}
+
+ion-card:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  /* Add shadow to lift card */
+  transform: translateY(-3px);
+  /* Slightly raise the card */
+}
 
 </style>
 

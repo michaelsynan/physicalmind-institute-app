@@ -13,10 +13,11 @@
         <ion-list>
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
           <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item>
-          <ion-item @click="closeMenu" router-link="/myvideos" class="cursor-pointer">My Videos</ion-item>
-          <ion-item @click="closeMenu" router-link="/help" class="cursor-pointer">FAQ</ion-item>
+          <!-- <ion-item @click="closeMenu" router-link="/myvideos" class="cursor-pointer">My Videos</ion-item> -->
           <ion-item @click="closeMenu" router-link="/certification" class="cursor-pointer">Certification</ion-item>
-          <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
+
+          <ion-item @click="closeMenu" router-link="/help" class="cursor-pointer">FAQ</ion-item>
+          <!-- <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item> -->
 
           <ion-item @click="closeMenu" href="https://google.com" class="cursor-pointer" target="_blank">
             <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> Shop
@@ -29,7 +30,7 @@
 
               <ion-icon v-else :md="ioniconsSunnyOutline" :ios="ioniconsSunnyOutline" slot="start"></ion-icon>
               <ion-toggle :checked="themeToggle" @ionChange="toggleChange($event)">
-                {{ themeToggle ? 'Light Mode' : 'Dark Mode' }}
+                {{ themeToggle ? 'Dark Mode' : 'Light Mode' }}
               </ion-toggle>
             </ion-item>
           </ion-list>

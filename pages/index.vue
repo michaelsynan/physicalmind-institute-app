@@ -13,7 +13,7 @@
           <ion-title size="large">Nuxt Ionic</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div id="container" class="my-10 max-w-full mx-auto">
+      <div id="container" class="my-0 md:my-10 max-w-full mx-auto">
         <!-- <div class="flex justify-center items-center">
           <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
         </div> -->
@@ -47,7 +47,7 @@
           </ion-list>
         </div>
 
-        <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto" />
+        <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto mb-20" />
       </div>
     </ion-content>
   </ion-page>
@@ -136,6 +136,7 @@ ion-item.item-interactive:item-interactive-hover {
   --ion-item-background-hover: transparent;
   /* For hover state */
 }
+
 
 </style>
 
