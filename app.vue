@@ -40,6 +40,7 @@
   </ion-menu>
   <ion-app>
     <ion-router-outlet id="main-content"></ion-router-outlet>
+    <MainFooter />
   </ion-app>
 
 </template>
@@ -61,10 +62,7 @@ const toggleDarkTheme = (shouldAdd) => {
   document.body.classList.toggle('dark', shouldAdd);
 };
 
-const closeMenu = async () => {
-  const menu = await useIonMenu();
-  menu.close();
-};
+const closeMenu = (event) => { console.log('event')}
 </script>
 
 <style scoped>

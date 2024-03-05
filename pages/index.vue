@@ -54,26 +54,51 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { instructorData } from '@/data/instructorData.js' // Adjust the path as necessary
+import { ref, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { instructorData } from '/data/instructorData.js'; // Ensure this path is correct
 
+// Define page metadata
 definePageMeta({
   middleware: ["logger"]
-})
+});
 
-const selectedBadge = ref('all videos') // Default selection
-const selectedInstructor = ref('All') // Default instructor selection
+const route = useRoute(); // Get access to the current route object
 
-// Method to update selectedBadge
+const selectedBadge = ref('all videos'); // Default selection
+const selectedInstructor = ref('All'); // Default instructor selection
+
+// Function to handle logging and updating based on the instructor query parameter
+const handleInstructorQueryParam = () => {
+  const instructorQueryParam = route.query.instructor;
+  if (instructorQueryParam) {
+    console.log('URL instructor parameter value:', instructorQueryParam);
+    selectedInstructor.value = instructorQueryParam;
+  } else {
+    console.log('No instructor query parameter found.');
+  }
+};
+
+// Execute the logic once the component is fully mounted to ensure the route is resolved
+onMounted(() => {
+  handleInstructorQueryParam();
+});
+
+// Additionally, react to changes in the route.query.instructor to handle client-side navigation
+watch(() => route.query.instructor, (newValue) => {
+  console.log('URL instructor parameter value changed to:', newValue);
+  selectedInstructor.value = newValue || 'All'; // Fallback to 'All' if newValue is undefined
+});
+
 const updateSelectedBadge = (badgeLabel: string) => {
-  selectedBadge.value = badgeLabel
-}
+  selectedBadge.value = badgeLabel;
+};
 
-// Method to return the class based on badge selection
 const badgeClass = (badgeLabel: string) => {
-  return selectedBadge.value === badgeLabel ? 'badge-selected' : 'badge-default'
-}
+  return selectedBadge.value === badgeLabel ? 'badge-selected' : 'badge-default';
+};
 </script>
+
 
 <style>
 /* Styles for badges */

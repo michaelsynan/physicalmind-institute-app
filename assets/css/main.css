@@ -26,3 +26,13 @@ ion-card-title a {font-weight: bold;
   text-transform: uppercase;
   color: var(--ion-text-color-light);
 }
+
+.swiper-pagination-bullet-active {
+  background: #810867 !important; /* Updated color for active bullet, can adjust if you want a different color for active state */
+}
+
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 4px;
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
+  background: #810867 !important;
+}

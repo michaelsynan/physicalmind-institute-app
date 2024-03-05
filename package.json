@@ -19,6 +19,7 @@
     "@capacitor/ios": "5.7.0",
     "@capacitor/keyboard": "5.0.8",
     "@capacitor/status-bar": "5.0.7",
+    "@nuxt/devtools": "^1.0.8",
     "@nuxt/ui": "^2.13.0",
     "@vimeo/player": "^2.21.0",
     "nuxt": "^3.10.1",
