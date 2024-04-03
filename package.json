@@ -22,7 +22,7 @@
     "@nuxt/devtools": "^1.0.8",
     "@nuxt/ui": "^2.13.0",
     "@vimeo/player": "^2.21.0",
-    "nuxt": "^3.10.1",
+    "nuxt": "^3.11.1",
     "nuxt-swiper": "^1.2.2",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
