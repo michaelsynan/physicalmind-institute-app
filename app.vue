@@ -4,8 +4,9 @@
     <ion-header :translucent="true" class="ion-no-border transparent">
       <ion-toolbar>
         <div class="flex justify-center items-center mt-8 mb-4">
-          <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="40" />
-        </div>
+          <NuxtLink to="/">
+            <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="40" />
+          </NuxtLink>        </div>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">

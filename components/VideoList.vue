@@ -7,7 +7,7 @@
             <ion-card>
               <div class="video-list cursor-pointer">
                 <!-- Placeholder Image -->
-                <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
+                <NuxtLink :to="`/video/${video.vimeoId}`"> <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder"></NuxtLink>
                 <!-- Video iframe is commented out in this example -->
                 <!-- <iframe
                   v-else
@@ -22,21 +22,22 @@
                   <ion-icon :md="ioniconsStarOutline"
                     :ios="ioniconsStar" slot="end"></ion-icon></button> -->
               </div>
-              <ion-card-header>
+              <ion-card-header class="pt-3 pb-2">
   <div class="flex flex-col w-full h-full items-start">
     <div>
-      <ion-card-title class="mb-1.5">
+      <ion-card-title>
         <NuxtLink :to="`/video/${video.vimeoId}`">{{ video.name }}</NuxtLink>
       </ion-card-title>
     </div>
-    <div class="flex flex-col justify-end h-full">
-      <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
-    </div>
+
   </div>
 </ion-card-header>
 
               <ion-card-content class="text-left">
-                {{ video.description }}
+               <div class="text-base"> {{ video.description }}</div>
+               <!-- <div class="flex flex-col justify-end h-full">
+      <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
+    </div> -->
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -45,6 +46,9 @@
       <div v-else class="ion-padding">
         <p>Sorry, no videos exist for this query.</p>
       </div>
+      
+
+
     </ion-grid>
   </div>
 </template>

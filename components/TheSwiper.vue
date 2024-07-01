@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
       <div id="container" class="my-4 max-w-5xl mx-auto p-5">
         <Swiper 

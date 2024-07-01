@@ -13,7 +13,6 @@
                 <!-- Instructor Name and Link -->
                 <div class="flex flex-col">
                   <ion-card-title>{{ instructor.name }}</ion-card-title>
-                  <a :href="instructor.website" target="_blank">Visit Website</a>
                   <NuxtLink :to="`/instructors/${instructor.slug}`">View Profile</NuxtLink>
                 </div>
               </div>

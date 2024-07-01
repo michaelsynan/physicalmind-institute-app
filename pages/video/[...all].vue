@@ -25,9 +25,16 @@
             <ion-card-title class="hidden">{{ video.name }}</ion-card-title>
             <ion-card-subtitle class="text-left">Instructor: {{ video.instructor }}</ion-card-subtitle>
           </ion-card-header>
-          <ion-card-content class="text-left" v-if="video">
-            {{ video.description }}
-          </ion-card-content>
+          <ion-card-content class="text-left text-base" v-if="video">
+  <div>
+    {{ video.description }}
+  </div>
+  <div class="mt-2 flex flex-wrap">
+  <ion-chip v-for="tag in video.tags" :key="tag" class="mr-2 mb-2">{{ tag }}</ion-chip>
+</div>
+
+</ion-card-content>
+
         </ion-card>
       </div>
     </ion-content>

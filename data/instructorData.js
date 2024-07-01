@@ -1,25 +1,25 @@
 export const instructorData = [
     {
       name: 'Yuu',
-      photo: '/profile.webp',
+      photo: '/instructors/yuu-profile.png',
       website: 'https://physicalmindinstitute.com',
       slug: 'yu-fujita'
     },
     {
       name: 'Joan',
-      photo: '/profile.webp',
+      photo: '/instructors/joan-profile.jpg',
       website: 'https://physicalmindinstitute.com',
       slug: 'joan-breibart'
     },
     {
       name: 'Ivan',
-      photo: '/profile.webp',
+      photo: '/instructors/yuu-profile.png',
       website: 'https://physicalmindinstitute.com',
       slug: 'ivan'
     },
     {
       name: 'Jill',
-      photo: '/profile.webp',
+      photo: '/instructors/hoyos-profile.png',
       website: 'https://physicalmindinstitute.com',
       slug: 'jill'
     },
