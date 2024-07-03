@@ -10,14 +10,14 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Nuxt Ionic</ion-title>
+          <ion-title size="large">PhysicalMind Institute</ion-title>
         </ion-toolbar>
       </ion-header>
       <div id="container" class="my-0 md:my-10 max-w-full mx-auto">
         <!-- <div class="flex justify-center items-center">
           <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
         </div> -->
-        <div>
+        <div v-if="showSwiper">
           <TheSwiper />
         </div>
         <div class="flex flex-col md:flex-row gap-4 md:gap-20 justify-center items-center my-2 w-full max-w-8xl">
@@ -58,6 +58,15 @@ import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { instructorData } from '/data/instructorData.js'; // Ensure this path is correct
 
+
+
+
+
+
+
+
+
+
 // Define page metadata
 definePageMeta({
   middleware: ["logger"]
@@ -65,6 +74,26 @@ definePageMeta({
 
 const route = useRoute(); // Get access to the current route object
 
+
+
+// conditionally display swiper
+
+const showSwiper = ref(true);
+
+const handleQueryParams = () => {
+  showSwiper.value = Object.keys(route.query).length === 0;
+};
+
+onMounted(() => {
+  handleQueryParams();
+});
+
+watch(() => route.query, (newQuery) => {
+  showSwiper.value = Object.keys(newQuery).length === 0;
+}, { deep: true });
+
+
+// end conditionally display swiper 
 const selectedBadge = ref('all videos'); // Default selection
 const selectedInstructor = ref('All'); // Default instructor selection
 
@@ -88,6 +117,11 @@ onMounted(() => {
 watch(() => route.query.instructor, (newValue) => {
   console.log('URL instructor parameter value changed to:', newValue);
   selectedInstructor.value = newValue || 'All'; // Fallback to 'All' if newValue is undefined
+});
+
+
+watch(() => route.query, () => {
+  selectedBadge.value = 'all videos'; // Reset to default
 });
 
 const updateSelectedBadge = (badgeLabel: string) => {

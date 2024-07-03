@@ -5,6 +5,7 @@
         <transition-group name="fade" tag="ion-row">
           <ion-col size="12" size-md="6" v-for="(instructor, index) in filteredInstructors" :key="index">
             <ion-card>
+              <NuxtLink prefetch :to="`/instructors/${instructor.slug}`">
               <div class="flex flex-row items-center space-x-4">
                 <!-- Instructor Image with conditional rendering and rounded-full for round images -->
                 <div class="h-20 w-20 m-2.5">
@@ -12,11 +13,12 @@
                 </div>
                 <!-- Instructor Name and Link -->
                 <div class="flex flex-col">
-                  <ion-card-title>{{ instructor.name }}</ion-card-title>
-                  <NuxtLink :to="`/instructors/${instructor.slug}`">View Profile</NuxtLink>
+                  <ion-card-title>{{ instructor.fullName }}</ion-card-title>
                 </div>
               </div>
+            </NuxtLink>
             </ion-card>
+            
           </ion-col>
         </transition-group>
       </div>

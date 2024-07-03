@@ -5,27 +5,37 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center">{{ instructor?.name }}</ion-title>
+        <!-- <ion-title class="justify-center text-center">{{ instructor?.fullName }}</ion-title> -->
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div id="container" class="my-10 max-w-3xl mx-auto">
+      <div id="container" class="my-10 max-w-2xl mx-auto">
         <ion-card type="medium" v-if="instructor" class="p-3">
-          <!-- Display instructor photo -->
-          <img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="max-w-xs max-h-60 mx-auto block rounded-full">
+                  <!-- instructor photo here -->
+
+          <img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="mt-2 border border-opacity-50 border-stone-400 max-w-xs max-h-60 mx-auto block rounded-full">
           <ion-card-header>
-            <ion-card-title>{{ instructor.name }}</ion-card-title>
+            <ion-card-title class="font-bold">{{ instructor.fullName }}</ion-card-title>
+            <div class="flex flex-row mx-auto gap-2 mt-1.5">
+              <div>
+                <a :href="instructor.website" target="_blank"> <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end" class="text-xl"></ion-icon></a>
+              </div>
+              <div>
+                <a :href="instructor.ig" target="_blank"> <ion-icon :md="ioniconsLogoLnstagram" :ios="ioniconsLogoInstagram" slot="end" class="text-xl"></ion-icon></a>
+              </div>
+            </div>
           </ion-card-header>
           <ion-card-content>
-            <div class="my-4">
-            <p class="text-left">Visit the website: <a :href="instructor.website" target="_blank">{{ instructor.website }}</a></p>
+           
+            <div class="text-base">
+              {{ instructor.bio }}
             </div>
             <!-- Watch Videos Link (assuming a route to videos exists) -->
             <div class="my-4">
                      </div>
           </ion-card-content>
           <NuxtLink :to="`/?instructor=${instructor.name}`">
-                <ion-button expand="block" color="primary">Watch Videos</ion-button>
+                <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
               </NuxtLink>   
         </ion-card>
         <p v-else class="text-center">Instructor not found.</p>
