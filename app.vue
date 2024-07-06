@@ -10,8 +10,8 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <div class="flex flex-col h-full justify-between">
-        <ion-list>
+      <div class="flex flex-col h-full justify-between border-t">
+        <ion-list class="mt-2">
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
           <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item>
           <!-- <ion-item @click="closeMenu" router-link="/myvideos" class="cursor-pointer">My Videos</ion-item> -->
@@ -25,7 +25,7 @@
           </ion-item>
         </ion-list>
         <div>
-          <ion-list>
+          <ion-list lines="full" class="border-t">
             <ion-item>
               <ion-icon v-if="themeToggle" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
 
