@@ -23,17 +23,17 @@
         <div class="flex flex-col md:flex-row gap-4 md:gap-20 justify-center items-center my-2 w-full max-w-8xl">
           <div class="flex flex-row gap-4 items-center">
             <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
-              class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-80 border-primary">New</UBadge>
+              class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-50  border-primary tracking-wide">New</UBadge>
             <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
-              class="cursor-pointer  py-1.5 px-3 rounded-full">All Videos</UBadge>
+              class="cursor-pointer  py-1.5 px-3 rounded-full border tracking-wide">All Videos</UBadge>
             <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
-              class="cursor-pointer  py-1.5 px-3 rounded-full">Dance</UBadge>
+              class="cursor-pointer  py-1.5 px-3 rounded-full border tracking-wide">Dance</UBadge>
             <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
-              class="cursor-pointer  py-1.5 px-3 rounded-full">Golf</UBadge>
+              class="cursor-pointer  py-1.5 px-3 rounded-full border tracking-wide">Golf</UBadge>
           </div>
-          <ion-list class="flex items-center bg-transparent" size="small">
+          <ion-list class="flex items-center bg-transparent border p-0" size="small">
             <ion-item class="border-b-0">
-              <ion-select label="Instructor" placeholder="All" v-model="selectedInstructor" shape="round">
+              <ion-select class="custom-select" label="Instructor" placeholder="All" v-model="selectedInstructor" shape="round">
                 <!-- Static "All" option -->
                 <ion-select-option value="All">All</ion-select-option>
 
@@ -58,23 +58,12 @@ import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { instructorData } from '/data/instructorData.js'; // Ensure this path is correct
 
-
-
-
-
-
-
-
-
-
 // Define page metadata
 definePageMeta({
   middleware: ["logger"]
 });
 
 const route = useRoute(); // Get access to the current route object
-
-
 
 // conditionally display swiper
 
@@ -91,7 +80,6 @@ onMounted(() => {
 watch(() => route.query, (newQuery) => {
   showSwiper.value = Object.keys(newQuery).length === 0;
 }, { deep: true });
-
 
 // end conditionally display swiper 
 const selectedBadge = ref('all videos'); // Default selection
@@ -135,6 +123,14 @@ const badgeClass = (badgeLabel: string) => {
 
 
 <style>
+.custom-select .select-wrapper-inner {
+    /* Add your custom styles here */
+    background-color: #290303;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
 /* Styles for badges */
 .badge-default {
   /* Dim color for non-selected badges */
@@ -145,6 +141,7 @@ const badgeClass = (badgeLabel: string) => {
   /* Bright color for the selected badge */
   opacity: 1;
   color: white !important;
+  
 }
 
 #container strong {
@@ -194,6 +191,10 @@ ion-item.item-interactive:item-interactive-hover {
   --background: transparent;
   --ion-item-background-hover: transparent;
   /* For hover state */
+}
+
+ion-menu-button::part(icon) {
+  font-size: 52px !important; /* Adjust the size as needed */
 }
 
 

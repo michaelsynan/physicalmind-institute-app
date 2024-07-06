@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center">{{ video.name }}</ion-title>
+       
         <!-- Show loading bar only when isLoading is true -->
         <ion-progress-bar v-if="isLoading" type="indeterminate"></ion-progress-bar>
       </ion-toolbar>
@@ -22,15 +22,18 @@
           </div>
           <!-- Display video details if available -->
           <ion-card-header v-if="video">
-            <ion-card-title class="hidden">{{ video.name }}</ion-card-title>
-            <ion-card-subtitle class="text-left">Instructor: {{ video.instructor }}</ion-card-subtitle>
+           
+            <div class="flex flex-col justify-between items-start w-full gap-1">
+  <ion-card-title class="font-bold">{{ video.name }}</ion-card-title>
+  <ion-card-subtitle class="text-right">Instructor: {{ video.instructor }}</ion-card-subtitle>
+</div>
           </ion-card-header>
           <ion-card-content class="text-left text-base" v-if="video">
   <div>
     {{ video.description }}
   </div>
-  <div class="mt-2 flex flex-wrap">
-  <ion-chip v-for="tag in video.tags" :key="tag" class="mr-2 mb-2">{{ tag }}</ion-chip>
+  <div class="mt-4 flex flex-wrap">
+  <UBadge v-for="tag in video.tags" :key="tag" class="mr-2 mb-2 px-3 rounded-full border !border-opacity-80 border-primary !text-stone-100">{{ tag }}</UBadge>
 </div>
 
 </ion-card-content>
@@ -86,7 +89,6 @@ const videoLoaded = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  border: rgba(0, 0, 0, .1) 1px solid;
 
 }
 

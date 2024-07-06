@@ -5,40 +5,24 @@
         <transition-group name="fade" tag="ion-row">
           <ion-col size="12" size-md="6" v-for="(video, index) in filteredVideos" :key="index">
             <ion-card>
+              <NuxtLink :to="`/video/${video.vimeoId}`">
               <div class="video-list cursor-pointer">
                 <!-- Placeholder Image -->
-                <NuxtLink :to="`/video/${video.vimeoId}`"> <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder"></NuxtLink>
-                <!-- Video iframe is commented out in this example -->
-                <!-- <iframe
-                  v-else
-                  :src="`https://player.vimeo.com/video/${video.vimeoId}`"
-                  title="Video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe> -->
-                <!-- Save button -->
-                <!-- <button class="save-btn" @click="saveVideo(video.vimeoId)"> 
-                  <ion-icon :md="ioniconsStarOutline"
-                    :ios="ioniconsStar" slot="end"></ion-icon></button> -->
+                 <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
               </div>
               <ion-card-header class="pt-3 pb-2">
-  <div class="flex flex-col w-full h-full items-start">
-    <div>
-      <ion-card-title>
-        <NuxtLink :to="`/video/${video.vimeoId}`">{{ video.name }}</NuxtLink>
-      </ion-card-title>
-    </div>
-
-  </div>
-</ion-card-header>
-
+                <div class="flex flex-col w-full h-full items-start">
+                  <div>
+                    <ion-card-title class="font-bold">
+                      {{ video.name }}
+                    </ion-card-title>
+                  </div>
+                </div>
+              </ion-card-header>
               <ion-card-content class="text-left">
-               <div class="text-base"> {{ video.description }}</div>
-               <!-- <div class="flex flex-col justify-end h-full">
-      <ion-card-subtitle>Instructor: {{ video.instructor }}</ion-card-subtitle>
-    </div> -->
+               <div class="text-base truncate"> <p>{{ video.description }} &nbsp;</p></div>
               </ion-card-content>
+            </NuxtLink>
             </ion-card>
           </ion-col>
         </transition-group>
@@ -46,13 +30,9 @@
       <div v-else class="ion-padding">
         <p>Sorry, no videos exist for this query.</p>
       </div>
-      
-
-
     </ion-grid>
   </div>
 </template>
-
 
 <script setup>
 import { defineProps, computed } from 'vue'
@@ -165,5 +145,10 @@ ion-card:hover {
   /* Slightly raise the card */
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
 

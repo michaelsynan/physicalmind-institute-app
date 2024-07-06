@@ -7,6 +7,7 @@ export const videoData = [
       longDescription: 'Introduction to Circular Pilates taught by PhysicalMind Instructor Yuu Fujita.',
       instructor: 'Yuu',
       tags: ['pilates'],
+      new: false,
     },
     {
       name: 'Exercise with TYE4',
@@ -16,6 +17,7 @@ export const videoData = [
       longDescription: 'Introduction to Circular Pilates',
       instructor: 'Ivan',
       tags: ['pilates', 'yoga'],
+      new: false,
     },
     {
       name: 'Basic Bungee Ties for Tye4',
@@ -25,6 +27,7 @@ export const videoData = [
       longDescription: 'Introduction to Circular Pilates',
       instructor: 'Ivan',
       tags: ['pilates', 'dance', 'yoga'],
+      new: false,
     },
     {
       name: 'Circular Pilates',
@@ -34,6 +37,7 @@ export const videoData = [
       longDescription: 'Introduction to Circular Pilates with Joan Breibart.',
       instructor: 'Joan',
       tags: ['dance'],
+      new: true,
     },
     {
       name: 'Basic Bungee Ties with TYE4®',
@@ -42,6 +46,7 @@ export const videoData = [
       description: 'Joan Breibart teaches the basic bungee ties using the TYE4X™',
       instructor: 'Joan',
       tags: ['TYE4'],
+      new: true,
     },
     {
       name: 'Desk Pilates Zoom Class',
@@ -50,6 +55,7 @@ export const videoData = [
       description: 'Join Joan as she teaches desk Pilates using the TYE4X™',
       instructor: 'Joan',
       tags: ['TYE4'],
+      new: true,
     },
 
     {
@@ -67,6 +73,7 @@ export const videoData = [
       description: 'Follow Yuu Fujita in this TYE4X™ stretching sequence for office desk workers',
       instructor: 'Yuu',
       tags: ['TYE4'],
+      new: false,
     },
 
   ];

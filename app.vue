@@ -39,10 +39,20 @@
       </div>
     </ion-content>
   </ion-menu>
-  <ion-app>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-    <MainFooter />
-  </ion-app>
+  <ion-app class="relative flex flex-col min-h-screen">
+  <ion-router-outlet id="main-content" class="flex-grow"></ion-router-outlet>
+  <ion-footer :translucent="true" class="mt-auto bg-teal-50 bg-opacity-30 backdrop-blur">
+  <ion-toolbar class="flex justify-center items-center w-full">
+    <!-- Create a div that will act as a container for the icon -->
+    <div class="flex justify-center items-center w-full">
+     <NuxtLink to="/"> <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" class="text-2xl"></ion-icon></NuxtLink>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+
+
+</ion-app>
+
 
 </template>
 
@@ -63,7 +73,14 @@ const toggleDarkTheme = (shouldAdd) => {
   document.body.classList.toggle('dark', shouldAdd);
 };
 
-const closeMenu = (event) => { console.log('event')}
+const closeMenu = async () => {
+  try {
+    await menuController.close();
+  } catch (error) {
+    console.error('Failed to close the menu:', error);
+  }
+};
+
 </script>
 
 <style scoped>

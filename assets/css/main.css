@@ -36,3 +36,7 @@ ion-card-title a {font-weight: bold;
   margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
   background: #810867 !important;
 }
+
+.label-text {
+  color: red !important;
+}
