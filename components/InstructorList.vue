@@ -67,7 +67,22 @@ const filteredInstructors = computed(() => {
   return result;
 });
 </script>
-
 <style scoped>
-/* Add any additional styles you need here */
+  ion-grid {
+    --ion-grid-padding: 5px;
+
+    --ion-grid-padding-xs: 5px;
+    --ion-grid-padding-sm: 5px;
+    --ion-grid-padding-md: 5px;
+    --ion-grid-padding-lg: 5px;
+    --ion-grid-padding-xl: 5px;
+
+    --ion-grid-column-padding: 10px;
+
+    --ion-grid-column-padding-xs: 10px;
+    --ion-grid-column-padding-sm: 10px;
+    --ion-grid-column-padding-md: 10px;
+    --ion-grid-column-padding-lg: 10px;
+    --ion-grid-column-padding-xl: 10px;
+  }
 </style>

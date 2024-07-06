@@ -10,40 +10,40 @@
     </ion-header>
     <ion-content>
       <div id="container" class="my-10 max-w-2xl mx-auto">
-        <ion-card type="medium" v-if="instructor" class="p-3">
-                  <!-- instructor photo here -->
+        <ion-card type="medium" v-if="instructor" class="p-3 relative overflow-hidden">
+          <!-- Gradient Background -->
+          <!-- <div class="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-br from-purple-600 to-[#6095d8]"></div> -->
 
-          <img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="mt-2 border border-opacity-50 border-stone-400 max-w-xs max-h-60 mx-auto block rounded-full">
-          <ion-card-header>
+          <!-- Instructor Photo -->
+          <img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="mt-2 border border-opacity-50 border-stone-400 max-w-xs max-h-60 mx-auto block rounded-full relative z-10">
+
+          <ion-card-header class="relative z-10">
             <ion-card-title class="font-bold">{{ instructor.fullName }}</ion-card-title>
             <div class="flex flex-row mx-auto gap-2 mt-1.5">
               <div>
                 <a :href="instructor.website" target="_blank"> <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end" class="text-xl"></ion-icon></a>
               </div>
               <div>
-                <a :href="instructor.ig" target="_blank"> <ion-icon :md="ioniconsLogoLnstagram" :ios="ioniconsLogoInstagram" slot="end" class="text-xl"></ion-icon></a>
+                <a :href="instructor.ig" target="_blank"> <ion-icon :md="ioniconsLogoInstagram" :ios="ioniconsLogoInstagram" slot="end" class="text-xl"></ion-icon></a>
               </div>
             </div>
           </ion-card-header>
-          <ion-card-content>
-           
+          <ion-card-content class="relative z-10">
             <div class="text-base">
               {{ instructor.bio }}
             </div>
             <!-- Watch Videos Link (assuming a route to videos exists) -->
-            <div class="my-4">
-                     </div>
+            <div class="my-4"></div>
           </ion-card-content>
           <NuxtLink :to="`/?instructor=${instructor.name}`">
-                <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
-              </NuxtLink>   
+            <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
+          </NuxtLink>
         </ion-card>
         <p v-else class="text-center">Instructor not found.</p>
       </div>
     </ion-content>
   </ion-page>
 </template>
-
 
 <script setup>
 import { computed } from 'vue';

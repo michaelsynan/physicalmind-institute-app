@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  head: {
+    title: 'PhysicalMind Institute',},
   devtools: { enabled: true }, 
   ssr: false,
 modules: ["@nuxtjs/ionic", '@nuxt/image-edge', "@nuxt/image", '@nuxt/ui', 'nuxt-swiper'],
