@@ -4,7 +4,19 @@
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
+
+
         </ion-buttons>
+        <div id="firstcol" class="ml-auto flex flex-row gap-2 justify-end pr-4 items-center flex-grow overflow-x-auto scrollbar-hide mx-4 w-full">
+    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
+      class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-50 border-primary tracking-wide whitespace-nowrap">New</UBadge>
+    <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
+      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">All Videos</UBadge>
+    <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
+      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Dance</UBadge>
+    <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
+      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Golf</UBadge>
+  </div>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -17,34 +29,8 @@
         <!-- <div class="flex justify-center items-center">
           <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
         </div> -->
-        <div v-if="showSwiper">
+        <div class="hidden" v-if="showSwiper">
           <TheSwiper />
-        </div>
-        <div class="flex flex-col md:flex-row gap-4 md:gap-20 justify-center items-center my-2 w-full max-w-8xl">
-          <div class="flex flex-row gap-4 items-center">
-            <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
-              class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-50  border-primary tracking-wide">New</UBadge>
-            <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
-              class="cursor-pointer  py-1.5 px-3 rounded-full border tracking-wide">All Videos</UBadge>
-            <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
-              class="cursor-pointer  py-1.5 px-3 rounded-full border tracking-wide">Dance</UBadge>
-            <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
-              class="cursor-pointer  py-1.5 px-3 rounded-full border tracking-wide">Golf</UBadge>
-          </div>
-          <ion-list class="flex items-center bg-transparent border p-0" size="small">
-            <ion-item class="border-b-0">
-              <ion-select class="custom-select" label="Instructor" placeholder="All" v-model="selectedInstructor" shape="round">
-                <!-- Static "All" option -->
-                <ion-select-option value="All">All</ion-select-option>
-
-                <!-- Dynamic options from your data -->
-                <ion-select-option v-for="instructor in instructorData" :key="instructor.value" :value="instructor.value">
-                  {{ instructor.name }}
-                </ion-select-option>
-              </ion-select>
-
-            </ion-item>
-          </ion-list>
         </div>
 
         <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto mb-20" />
@@ -197,6 +183,15 @@ ion-menu-button::part(icon) {
   font-size: 52px !important; /* Adjust the size as needed */
 }
 
+
+/* Tailwind CSS for hiding scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 </style>
 
