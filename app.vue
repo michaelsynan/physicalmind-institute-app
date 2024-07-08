@@ -45,7 +45,7 @@
   <ion-toolbar class="flex justify-center items-center w-full">
     <!-- Create a div that will act as a container for the icon -->
 
-    <div class="flex justify-center items-center w-full gap-10">
+    <div class="flex justify-center items-center w-full gap-14">
      <NuxtLink to="/"> <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" class="text-2xl"></ion-icon></NuxtLink>
      <NuxtLink to="/instructors"> <ion-icon :md="ioniconsPeopleOutline" :ios="ioniconsPeopleOutline" class="text-2xl"></ion-icon></NuxtLink>
      <NuxtLink to="/help"> <ion-icon :md="ioniconsHelpCircleOutline" :ios="ioniconsHelpCircleOutline" class="text-2xl"></ion-icon></NuxtLink>

@@ -12,10 +12,14 @@
       class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-50 border-primary tracking-wide whitespace-nowrap">New</UBadge>
     <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
       class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">All Videos</UBadge>
+      <UBadge @click="updateSelectedBadge('pilates')" :class="badgeClass('pilates')"
+      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Pilates</UBadge>
     <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
       class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Dance</UBadge>
     <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
       class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Golf</UBadge>
+      <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
+      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Yoga</UBadge>
   </div>
       </ion-toolbar>
     </ion-header>
@@ -29,9 +33,7 @@
         <!-- <div class="flex justify-center items-center">
           <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
         </div> -->
-        <div class="hidden" v-if="showSwiper">
-          <TheSwiper />
-        </div>
+    
 
         <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto mb-20" />
       </div>
@@ -52,20 +54,6 @@ definePageMeta({
 const route = useRoute(); // Get access to the current route object
 
 // conditionally display swiper
-
-const showSwiper = ref(true);
-
-const handleQueryParams = () => {
-  showSwiper.value = Object.keys(route.query).length === 0;
-};
-
-onMounted(() => {
-  handleQueryParams();
-});
-
-watch(() => route.query, (newQuery) => {
-  showSwiper.value = Object.keys(newQuery).length === 0;
-}, { deep: true });
 
 // end conditionally display swiper 
 const selectedBadge = ref('all videos'); // Default selection

@@ -4,7 +4,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title class="justify-center text-center">Instructors</ion-title>
