@@ -4,23 +4,7 @@
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
-
-
         </ion-buttons>
-        <div id="firstcol" class="ml-auto flex flex-row gap-2 justify-end pr-4 items-center flex-grow overflow-x-auto scrollbar-hide mx-4 w-full">
-    <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
-      class="cursor-pointer py-1.5 px-3 rounded-full border !border-opacity-50 border-primary tracking-wide whitespace-nowrap">New</UBadge>
-    <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
-      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">All Videos</UBadge>
-      <UBadge @click="updateSelectedBadge('pilates')" :class="badgeClass('pilates')"
-      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Pilates</UBadge>
-    <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
-      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Dance</UBadge>
-    <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
-      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Golf</UBadge>
-      <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
-      class="cursor-pointer py-1.5 px-3 rounded-full border tracking-wide whitespace-nowrap">Yoga</UBadge>
-  </div>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -30,11 +14,20 @@
         </ion-toolbar>
       </ion-header>
       <div id="container" class="my-0 md:my-10 max-w-full mx-auto">
-        <!-- <div class="flex justify-center items-center">
-          <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="60" />
-        </div> -->
-    
-
+        <div id="filter-tags" class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide mx-4 mb-4 w-full">
+          <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">New</UBadge>
+          <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">All Videos</UBadge>
+            <UBadge @click="updateSelectedBadge('pilates')" :class="badgeClass('pilates')"
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Pilates</UBadge>
+          <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Dance</UBadge>
+          <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Golf</UBadge>
+            <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Yoga</UBadge>
+      </div>
         <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto mb-20" />
       </div>
     </ion-content>
@@ -44,22 +37,17 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { instructorData } from '/data/instructorData.js'; // Ensure this path is correct
+import { instructorData } from '/data/instructorData.js';
 
-// Define page metadata
 definePageMeta({
   middleware: ["logger"]
 });
 
-const route = useRoute(); // Get access to the current route object
+const route = useRoute();
+ 
+const selectedBadge = ref('all videos'); 
+const selectedInstructor = ref('All');
 
-// conditionally display swiper
-
-// end conditionally display swiper 
-const selectedBadge = ref('all videos'); // Default selection
-const selectedInstructor = ref('All'); // Default instructor selection
-
-// Function to handle logging and updating based on the instructor query parameter
 const handleInstructorQueryParam = () => {
   const instructorQueryParam = route.query.instructor;
   if (instructorQueryParam) {
@@ -70,20 +58,18 @@ const handleInstructorQueryParam = () => {
   }
 };
 
-// Execute the logic once the component is fully mounted to ensure the route is resolved
 onMounted(() => {
   handleInstructorQueryParam();
 });
 
-// Additionally, react to changes in the route.query.instructor to handle client-side navigation
 watch(() => route.query.instructor, (newValue) => {
   console.log('URL instructor parameter value changed to:', newValue);
-  selectedInstructor.value = newValue || 'All'; // Fallback to 'All' if newValue is undefined
+  selectedInstructor.value = newValue || 'All'; 
 });
 
 
 watch(() => route.query, () => {
-  selectedBadge.value = 'all videos'; // Reset to default
+  selectedBadge.value = 'all videos';
 });
 
 const updateSelectedBadge = (badgeLabel: string) => {
@@ -98,21 +84,18 @@ const badgeClass = (badgeLabel: string) => {
 
 <style>
 .custom-select .select-wrapper-inner {
-    /* Add your custom styles here */
     background-color: #290303;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
 }
 
-/* Styles for badges */
+
 .badge-default {
-  /* Dim color for non-selected badges */
-  opacity: 0.5;
+  background-color: white !important;
 }
 
 .badge-selected {
-  /* Bright color for the selected badge */
   opacity: 1;
   color: white !important;
   
@@ -142,7 +125,6 @@ const badgeClass = (badgeLabel: string) => {
 
 #container {
   position: relative;
-  /* Ensure pseudo-element is positioned relative to this container */
   text-align: center;
 }
 
@@ -164,22 +146,18 @@ ion-item:active,
 ion-item.item-interactive:item-interactive-hover {
   --background: transparent;
   --ion-item-background-hover: transparent;
-  /* For hover state */
 }
 
 ion-menu-button::part(icon) {
-  font-size: 52px !important; /* Adjust the size as needed */
+  font-size: 52px !important;
 }
 
-
-/* Tailwind CSS for hiding scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
 }
-
 </style>
 

@@ -40,3 +40,7 @@ ion-card-title a {font-weight: bold;
 .label-text {
   color: red !important;
 }
+
+.toolbar-background {
+  background: transparent !important;
+}

@@ -6,23 +6,20 @@
           <ion-col size="12" size-md="6" v-for="(video, index) in filteredVideos" :key="index">
             <ion-card>
               <NuxtLink :to="`/video/${video.vimeoId}`">
-              <div class="video-list cursor-pointer">
-                <!-- Placeholder Image -->
-                 <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
-              </div>
-              <ion-card-header class="pt-3 pb-2">
-                <div class="flex flex-col w-full h-full items-start">
-                  <div>
-                    <ion-card-title class="font-bold">
-                      {{ video.name }}
-                    </ion-card-title>
-                  </div>
+                <div class="video-list cursor-pointer">
+                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
                 </div>
-              </ion-card-header>
-              <ion-card-content class="text-left">
-               <div class="text-base truncate"> <p>{{ video.description }} &nbsp;</p></div>
-              </ion-card-content>
-            </NuxtLink>
+                <ion-card-header class="pt-3 pb-2">
+                  <div class="flex flex-col w-full h-full items-start">
+                    <ion-card-title class="font-bold">{{ video.name }}</ion-card-title>
+                  </div>
+                </ion-card-header>
+                <ion-card-content class="text-left">
+                  <div class="text-base truncate">
+                    <p>{{ video.description }}</p>
+                  </div>
+                </ion-card-content>
+              </NuxtLink>
             </ion-card>
           </ion-col>
         </transition-group>
@@ -35,43 +32,21 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
-import { videoData } from '/data/videoData.js' // Adjust the import path as necessary
+import { defineProps, computed } from 'vue';
+import { videoData } from '/data/videoData.js';
 import { useState } from '#imports';
 
-// Assume videoData is an array of video objects
 const props = defineProps({
   tag: String,
   instructor: String
 });
 
-// Access or initialize 'myVideos' state at the top level if you need it elsewhere in your component
 const myVideos = useState('myVideos', () => []);
 
 const filteredVideos = computed(() => {
-  let filteredByTag = videoData;
-  if (props.tag && props.tag !== 'all videos') {
-    filteredByTag = videoData.filter(video => video.tags.includes(props.tag));
-  }
-
-  let filteredByInstructor = filteredByTag;
-  if (props.instructor && props.instructor !== 'All') {
-    filteredByInstructor = filteredByTag.filter(video => video.instructor === props.instructor);
-  }
-
-  return filteredByInstructor;
+  let filteredByTag = videoData.filter(video => !props.tag || props.tag === 'all videos' || video.tags.includes(props.tag));
+  return filteredByTag.filter(video => !props.instructor || props.instructor === 'All' || video.instructor === props.instructor);
 });
-
-function saveVideo(vimeoId) {
-  // Check if the vimeoId already exists in myVideos
-  if (!myVideos.value.includes(vimeoId)) {
-    myVideos.value.push(vimeoId);
-    console.log("Video saved:", vimeoId);
-  } else {
-    console.log("Video already saved:", vimeoId);
-  }
-}
-
 </script>
 
 <style scoped>
@@ -79,8 +54,6 @@ function saveVideo(vimeoId) {
   position: relative;
   width: 100%;
   padding-top: 56.25%;
-  /* 16:9 Aspect Ratio */
-  overflow: hidden;
 }
 
 .video-responsive iframe {
@@ -93,56 +66,40 @@ function saveVideo(vimeoId) {
 
 .save-btn {
   opacity: 0;
-  /* Make button transparent by default */
   position: absolute;
   top: 5px;
-  /* Adjust starting position for vertical move */
   right: 0;
   margin: 10px;
   padding: 5px 10px;
   background-color: #007bff;
-  /* Adjust the color as needed */
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   z-index: 10;
   transition: opacity 0.2s ease, top 0.2s ease;
-  /* Transition for opacity and vertical move */
 }
 
 .video-list:hover .save-btn {
   opacity: 1;
-  /* Make button fully visible on hover */
   top: 0;
-  /* Target position for vertical move */
 }
 
-
-/* Define enter and leave transitions for fade */
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
 
-.fade-enter,
-.fade-leave-to
-
-/* .fade-leave-active in <2.1.8 */
-  {
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
 ion-card {
   transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-  /* Smooth transition for shadow and transform effects */
 }
 
 ion-card:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  /* Add shadow to lift card */
   transform: translateY(-3px);
-  /* Slightly raise the card */
 }
 
 .truncate {
@@ -151,4 +108,3 @@ ion-card:hover {
   text-overflow: ellipsis;
 }
 </style>
-

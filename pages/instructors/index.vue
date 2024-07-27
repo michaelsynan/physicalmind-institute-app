@@ -2,12 +2,12 @@
 
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header :translucent="true" class="ion-no-border transparent">
       <ion-toolbar>
         <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center">Instructors</ion-title>
+        <ion-title class="justify-center text-center"></ion-title>
 
 
       </ion-toolbar>
