@@ -93,5 +93,4 @@ ion-icon {
   color: var(--ion-text-color); /* Set the icon color to the default Ionic text color */
 }
 
-
 </style>

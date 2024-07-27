@@ -9,12 +9,12 @@
                 <div class="video-list cursor-pointer">
                   <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder rounded-lg">
                 </div>
-                <ion-card-header class="pt-3 pb-2">
+                <ion-card-header class="pt-3 pb-0">
                   <div class="flex flex-col w-full h-full items-start">
                     <ion-card-title class="text-lg md:text-xl">{{ video.name }}</ion-card-title>
                   </div>
                 </ion-card-header>
-                <ion-card-content class="text-left">
+                <ion-card-content class="text-left pb-1">
                   <div class="text-base truncate">
                     <p>{{ video.description }}</p>
                   </div>
