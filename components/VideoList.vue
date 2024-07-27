@@ -7,11 +7,11 @@
             <ion-card>
               <NuxtLink :to="`/video/${video.vimeoId}`">
                 <div class="video-list cursor-pointer">
-                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
+                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder rounded-lg">
                 </div>
                 <ion-card-header class="pt-3 pb-2">
                   <div class="flex flex-col w-full h-full items-start">
-                    <ion-card-title class="font-bold">{{ video.name }}</ion-card-title>
+                    <ion-card-title class="text-lg md:text-xl">{{ video.name }}</ion-card-title>
                   </div>
                 </ion-card-header>
                 <ion-card-content class="text-left">
@@ -94,17 +94,23 @@ const filteredVideos = computed(() => {
 }
 
 ion-card {
-  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 ion-card:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  transform: translateY(-3px);
+  box-shadow: none;
+  transform: none;
 }
 
 .truncate {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+ion-card-header, ion-card-content {
+  padding-inline: 0px;
 }
 </style>

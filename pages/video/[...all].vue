@@ -1,6 +1,7 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header :translucent="true" class="ion-no-border transparent">
+      
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>

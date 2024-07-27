@@ -14,7 +14,7 @@
         </ion-toolbar>
       </ion-header>
       <div id="container" class="my-0 md:my-10 max-w-full mx-auto">
-        <div id="filter-tags" class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide mx-4 mb-4 w-full">
+        <div id="filter-tags" class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide mx-4 mt-4 md:mt-0 mb-4 w-full">
           <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">New</UBadge>
           <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
@@ -98,7 +98,7 @@ const badgeClass = (badgeLabel: string) => {
 .badge-selected {
   opacity: 1;
   color: white !important;
-  
+  border: #d6d3d1 solid 1px;
 }
 
 #container strong {
