@@ -7,7 +7,7 @@
             <ion-card>
               <NuxtLink :to="`/video/${video.vimeoId}`">
                 <div class="video-list cursor-pointer">
-                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder rounded-lg">
+                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
                 </div>
                 <ion-card-header class="pt-3 pb-0">
                   <div class="flex flex-col w-full h-full items-start">

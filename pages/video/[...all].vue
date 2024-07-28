@@ -1,12 +1,10 @@
 <template>
   <ion-page>
     <ion-header :translucent="true" class="ion-no-border transparent">
-      
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>
         </ion-buttons>
-       
         <!-- Show loading bar only when isLoading is true -->
         <ion-progress-bar v-if="isLoading" type="indeterminate" class="top-0"></ion-progress-bar>
       </ion-toolbar>
@@ -17,28 +15,36 @@
           <div class="video-responsive bg-stone-300">
             <!-- Loading Overlay -->
             <div v-if="isLoading" class="loading-overlay text-opacity-50">Loading...</div>
-            <iframe :src="videoUrl" title="Video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen @load="videoLoaded"></iframe>
+            <video v-if="videoUrl" controls @loadeddata="videoLoaded" class="video-element">
+              <source :src="videoUrl" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
           </div>
           <!-- Display video details if available -->
           <ion-card-header v-if="video" class="px-0 mx-0">
-           
-            <div class="flex flex-col justify-between items-start w-full gap-1">
-  <ion-card-title class="font-bold">{{ video.name }}</ion-card-title>
-  <ion-card-subtitle class="text-right">Instructor: {{ video.instructor }}</ion-card-subtitle>
+            <div class="flex flex- justify-between items-start w-full gap-1">
+              <div>
+              <ion-card-title class="font-bold">{{ video.name }}</ion-card-title>
+              <ion-card-subtitle class="text-left">{{ video.instructor }}</ion-card-subtitle>
+              </div>
+              <div class="flex flex-wrap">
+                <div class="flex flex-wrap">
+  <UBadge 
+    v-for="(tag, index) in video.tags" 
+    :key="tag" 
+    :class="['px-3', 'rounded-full', 'border', '!border-opacity-80', 'border-primary', '!text-stone-100', {'mr-2': index !== video.tags.length - 1}]">
+    {{ tag }}
+  </UBadge>
 </div>
-</ion-card-header >
+            </div>
+            </div>
+          </ion-card-header>
           <ion-card-content class="text-left text-base mx-0 px-0" v-if="video">
-  <div>
-    {{ video.description }}
-  </div>
-  <div class="mt-4 flex flex-wrap">
-  <UBadge v-for="tag in video.tags" :key="tag" class="mr-2 mb-2 px-3 rounded-full border !border-opacity-80 border-primary !text-stone-100">{{ tag }}</UBadge>
-</div>
-
-</ion-card-content>
-
+            <div>
+              {{ video.description }}
+            </div>
+          
+          </ion-card-content>
         </ion-card>
       </div>
     </ion-content>
@@ -63,7 +69,7 @@ const videoId = computed(() => {
 const video = computed(() => videoData.find((v) => v.vimeoId === videoId.value));
 
 // Construct video URL
-const videoUrl = computed(() => `https://player.vimeo.com/video/${videoId.value}`);
+const videoUrl = computed(() => video.value ? video.value.s3Url : '');
 
 // Function to call when the video is loaded
 const videoLoaded = () => {
@@ -71,22 +77,21 @@ const videoLoaded = () => {
 };
 </script>
 
-
-
 <style scoped>
 .video-responsive {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* Example for 16:9 aspect ratio */
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
   overflow: hidden;
 }
 
-.video-responsive iframe {
+.video-responsive .video-element {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover; /* Maintain aspect ratio */
 }
 
 .loading-overlay {
@@ -113,4 +118,15 @@ ion-card {
 ion-card-header, ion-card-content {
   background: transparent; /* Ensure headers and content don't have different background */
 }
+
+.video-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio */
+  border: 2px solid #ccc; /* Add a light grey border */
+}
+
 </style>
