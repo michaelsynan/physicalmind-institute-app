@@ -149,7 +149,7 @@ ion-item.item-interactive:item-interactive-hover {
 }
 
 ion-menu-button::part(icon) {
-  font-size: 52px !important;
+  font-size: 48px !important;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

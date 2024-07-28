@@ -93,4 +93,8 @@ ion-icon {
   color: var(--ion-text-color); /* Set the icon color to the default Ionic text color */
 }
 
+.button-native::after {
+    background: currentColor !important;
+    /* opacity: var(--background-hover-opacity, 0); */
+}
 </style>
