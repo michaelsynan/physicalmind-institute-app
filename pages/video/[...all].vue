@@ -19,7 +19,7 @@
               <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle" class="play-icon text-lg"></ion-icon>
             </div>
             <!-- Video Element -->
-            <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying">
+            <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying" preload="auto">
               <source :src="videoUrl" type="video/mp4">
               Your browser does not support the video tag.
             </video>
