@@ -14,9 +14,10 @@
           <div class="video-responsive bg-stone-300">
             <!-- Custom Play Button Overlay -->
             <div v-if="!isVideoPlaying" class="custom-play-button" @click="playVideo">
-              <img v-if="video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
-              <ion-icon name="play-circle" size="large"></ion-icon>
-            </div>
+  <img v-if="video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
+  <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle" class="play-icon !text-xl absolute"></ion-icon>
+</div>
+
             <!-- Video Element -->
             <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying">
               <source :src="videoUrl" type="video/mp4">
@@ -57,6 +58,7 @@ import { videoData } from '/data/videoData.js'; // Adjust the import path as nec
 const route = useRoute();
 const isLoading = ref(true);
 const isVideoPlaying = ref(false);
+const videoElement = ref(null);
 
 // Extract the last part of the path as the video ID
 const videoId = computed(() => {
@@ -87,9 +89,8 @@ const videoPaused = () => {
 
 // Function to play the video
 const playVideo = () => {
-  const videoElement = this.$refs.videoElement;
-  if (videoElement) {
-    videoElement.play();
+  if (videoElement.value) {
+    videoElement.value.play();
   }
 };
 </script>
@@ -122,6 +123,7 @@ const playVideo = () => {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   cursor: pointer;
+  z-index: 10;
 }
 
 .placeholder-img {
@@ -130,9 +132,13 @@ const playVideo = () => {
   object-fit: cover;
 }
 
-ion-icon {
+.play-icon {
   color: white;
-  font-size: 50px;
+
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hidden {
@@ -158,5 +164,9 @@ ion-card-header, ion-card-content {
   height: 100%;
   object-fit: cover; /* Maintain aspect ratio */
   border: 1px solid #ccc; /* Add a light grey border */
+}
+
+ion-icon {
+  font-size: 64px !important;
 }
 </style>
