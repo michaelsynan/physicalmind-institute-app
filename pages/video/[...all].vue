@@ -12,15 +12,16 @@
       <div id="container" class="max-w-5xl mx-auto">
         <ion-card type="medium">
           <div class="video-responsive bg-stone-300">
-            <!-- Placeholder Image -->
-            <img v-if="isLoading && video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
+            <!-- Custom Play Button Overlay -->
+            <div v-if="!isVideoPlaying" class="custom-play-button" @click="playVideo">
+              <img v-if="video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
+              <ion-icon name="play-circle" size="large"></ion-icon>
+            </div>
             <!-- Video Element -->
-            <video v-if="videoUrl" controls @loadeddata="videoLoaded" class="video-element" :class="{ 'hidden': isLoading }">
+            <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying">
               <source :src="videoUrl" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <!-- Loading Overlay -->
-            <div v-if="isLoading" class="loading-overlay text-opacity-50">Loading...</div>
           </div>
           <!-- Display video details if available -->
           <ion-card-header v-if="video" class="px-0 mx-0">
@@ -55,6 +56,7 @@ import { videoData } from '/data/videoData.js'; // Adjust the import path as nec
 
 const route = useRoute();
 const isLoading = ref(true);
+const isVideoPlaying = ref(false);
 
 // Extract the last part of the path as the video ID
 const videoId = computed(() => {
@@ -71,6 +73,24 @@ const videoUrl = computed(() => video.value ? video.value.s3Url : '');
 // Function to call when the video is loaded
 const videoLoaded = () => {
   isLoading.value = false;
+};
+
+// Function to call when the video starts playing
+const videoPlaying = () => {
+  isVideoPlaying.value = true;
+};
+
+// Function to call when the video is paused
+const videoPaused = () => {
+  isVideoPlaying.value = false;
+};
+
+// Function to play the video
+const playVideo = () => {
+  const videoElement = this.$refs.videoElement;
+  if (videoElement) {
+    videoElement.play();
+  }
 };
 </script>
 
@@ -91,7 +111,7 @@ const videoLoaded = () => {
   object-fit: cover; /* Maintain aspect ratio */
 }
 
-.loading-overlay {
+.custom-play-button {
   position: absolute;
   top: 0;
   left: 0;
@@ -100,18 +120,19 @@ const videoLoaded = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #000;
-  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  cursor: pointer;
 }
 
 .placeholder-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+}
+
+ion-icon {
+  color: white;
+  font-size: 50px;
 }
 
 .hidden {
