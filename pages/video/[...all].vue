@@ -17,12 +17,14 @@
             <div v-if="!isVideoPlaying" class="custom-play-button" @click="playVideo">
               <img v-if="video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
               <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle" class="play-icon text-lg"></ion-icon>
+
             </div>
             <!-- Video Element -->
-            <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying" preload="auto">
-              <source :src="videoUrl" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+            <ion-icon @click="saveVideo" :md="ioniconsHeartOutline" :ios="ioniconsHeartOutline" class="save-icon top-2 right-2 !text-lg text-rose-600 font-bold cursor-pointer"></ion-icon>
+              <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying" preload="auto">
+                <source :src="videoUrl" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
           </div>
           <!-- Display video details if available -->
           <ion-card-header v-if="video" class="px-0 mx-0">
@@ -64,6 +66,9 @@ const isLoading = ref(true);
 const isVideoPlaying = ref(false);
 const videoElement = ref(null);
 
+function saveVideo() {
+  console.log('Video Saved');
+}
 // Extract the last part of the path as the video ID
 const videoId = computed(() => {
   const pathArray = route.params.all || [];
@@ -162,7 +167,15 @@ onMounted(() => {
 
 .play-icon {
   color: white;
-  font-size: 120px; /* Increased size */
+  font-size: 80px; /* Increased size */
+  z-index: 20;
+  position: absolute;
+}
+
+.save-icon {
+  font-size: 40px !important; /* Increased size */
+
+  color: white;
   z-index: 20;
   position: absolute;
 }
