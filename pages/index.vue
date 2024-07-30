@@ -39,10 +39,6 @@ import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { instructorData } from '/data/instructorData.js';
 
-definePageMeta({
-  middleware: ["logger"]
-});
-
 const route = useRoute();
  
 const selectedBadge = ref('all videos'); 
