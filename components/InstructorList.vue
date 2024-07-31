@@ -4,7 +4,7 @@
       <div v-if="filteredInstructors.length > 0">
         <transition-group name="fade" tag="ion-row">
           <ion-col size="12" size-lg="6" v-for="(instructor, index) in filteredInstructors" :key="index">
-            <ion-card class="m-2">
+            <ion-card class="m-2 shadow-md">
               <NuxtLink prefetch :to="`/instructors/${instructor.slug}`">
                 <div class="flex flex-row items-center space-x-4">
                   <!-- Instructor Image with conditional rendering and rounded-full for round images -->
