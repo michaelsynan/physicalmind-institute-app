@@ -15,7 +15,7 @@
     <ion-content class="ion-padding">
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
-          <ion-col size-md="8" size-lg="6" size-xs="12">
+          <ion-col size-md="8" size-lg="6" size-sm="12" size-xs="12">
      <InstructorList />
           </ion-col>
         </ion-row>
@@ -24,4 +24,14 @@
   </ion-page>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+ion-col {
+  padding: 0px !important;
+}
+
+ion-card {
+  margin: 0px !important;
+}
+
+</style>
