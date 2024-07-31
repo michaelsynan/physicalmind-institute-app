@@ -50,18 +50,19 @@ const filteredVideos = computed(() => {
 </script>
 
 <style scoped>
-.video-responsive {
+.video-list {
   position: relative;
   width: 100%;
   padding-top: 56.25%;
 }
 
-.video-responsive iframe {
+.video-list .video-placeholder {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .save-btn {
@@ -113,4 +114,5 @@ ion-card:hover {
 ion-card-header, ion-card-content {
   padding-inline: 0px;
 }
+
 </style>

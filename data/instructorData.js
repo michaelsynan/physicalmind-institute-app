@@ -10,6 +10,16 @@ export const instructorData = [
     ig: ''
   },
   {
+    name: 'Emily',
+    fullName: 'Emily Bjelica',
+    lastName: 'Bjelica',
+    photo: '/instructors/yuu-profile.png',
+    website: 'https://physicalmindinstitute.com',
+    slug: 'emily-bjelica',
+    bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
+    ig: ''
+  },
+  {
     name: 'Joan',
     fullName: 'Joan Breibart',
     lastName: 'Breibart',

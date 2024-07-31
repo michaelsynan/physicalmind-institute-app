@@ -1,6 +1,6 @@
 <template>
   <ion-menu content-id="main-content">
-    <ion-header :translucent="true" class="ion-no-border transparent">
+    <ion-header class="ion-no-border">
       <ion-toolbar>
         <div class="flex justify-center items-center mt-8 mb-4">
           <NuxtLink to="/">
