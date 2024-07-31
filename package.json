@@ -12,6 +12,7 @@
     "ionic:serve": "npm run dev"
   },
   "dependencies": {
+    "@awesome-cordova-plugins/screen-orientation": "^5.37.3",
     "@capacitor/android": "5.7.0",
     "@capacitor/app": "5.0.7",
     "@capacitor/core": "^5.7.0",
@@ -22,6 +23,7 @@
     "@nuxt/devtools": "^1.0.8",
     "@nuxt/ui": "^2.13.0",
     "@vimeo/player": "^2.21.0",
+    "cordova-plugin-screen-orientation": "^3.0.4",
     "nuxt-swiper": "^1.2.2",
     "vue": "^3.4.15",
     "vue-router": "^4.4.0"
