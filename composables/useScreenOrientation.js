@@ -8,7 +8,14 @@ export const useScreenOrientation = () => {
       .catch((error) => console.error('Failed to lock screen orientation:', error));
   };
 
+  const unlockOrientation = () => {
+    ScreenOrientation.unlock()
+      .then(() => console.log('Screen orientation unlocked'))
+      .catch((error) => console.error('Failed to unlock screen orientation:', error));
+  };
+
   return {
     lockToLandscape,
+    unlockOrientation,
   };
 };

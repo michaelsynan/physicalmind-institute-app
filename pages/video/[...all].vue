@@ -43,7 +43,6 @@
             <div>
               {{ video.description }}
             </div>
-            <ion-button @click="rotateScreen">Rotate Screen</ion-button>
           </ion-card-content>
         </ion-card>
       </div>
@@ -52,7 +51,7 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import { videoData } from '/data/videoData.js'; // Adjust the import path as necessary
 import { useScreenOrientation } from '/composables/useScreenOrientation';
@@ -61,7 +60,7 @@ const route = useRoute();
 const isLoading = ref(true);
 const isVideoPlaying = ref(false);
 const videoElement = ref(null);
-const { lockToLandscape } = useScreenOrientation();
+const { lockToLandscape, unlockOrientation } = useScreenOrientation();
 
 function saveVideo() {
   console.log('Video Saved');
@@ -109,14 +108,24 @@ const playVideo = () => {
   }
 };
 
-// Function to rotate the screen
-const rotateScreen = () => {
-  lockToLandscape();
+// Handle full screen change events
+const handleFullScreenChange = () => {
+  if (document.fullscreenElement) {
+    lockToLandscape();
+  } else {
+    unlockOrientation();
+  }
 };
 
 // Ensure the video element is referenced correctly after the component is mounted
 onMounted(() => {
   videoElement.value = document.querySelector('.video-element');
+  document.addEventListener('fullscreenchange', handleFullScreenChange);
+});
+
+// Clean up event listener when the component is unmounted
+onBeforeUnmount(() => {
+  document.removeEventListener('fullscreenchange', handleFullScreenChange);
 });
 </script>
 
