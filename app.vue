@@ -79,9 +79,9 @@ ion-item::part(native) {
 }
 ion-header,
 ion-toolbar {
-  --background: transparent !important;
+  /* --background: transparent !important;
   --ion-background-color: transparent !important; 
-  --border-color: transparent !important; 
+  --border-color: transparent !important;  */
   --box-shadow: none !important; 
 }
 
