@@ -35,25 +35,31 @@
     </ion-content>
   </ion-menu>
   <ion-app class="relative flex flex-col min-h-screen">
-  <ion-router-outlet id="main-content" class="flex-grow"></ion-router-outlet>
-  <ion-footer :translucent="true" class="mt-auto bg-teal-50 bg-opacity-30 backdrop-blur">
-  <ion-toolbar class="flex justify-center items-center w-full">
-    <div class="flex justify-center items-center w-full gap-14">
-     <NuxtLink to="/"> <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" class="text-2xl"></ion-icon></NuxtLink>
-     <NuxtLink to="/instructors"> <ion-icon :md="ioniconsPeopleOutline" :ios="ioniconsPeopleOutline" class="text-2xl"></ion-icon></NuxtLink>
-     <NuxtLink to="/help"> <ion-icon :md="ioniconsHelpCircleOutline" :ios="ioniconsHelpCircleOutline" class="text-2xl"></ion-icon></NuxtLink>
-    </div>
-  </ion-toolbar>
-</ion-footer>
-</ion-app>
+    <ion-router-outlet id="main-content" class="flex-grow"></ion-router-outlet>
+    <ion-footer :translucent="true" class="mt-auto bg-teal-50 bg-opacity-30 backdrop-blur">
+      <ion-toolbar class="flex justify-center items-center w-full">
+        <div class="flex justify-center items-center w-full gap-14">
+          <NuxtLink to="/">
+            <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" :style="iconStyle('/')" class="text-2xl"></ion-icon>
+          </NuxtLink>
+          <NuxtLink to="/instructors">
+            <ion-icon :md="ioniconsPeopleOutline" :ios="ioniconsPeopleOutline" :style="iconStyle('/instructors')" class="text-2xl"></ion-icon>
+          </NuxtLink>
+          <NuxtLink to="/help">
+            <ion-icon :md="ioniconsHelpCircleOutline" :ios="ioniconsHelpCircleOutline" :style="iconStyle('/help')" class="text-2xl"></ion-icon>
+          </NuxtLink>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-app>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const themeToggle = ref(false);
-
-const currentIcon = 'ioniconsGlobeOutline';
+const route = useRoute();
 
 const toggleChange = (event) => {
   toggleDarkTheme(event.detail.checked);
@@ -63,6 +69,10 @@ const toggleChange = (event) => {
 const toggleDarkTheme = (shouldAdd) => {
   document.body.classList.toggle('dark', shouldAdd);
 };
+
+const iconStyle = (path) => ({
+  color: route.path === path ? 'var(--ion-color-primary)' : 'var(--ion-text-color)',
+});
 
 const closeMenu = async () => {
   try {
