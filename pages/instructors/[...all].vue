@@ -35,9 +35,10 @@
             <!-- Watch Videos Link (assuming a route to videos exists) -->
             <div class="my-4"></div>
           </ion-card-content>
-          <NuxtLink :to="`/?instructor=${instructor.name}`">
-            <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
-          </NuxtLink>
+          <NuxtLink :to="`/instructors/${instructor.slug}/videos`">
+  <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
+</NuxtLink>
+
         </ion-card>
         <p v-else class="text-center">Instructor not found.</p>
       </div>
@@ -49,8 +50,12 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { instructorData } from '/data/instructorData.js'; // Adjust if necessary
-
 const route = useRoute();
+onMounted(() => {
+  console.log("Route accessed:", route.fullPath);
+  console.log("Params:", route.params);
+});
+
 
 const instructorSlug = computed(() => {
   const pathArray = route.params.all || [];

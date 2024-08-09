@@ -20,6 +20,36 @@ export default defineNuxtConfig({
       baseURL: 'https://res.cloudinary.com/duv1h2kk3/image/upload/',
     },
   },
-
+router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'instructor-videos',
+        path: '/instructors/:slug/videos',
+        component: resolve(__dirname, 'pages/instructors/videos/[...all].vue'),
+        priority: 100 // A higher priority to ensure it matches before the less specific route
+      });
+      routes.push({
+        name: 'instructor',
+        path: '/instructors/:slug',
+        component: resolve(__dirname, 'pages/instructors/[...all].vue'),
+        priority: 10
+      });
+    }
+  },router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'instructor-videos',
+        path: '/instructors/:slug/videos',
+        component: resolve(__dirname, 'pages/instructors/videos/[...all].vue'),
+        priority: 100 // A higher priority to ensure it matches before the less specific route
+      });
+      routes.push({
+        name: 'instructor',
+        path: '/instructors/:slug',
+        component: resolve(__dirname, 'pages/instructors/[...all].vue'),
+        priority: 10
+      });
+    }
+  },
   compatibilityDate: '2024-07-30',
 })

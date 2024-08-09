@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ion-grid>
+    <ion-grid class="mb-20">
       <div v-if="filteredInstructors.length > 0">
         <transition-group name="fade" tag="ion-row">
           <ion-col size="12" size-lg="6" v-for="(instructor, index) in filteredInstructors" :key="index">
@@ -30,9 +30,9 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
-import { instructorData } from '/data/instructorData.js'
-import { videoData } from '/data/videoData.js' // Ensure this path is correct
+import { defineProps, computed } from 'vue';
+import { instructorData } from '/data/instructorData.js'; // Ensure this path is correct
+import { videoData } from '/data/videoData.js'; // Ensure this path is correct
 
 const props = defineProps({
   tag: String,
@@ -41,32 +41,29 @@ const props = defineProps({
 
 const filteredInstructors = computed(() => {
   let result = instructorData.map(instructor => {
-    const videoCount = videoData.filter(video => video.instructor === instructor.name).length;
+    // Adjust to use fullName for matching the video data
+    const videoCount = videoData.filter(video => video.instructor === instructor.fullName).length;
     return {
       ...instructor,
-      videoCount
+      videoCount // Append the video count to each instructor object
     };
   });
 
-  // Check for 'new' tag which corresponds to a boolean in the data
+  // Filter by tags or instructor name, if provided
   if (props.tag === 'new') {
     result = result.filter(instructor => instructor.new === true);
   } else if (props.tag && props.tag !== 'All' && props.tag !== 'new') {
-    // Handle other tags normally if any (assuming tag matches some other string property in instructor data)
     result = result.filter(instructor => instructor.tags && instructor.tags.includes(props.tag));
   }
 
-  // Filter by instructor name, if provided and not 'All'
   if (props.instructor && props.instructor !== 'All') {
-    result = result.filter(instructor => instructor.name === props.instructor);
+    result = result.filter(instructor => instructor.fullName === props.instructor);
   }
 
-  // Sort instructors alphabetically by name
-  result.sort((a, b) => a.name.localeCompare(b.name));
-
-  return result;
+  return result.sort((a, b) => a.fullName.localeCompare(b.fullName)); // Alphabetical sort by fullName
 });
 </script>
+
 <style scoped>
   ion-grid {
     --ion-grid-padding: 0px;

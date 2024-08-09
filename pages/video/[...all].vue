@@ -50,8 +50,7 @@
   </ion-page>
 </template>
 
-<script setup>
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+<script setup>import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import { videoData } from '/data/videoData.js'; // Adjust the import path as necessary
 import { useScreenOrientation } from '/composables/useScreenOrientation';
@@ -66,15 +65,15 @@ function saveVideo() {
   console.log('Video Saved');
 }
 
-// Extract the last part of the path as the video ID
+// Extract the last part of the path as the video ID and convert it to a number
 const videoId = computed(() => {
   const pathArray = route.params.all || [];
-  return pathArray[pathArray.length - 1];
+  return Number(pathArray[pathArray.length - 1]); // Convert string ID to number
 });
 
-// Find the video by vimeoId, not id
+// Find the video by videoid
 const video = computed(() => {
-  return videoData.find((v) => v.vimeoId === videoId.value);
+  return videoData.find((v) => v.videoid === videoId.value);
 });
 
 // Construct video URL
@@ -127,6 +126,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('fullscreenchange', handleFullScreenChange);
 });
+
 </script>
 
 

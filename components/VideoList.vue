@@ -5,7 +5,7 @@
         <transition-group name="fade" tag="ion-row">
           <ion-col size="12" size-md="6" v-for="(video, index) in filteredVideos" :key="index">
             <ion-card>
-              <NuxtLink :to="`/video/${video.vimeoId}`">
+              <NuxtLink :to="`/video/${video.videoid}`">
                 <div class="video-list cursor-pointer">
                   <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder">
                 </div>
