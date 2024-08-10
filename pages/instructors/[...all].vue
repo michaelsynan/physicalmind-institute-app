@@ -14,8 +14,8 @@
           <!-- Gradient Background -->
           <!-- <div class="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-br from-purple-600 to-[#6095d8]"></div> -->
 
-          <!-- Instructor Photo -->
-          <img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="mt-2 border border-opacity-50 border-stone-400 max-w-xs max-h-60 mx-auto block rounded-full relative z-10">
+<!-- Instructor Photo -->
+<img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="mt-2 border border-opacity-50 border-stone-400 w-40 h-40 mx-auto block rounded-full object-cover relative z-10">
 
           <ion-card-header class="relative z-10">
             <ion-card-title class="font-bold">{{ instructor.fullName }}</ion-card-title>

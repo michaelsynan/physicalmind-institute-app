@@ -9,16 +9,16 @@ export const instructorData = [
     bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
     ig: ''
   },
-  {
-    name: 'Emily',
-    fullName: 'Emily Bjelica',
-    lastName: 'Bjelica',
-    photo: '/instructors/emily2.webp',
-    website: 'https://physicalmindinstitute.com',
-    slug: 'emily-bjelica',
-    bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
-    ig: ''
-  },
+  // {
+  //   name: 'Emily',
+  //   fullName: 'Emily Bjelica',
+  //   lastName: 'Bjelica',
+  //   photo: '/instructors/emily2.webp',
+  //   website: 'https://physicalmindinstitute.com',
+  //   slug: 'emily-bjelica',
+  //   bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
+  //   ig: ''
+  // },
   {
     name: 'Joan',
     fullName: 'Joan Breibart',
@@ -29,16 +29,16 @@ export const instructorData = [
     bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
     ig: ''
   },
-  {
-    name: 'Ivan',
-    fullName: 'Ivan',
-    lastName: 'Russian',
-    photo: '/instructors/emily2.webp',
-    website: 'https://physicalmindinstitute.com',
-    slug: 'ivan',
-    bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
-    ig: ''
-  },
+  // {
+  //   name: 'Ivan',
+  //   fullName: 'Ivan',
+  //   lastName: 'Russian',
+  //   photo: '/instructors/emily2.webp',
+  //   website: 'https://physicalmindinstitute.com',
+  //   slug: 'ivan',
+  //   bio: 'Aspiring web wizard and coffee connoisseur, Emma by day, CSS mastermind by night - when not binge-watching cat videos.',
+  //   ig: ''
+  // },
   {
     name: 'Jill',
     fullName: 'Jill Johnson',
