@@ -13,14 +13,13 @@
         <ion-card type="medium">
           <div class="video-responsive bg-stone-300 border-2 rounded-lg">
             <!-- Custom Play Button Overlay -->
-            <div v-if="!isVideoPlaying" class="custom-play-button" @click="playVideo">
-              <img v-if="video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
+            <div v-if="!playInitiated" class="custom-play-button" @click="playVideo">
+              <img v-if="video?.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img" />
               <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle" class="play-icon text-lg"></ion-icon>
             </div>
             <!-- Video Element -->
-            <!-- <ion-icon @click="saveVideo" :md="ioniconsHeartOutline" :ios="ioniconsHeartOutline" class="save-icon top-2 right-2 !text-lg text-rose-600 font-bold cursor-pointer"></ion-icon> -->
-            <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying" preload="auto">
-              <source :src="videoUrl" type="video/mp4">
+            <video ref="videoElement" v-if="videoUrl" @loadeddata="onVideoLoaded" @playing="onVideoPlaying" @pause="onVideoPaused" class="video-element" controlsList="nodownload" controls preload="auto">
+              <source :src="videoUrl" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -28,10 +27,7 @@
           <ion-card-header v-if="video" class="px-0 mx-0">
             <div class="flex flex-col items-start w-full gap-1">
               <div class="flex flex-wrap">
-                <UBadge 
-                  v-for="tag in video.tags" 
-                  :key="tag" 
-                  class="px-3 rounded-full border !border-opacity-80 border-primary !text-stone-100 mr-2 mb-2">
+                <UBadge v-for="tag in video.tags" :key="tag" class="px-3 rounded-full border !border-opacity-80 border-primary !text-stone-100 mr-2 mb-2">
                   {{ tag }}
                 </UBadge>
               </div>
@@ -40,9 +36,7 @@
             </div>
           </ion-card-header>
           <ion-card-content class="text-left text-base mx-0 px-0" v-if="video">
-            <div>
-              {{ video.description }}
-            </div>
+            <div>{{ video.description }}</div>
           </ion-card-content>
         </ion-card>
       </div>
@@ -50,69 +44,48 @@
   </ion-page>
 </template>
 
-<script setup>import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+<script setup>
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
-import { videoData } from '/data/videoData.js'; // Adjust the import path as necessary
+import { videoData } from '/data/videoData.js';
 import { useScreenOrientation } from '/composables/useScreenOrientation';
 
 const route = useRoute();
 const isLoading = ref(true);
 const isVideoPlaying = ref(false);
+const playInitiated = ref(false); // Track whether the play has been initiated
 const videoElement = ref(null);
 const { lockToLandscape, unlockOrientation } = useScreenOrientation();
 
-
-onMounted(() => {
-  console.log("Current component:", route.path);
-});
-
-function saveVideo() {
-  console.log('Video Saved');
-}
-
-// Extract the last part of the path as the video ID and convert it to a number
 const videoId = computed(() => {
   const pathArray = route.params.all || [];
-  return Number(pathArray[pathArray.length - 1]); // Convert string ID to number
+  return Number(pathArray[pathArray.length - 1]);
 });
 
-// Find the video by videoid
-const video = computed(() => {
-  return videoData.find((v) => v.videoid === videoId.value);
-});
+const video = computed(() => videoData.find(v => v.videoid === videoId.value));
 
-// Construct video URL
-const videoUrl = computed(() => {
-  return video.value ? video.value.s3Url : '';
-});
+const videoUrl = computed(() => video?.value?.s3Url || '');
 
-// Function to call when the video is loaded
-const videoLoaded = () => {
+const onVideoLoaded = () => {
   isLoading.value = false;
   console.log('Video Loaded');
 };
 
-// Function to call when the video starts playing
-const videoPlaying = () => {
+const onVideoPlaying = () => {
   isVideoPlaying.value = true;
   console.log('Video Playing');
 };
 
-// Function to call when the video is paused
-const videoPaused = () => {
+const onVideoPaused = () => {
   isVideoPlaying.value = false;
   console.log('Video Paused');
 };
 
-// Function to play the video
 const playVideo = () => {
-  if (videoElement.value) {
-    videoElement.value.play();
-    console.log('Play Video');
-  }
+  playInitiated.value = true; // Mark play as initiated
+  videoElement.value?.play();
 };
 
-// Handle full screen change events
 const handleFullScreenChange = () => {
   if (document.fullscreenElement) {
     lockToLandscape();
@@ -121,13 +94,11 @@ const handleFullScreenChange = () => {
   }
 };
 
-// Ensure the video element is referenced correctly after the component is mounted
 onMounted(() => {
   videoElement.value = document.querySelector('.video-element');
   document.addEventListener('fullscreenchange', handleFullScreenChange);
 });
 
-// Clean up event listener when the component is unmounted
 onBeforeUnmount(() => {
   document.removeEventListener('fullscreenchange', handleFullScreenChange);
 });
