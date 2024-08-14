@@ -10,10 +10,10 @@
                   <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder rounded-lg">
                 </div>
                 <ion-card-header class="pt-3 pb-0">
-                  <ion-card-title class="text-lg md:text-xl">{{ video.name }}</ion-card-title>
+                  <ion-card-title class="text-lg md:text-xl text-left">{{ video.name }}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="text-left pb-1">
-                  <p class="text-base truncate">{{ video.description }}</p>
+                  <p class="text-base truncate text-left">{{ video.description }}</p>
                 </ion-card-content>
               </NuxtLink>
             </ion-card>
@@ -28,8 +28,7 @@
         :disabled="!infiniteScrollEnabled"
         threshold="60px">
         <ion-infinite-scroll-content
-          loading-spinner="bubbles"
-          loading-text="Loading more videos...">
+          loading-spinner="bubbles">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-grid>
@@ -37,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { videoData } from '~/data/videoData.js';
 
 const props = defineProps({
@@ -47,7 +46,7 @@ const props = defineProps({
 
 const allVideos = ref(videoData);
 const visibleVideos = ref([]);
-const infiniteScrollEnabled = ref(true);  // State to track if infinite scroll should be active
+const infiniteScrollEnabled = ref(true);
 
 const filteredVideos = computed(() => {
   return allVideos.value.filter(video =>
@@ -62,9 +61,7 @@ const addVideos = (count = 1) => {
   while (visibleVideos.value.length < endIndex) {
     visibleVideos.value.push(filteredVideos.value[visibleVideos.value.length]);
   }
-  console.log('Visible Videos:', visibleVideos.value);
 
-  // Disable infinite scroll if there are no more videos to load
   if (visibleVideos.value.length >= filteredVideos.value.length) {
     infiniteScrollEnabled.value = false;
   }
@@ -74,11 +71,16 @@ onMounted(() => {
   addVideos(8);
 });
 
+watch(filteredVideos, () => {
+  visibleVideos.value = []; // Reset visibleVideos when the filter changes
+  addVideos(8); // Add initial set of videos again after resetting
+  infiniteScrollEnabled.value = true; // Re-enable infinite scroll
+});
+
 const ionInfinite = async (event) => {
-  addVideos(); // Default adds one more video
+  addVideos();
   setTimeout(() => {
     event.target.complete();
-    // Update infinite scroll active state
     event.target.disabled = !infiniteScrollEnabled.value;
   }, 500);
 };

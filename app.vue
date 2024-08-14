@@ -87,6 +87,10 @@ const closeMenu = async () => {
 ion-item::part(native) {
   border-bottom: none;
 }
+
+ion-footer {
+  border-top: 1px solid;
+}
 ion-header,
 ion-toolbar {
   /* --background: transparent !important;
@@ -95,9 +99,9 @@ ion-toolbar {
   --box-shadow: none !important; 
 }
 
-.toolbar-background {
+/* .toolbar-background {
   background: transparent !important;
-}
+} */
 
 ion-icon {
   color: var(--ion-text-color); /* Set the icon color to the default Ionic text color */

@@ -8,7 +8,7 @@ export const videoData = [
     description: 'Ballet-inspired Pilates with TYE4X.',
     longDescription: 'Ballet-inspired Pilates with TYE4X. Taught by PhysicalMind Instructor Yuu Fujita.',
     instructor: 'Yuu Fujita',
-    tags: ['pilates', 'ballet'],
+    tags: ['pilates', 'ballet', 'dance'],
     new: false,
   },
   {

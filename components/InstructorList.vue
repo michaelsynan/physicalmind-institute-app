@@ -65,6 +65,9 @@ const filteredInstructors = computed(() => {
 </script>
 
 <style scoped>
+ion-card {
+  margin-inline: 0
+}
   ion-grid {
     --ion-grid-padding: 0px;
 
