@@ -40,6 +40,7 @@
 </NuxtLink>
 
         </ion-card>
+      
         <p v-else class="text-center">Instructor not found.</p>
       </div>
     </ion-content>
@@ -47,23 +48,37 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { instructorData } from '/data/instructorData.js'; // Adjust if necessary
+import { instructorData } from '/data/instructorData.js'; // Ensure the path is correct
+
 const route = useRoute();
+
 onMounted(() => {
   console.log("Route accessed:", route.fullPath);
   console.log("Params:", route.params);
+  console.log("Current component:", route.path);
 });
 
-
+// Use a computed property to extract the last parameter as the instructor slug
 const instructorSlug = computed(() => {
   const pathArray = route.params.all || [];
-  return pathArray.length > 0 ? pathArray[pathArray.length - 1] : undefined;
+  // Ensure that you are getting the first part of the path array assuming [slug] is the first parameter
+  return pathArray.length > 0 ? pathArray[0] : undefined;
 });
 
+// Find the instructor in the provided data array
 const instructor = computed(() => {
   return instructorData.find(i => i.slug === instructorSlug.value);
+});
+
+// Optionally, add error handling or a reactive property to indicate if the instructor was not found
+const instructorFound = computed(() => !!instructor.value);
+
+onMounted(() => {
+  if (!instructorFound.value) {
+    console.error("Instructor not found for slug:", instructorSlug.value);
+  }
 });
 </script>
 

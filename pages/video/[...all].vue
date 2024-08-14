@@ -11,14 +11,14 @@
     <ion-content>
       <div id="container" class="max-w-5xl mx-auto">
         <ion-card type="medium">
-          <div class="video-responsive bg-stone-300">
+          <div class="video-responsive bg-stone-300 border-2 rounded-lg">
             <!-- Custom Play Button Overlay -->
             <div v-if="!isVideoPlaying" class="custom-play-button" @click="playVideo">
               <img v-if="video && video.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img">
               <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle" class="play-icon text-lg"></ion-icon>
             </div>
             <!-- Video Element -->
-            <ion-icon @click="saveVideo" :md="ioniconsHeartOutline" :ios="ioniconsHeartOutline" class="save-icon top-2 right-2 !text-lg text-rose-600 font-bold cursor-pointer"></ion-icon>
+            <!-- <ion-icon @click="saveVideo" :md="ioniconsHeartOutline" :ios="ioniconsHeartOutline" class="save-icon top-2 right-2 !text-lg text-rose-600 font-bold cursor-pointer"></ion-icon> -->
             <video ref="videoElement" v-if="videoUrl" @loadeddata="videoLoaded" @playing="videoPlaying" @pause="videoPaused" class="video-element" controlsList="nodownload" :controls="isVideoPlaying" preload="auto">
               <source :src="videoUrl" type="video/mp4">
               Your browser does not support the video tag.
@@ -60,6 +60,11 @@ const isLoading = ref(true);
 const isVideoPlaying = ref(false);
 const videoElement = ref(null);
 const { lockToLandscape, unlockOrientation } = useScreenOrientation();
+
+
+onMounted(() => {
+  console.log("Current component:", route.path);
+});
 
 function saveVideo() {
   console.log('Video Saved');

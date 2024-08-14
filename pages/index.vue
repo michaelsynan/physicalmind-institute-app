@@ -144,9 +144,9 @@ ion-item.item-interactive:item-interactive-hover {
   --ion-item-background-hover: transparent;
 }
 
-ion-menu-button::part(icon) {
+/* ion-menu-button::part(icon) {
   font-size: 48px !important;
-}
+} */
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;

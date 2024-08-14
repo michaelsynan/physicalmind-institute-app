@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center">{{ instructor ? instructor.fullName : 'Instructor' }} Videos</ion-title>
+        <ion-title class="justify-center text-center">Test Videos</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
@@ -13,7 +13,7 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-text>
-              <h2>{{ instructor ? instructor.fullName : 'Instructor' }}</h2>
+              <h2>Test videos</h2>
               <p v-if="instructor">
                 Here you can watch all videos from {{ instructor.fullName }}.
               </p>
@@ -27,30 +27,11 @@
     </ion-content>
   </ion-page>
 </template>
-
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { instructorData } from '/data/instructorData.js';
-const route = useRoute();
-onMounted(() => {
-  console.log("Route accessed:", route.fullPath);
-  console.log("Params:", route.params);
-});
 
-
-
-// Extract the instructor's slug from the URL
-const instructorSlug = computed(() => {
-  const params = route.params.all || [];
-  return params.length ? params[0] : undefined;
-});
-
-// Find the instructor by slug
-const instructor = computed(() => {
-  return instructorData.find(i => i.slug === instructorSlug.value);
-});
 </script>
+
+
 
 <style scoped>
 /* Your styles here */
