@@ -29,7 +29,7 @@
       <div v-else class="ion-padding">
         <p>Sorry, no videos exist for this query.</p>
       </div>
-      <ion-infinite-scroll @ionInfinite="ionInfinite" threshold="5px" class="mt-20">
+      <ion-infinite-scroll @ionInfinite="ionInfinite" threshold="5px" class="mt-10 mb-36">
   <ion-infinite-scroll-content
     loading-spinner="bubbles"
     loading-text="Loading more videos...">
