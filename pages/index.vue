@@ -28,7 +28,7 @@
             <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Yoga</UBadge>
       </div>
-        <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto mb-20" />
+        <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto" />
       </div>
     </ion-content>
   </ion-page>
@@ -79,6 +79,13 @@ const badgeClass = (badgeLabel: string) => {
 
 
 <style>
+
+.video-container {
+  min-height: 100vh; /* Adjust based on actual content height */
+  overflow-y: auto; /* Ensure scrolling is enabled */
+}
+
+
 .custom-select .select-wrapper-inner {
     background-color: #290303;
     border: 1px solid #ccc;

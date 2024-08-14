@@ -1,10 +1,8 @@
 <template>
-  <div>
+  <div class="video-container">
     <ion-grid>
-      <!-- Directly check the length of allVideos -->
-      <div v-if="allVideos.length > 0">
+      <div v-if="visibleVideos.length > 0">
         <transition-group name="fade" tag="ion-row">
-          <!-- Iterate over allVideos instead of filteredVideos -->
           <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
             <ion-card>
               <NuxtLink :to="`/video/${video.videoid}`">
@@ -12,14 +10,10 @@
                   <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder rounded-lg">
                 </div>
                 <ion-card-header class="pt-3 pb-0">
-                  <div class="flex flex-col w-full h-full items-start">
-                    <ion-card-title class="text-lg md:text-xl">{{ video.name }}</ion-card-title>
-                  </div>
+                  <ion-card-title class="text-lg md:text-xl">{{ video.name }}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="text-left pb-1">
-                  <div class="text-base truncate">
-                    <p>{{ video.description }}</p>
-                  </div>
+                  <p class="text-base truncate">{{ video.description }}</p>
                 </ion-card-content>
               </NuxtLink>
             </ion-card>
@@ -29,24 +23,23 @@
       <div v-else class="ion-padding">
         <p>Sorry, no videos exist for this query.</p>
       </div>
-      <ion-infinite-scroll @ionInfinite="ionInfinite" threshold="60px" class="mt-10 mb-20">
-  <ion-infinite-scroll-content
-    loading-spinner="bubbles"
-    loading-text="Loading more videos...">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>
-
+      <ion-infinite-scroll 
+        @ionInfinite="ionInfinite" 
+        :disabled="!infiniteScrollEnabled"
+        threshold="60px">
+        <ion-infinite-scroll-content
+          loading-spinner="bubbles"
+          loading-text="Loading more videos...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-grid>
-
   </div>
 </template>
-
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { videoData } from '~/data/videoData.js';
 
-// Define properties received from the parent component or elsewhere
 const props = defineProps({
   tag: String,
   instructor: String
@@ -54,8 +47,8 @@ const props = defineProps({
 
 const allVideos = ref(videoData);
 const visibleVideos = ref([]);
+const infiniteScrollEnabled = ref(true);  // State to track if infinite scroll should be active
 
-// Computed property for filtering videos based on provided props
 const filteredVideos = computed(() => {
   return allVideos.value.filter(video =>
     (!props.tag || props.tag === 'all videos' || video.tags.includes(props.tag)) &&
@@ -63,16 +56,20 @@ const filteredVideos = computed(() => {
   );
 });
 
-// Function to add videos; modifies to use filtered videos
 const addVideos = (count = 1) => {
-  const endIndex = Math.min(visibleVideos.value.length + count, filteredVideos.value.length);
+  const startIndex = visibleVideos.value.length;
+  const endIndex = Math.min(startIndex + count, filteredVideos.value.length);
   while (visibleVideos.value.length < endIndex) {
     visibleVideos.value.push(filteredVideos.value[visibleVideos.value.length]);
   }
   console.log('Visible Videos:', visibleVideos.value);
+
+  // Disable infinite scroll if there are no more videos to load
+  if (visibleVideos.value.length >= filteredVideos.value.length) {
+    infiniteScrollEnabled.value = false;
+  }
 };
 
-// Load 8 videos initially based on the filter
 onMounted(() => {
   addVideos(8);
 });
@@ -80,15 +77,34 @@ onMounted(() => {
 const ionInfinite = async (event) => {
   addVideos(); // Default adds one more video
   setTimeout(() => {
-    if (event.target) {
-      event.target.complete();
-    }
+    event.target.complete();
+    // Update infinite scroll active state
+    event.target.disabled = !infiniteScrollEnabled.value;
   }, 500);
 };
 </script>
 
-
 <style scoped>
+
+.video-container {
+  overscroll-behavior-y: contain; /* Can be 'auto', 'contain', or 'none' */
+}
+
+.video-container {
+  padding-bottom: 100px; /* Adds extra space at the bottom */
+  margin-bottom: -100px; /* Pulls the scrollable area back up */
+  overflow: hidden; /* Ensures the padding does not affect the overall layout */
+}
+
+.video-container {
+  min-height: 100vh; /* Ensures there is enough height to enable scrolling */
+}
+
+.infinite-scroll-base {
+  margin-top: 10px;
+  margin-bottom: 60px; /* Adds extra space at the bottom for easier triggering */
+}
+
 .video-list {
   position: relative;
   width: 100%;
@@ -102,27 +118,6 @@ const ionInfinite = async (event) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.save-btn {
-  opacity: 0;
-  position: absolute;
-  top: 5px;
-  right: 0;
-  margin: 10px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 10;
-  transition: opacity 0.2s ease, top 0.2s ease;
-}
-
-.video-list:hover .save-btn {
-  opacity: 1;
-  top: 0;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -153,5 +148,4 @@ ion-card:hover {
 ion-card-header, ion-card-content {
   padding-inline: 0px;
 }
-
 </style>
