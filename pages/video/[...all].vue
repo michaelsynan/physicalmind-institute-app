@@ -27,12 +27,13 @@
           <ion-card-header v-if="video" class="px-0 mx-0">
             <div class="flex flex-col items-start w-full gap-1">
               <div class="flex flex-wrap">
-                <UBadge v-for="tag in video.tags" :key="tag" class="px-3 rounded-full border !border-opacity-80 border-primary !text-stone-100 mr-2 mb-2">
+                <UBadge v-for="tag in video.tags" :key="tag" class="px-3 rounded border !border-opacity-80 border-primary !text-stone-100 mr-2 mb-2 font-bold tracking-wide shadown-sm">
                   {{ tag }}
                 </UBadge>
               </div>
               <ion-card-title>{{ video.name }}</ion-card-title>
               <ion-card-subtitle class="text-left">{{ video.instructor }}</ion-card-subtitle>
+          <ion-card-subtitle class="right-0 absolute">test</ion-card-subtitle>
             </div>
           </ion-card-header>
           <ion-card-content class="text-left text-base mx-0 px-0" v-if="video">
@@ -48,6 +49,7 @@
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import { videoData } from '/data/videoData.js';
+import { instructorData } from '/data/instructorData.js';
 import { useScreenOrientation } from '/composables/useScreenOrientation';
 
 const route = useRoute();
@@ -66,6 +68,7 @@ const video = computed(() => videoData.find(v => v.videoid === videoId.value));
 
 const videoUrl = computed(() => video?.value?.s3Url || '');
 
+console.log('blah' + instructorData)
 const onVideoLoaded = () => {
   isLoading.value = false;
   console.log('Video Loaded');
@@ -148,8 +151,8 @@ onBeforeUnmount(() => {
 }
 
 .play-icon {
-  color: white;
-  font-size: 80px; /* Increased size */
+  color: #f1f1f1;
+  font-size: 60px; /* Increased size */
   z-index: 20;
   position: absolute;
 }
