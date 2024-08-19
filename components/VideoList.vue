@@ -93,12 +93,6 @@ const ionInfinite = async (event) => {
 }
 
 .video-container {
-  padding-bottom: 100px; /* Adds extra space at the bottom */
-  margin-bottom: -100px; /* Pulls the scrollable area back up */
-  overflow: hidden; /* Ensures the padding does not affect the overall layout */
-}
-
-.video-container {
   min-height: 100vh; /* Ensures there is enough height to enable scrolling */
 }
 

@@ -111,4 +111,56 @@ ion-icon {
     background: currentColor !important;
     /* opacity: var(--background-hover-opacity, 0); */
 }
+
+.video-container {
+  overscroll-behavior-y: contain; /* Maintain current behavior settings */
+  padding-bottom: 50px; /* Increase this value if your bottom navbar is taller */
+  overflow: hidden; /* Keeps the layout neat */
+  min-height: 100vh; /* Ensures there is enough height to enable scrolling */
+}
+
+.video-list {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* Maintains aspect ratio for thumbnails */
+}
+
+.video-list .video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+ion-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+ion-card:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ion-card-header, ion-card-content {
+  padding-inline: 0px;
+}
+
 </style>

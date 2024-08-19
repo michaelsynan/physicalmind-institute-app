@@ -13,7 +13,7 @@
           <ion-title size="large">PhysicalMind Institute</ion-title>
         </ion-toolbar>
       </ion-header>
-      <div id="container" class="my-0 md:my-10 max-w-full mx-auto">
+      <div id="container" class="max-w-full mx-auto">
         <div id="filter-tags" class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide overflow-visible px-4 mt-4 md:mt-0 mb-4 w-full">
           <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">New</UBadge>
