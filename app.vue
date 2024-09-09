@@ -26,10 +26,10 @@
         <div>
           <ion-list lines="full" class="border-t">
             <ion-item>
-              <ion-icon v-if="themeToggle" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
+              <ion-icon v-if="isDarkMode" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
               <ion-icon v-else :md="ioniconsSunnyOutline" :ios="ioniconsSunnyOutline" slot="start"></ion-icon>
-              <ion-toggle :checked="themeToggle" @ionChange="toggleChange($event)">
-                {{ themeToggle ? 'Dark Mode' : 'Light Mode' }}
+              <ion-toggle :checked="isDarkMode" @ionChange="toggleChange($event)">
+                {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}
               </ion-toggle>
             </ion-item>
           </ion-list>
@@ -61,14 +61,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-const themeToggle = ref(false);
-const route = useRoute();
-
-
 const isDarkMode = ref(false);
+const route = useRoute();
 
 onMounted(() => {
   // Check if the 'dark' class is present on the body when the component mounts
@@ -82,10 +79,6 @@ const toggleChange = (event) => {
   isDarkMode.value = shouldAdd; // Update the reactive state
 };
 
-const toggleDarkTheme = (shouldAdd) => {
-  document.body.classList.toggle('dark', shouldAdd);
-};
-
 const iconStyle = (path) => ({
   color: route.path === path ? 'var(--ion-color-primary)' : 'var(--ion-text-color)',
 });
@@ -97,8 +90,6 @@ const closeMenu = async () => {
     console.error('Failed to close the menu:', error);
   }
 };
-
-
 </script>
 
 <style>

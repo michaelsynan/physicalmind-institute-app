@@ -15,10 +15,12 @@
             <!-- Custom Play Button Overlay -->
             <div v-if="!playInitiated" class="custom-play-button" @click="playVideo">
               <img v-if="video?.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img" />
-              <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle" class="play-icon text-lg"></ion-icon>
+              <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle"
+                class="play-icon text-lg"></ion-icon>
             </div>
             <!-- Video Element -->
-            <video ref="videoElement" v-if="videoUrl" @loadeddata="onVideoLoaded" @playing="onVideoPlaying" @pause="onVideoPaused" class="video-element" controlsList="nodownload" controls preload="auto">
+            <video ref="videoElement" v-if="videoUrl" @loadeddata="onVideoLoaded" @playing="onVideoPlaying"
+              @pause="onVideoPaused" class="video-element" controlsList="nodownload" controls preload="auto">
               <source :src="videoUrl" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -27,17 +29,18 @@
           <ion-card-header v-if="video" class="px-0 mx-0">
             <div class="flex flex-col items-start w-full gap-1">
               <div class="flex flex-wrap">
-                <UBadge v-for="tag in video.tags" :key="tag" class="px-3 rounded border !border-opacity-80 border-primary !text-stone-100 mr-2 mb-2 font-bold tracking-wide shadown-sm">
+                <UBadge v-for="tag in video.tags" :key="tag"
+                  class="px-3 rounded border !border-opacity-80 border-primary !text-stone-100 mr-2 mb-2 font-bold tracking-wide shadown-sm">
                   {{ tag }}
                 </UBadge>
               </div>
               <ion-card-title>{{ video.name }}</ion-card-title>
               <ion-card-subtitle class="text-left">{{ video.instructor }}</ion-card-subtitle>
-          <ion-card-subtitle class="right-0 absolute">test</ion-card-subtitle>
+
             </div>
           </ion-card-header>
-          <ion-card-content class="text-left text-base mx-0 px-0" v-if="video">
-            <div>{{ video.description }}</div>
+          <ion-card-content class="text-left text-base mx-0 px-0 border-t" v-if="video">
+            <div class="mt-4">{{ video.description }}</div>
           </ion-card-content>
         </ion-card>
       </div>
@@ -113,7 +116,8 @@ onBeforeUnmount(() => {
 .video-responsive {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
   overflow: hidden;
 }
 
@@ -123,7 +127,8 @@ onBeforeUnmount(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Maintain aspect ratio */
+  object-fit: cover;
+  /* Maintain aspect ratio */
 }
 
 .custom-play-button {
@@ -135,7 +140,8 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
   cursor: pointer;
   z-index: 10;
 }
@@ -152,13 +158,15 @@ onBeforeUnmount(() => {
 
 .play-icon {
   color: #f1f1f1;
-  font-size: 60px; /* Increased size */
+  font-size: 60px;
+  /* Increased size */
   z-index: 20;
   position: absolute;
 }
 
 .save-icon {
-  font-size: 40px !important; /* Increased size */
+  font-size: 40px !important;
+  /* Increased size */
 
   color: white;
   z-index: 20;
@@ -170,14 +178,19 @@ onBeforeUnmount(() => {
 }
 
 ion-card {
-  background: transparent; /* Remove default background */
-  border: none; /* Remove borders if any */
-  box-shadow: none; /* Remove shadows */
+  background: transparent;
+  /* Remove default background */
+  border: none;
+  /* Remove borders if any */
+  box-shadow: none;
+  /* Remove shadows */
 }
 
 /* Ensure the text and other elements within the card are styled appropriately */
-ion-card-header, ion-card-content {
-  background: transparent; /* Ensure headers and content don't have different background */
+ion-card-header,
+ion-card-content {
+  background: transparent;
+  /* Ensure headers and content don't have different background */
 }
 
 .video-element {
@@ -186,7 +199,9 @@ ion-card-header, ion-card-content {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Maintain aspect ratio */
-  border: 1px solid #ccc; /* Add a light grey border */
+  object-fit: cover;
+  /* Maintain aspect ratio */
+  border: 1px solid #ccc;
+  /* Add a light grey border */
 }
 </style>
