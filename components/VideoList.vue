@@ -1,13 +1,14 @@
 <template>
   <div class="video-container">
     <ion-grid>
-      <div v-if="visibleVideos.length > 0">
+      <div v-if="visibleVideos.length > 0" class="">
         <transition-group name="fade" tag="ion-row">
           <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
             <ion-card>
               <NuxtLink :to="`/video/${video.videoid}`">
                 <div class="video-list cursor-pointer border-2 rounded-lg">
-                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name" class="video-placeholder rounded-lg">
+                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
+                    class="video-placeholder rounded-lg">
                 </div>
                 <ion-card-header class="pt-3 pb-0">
                   <ion-card-title class="text-lg md:text-xl text-left">{{ video.name }}</ion-card-title>
@@ -23,12 +24,9 @@
       <div v-else class="ion-padding">
         <p>Sorry, no videos exist for this query.</p>
       </div>
-      <ion-infinite-scroll 
-        @ionInfinite="ionInfinite" 
-        :disabled="!infiniteScrollEnabled"
-        threshold="60px">
-        <ion-infinite-scroll-content
-          loading-spinner="bubbles">
+      <ion-infinite-scroll @ionInfinite="ionInfinite" :disabled="!infiniteScrollEnabled" threshold="20px"
+        class="-mt-20">
+        <ion-infinite-scroll-content loading-spinner="bubbles">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-grid>
@@ -55,7 +53,7 @@ const filteredVideos = computed(() => {
   );
 });
 
-const addVideos = (count = 1) => {
+const addVideos = (count = 4) => {
   const startIndex = visibleVideos.value.length;
   const endIndex = Math.min(startIndex + count, filteredVideos.value.length);
   while (visibleVideos.value.length < endIndex) {
@@ -68,7 +66,7 @@ const addVideos = (count = 1) => {
 };
 
 onMounted(() => {
-  addVideos(8);
+  addVideos(6);
 });
 
 watch(filteredVideos, () => {
@@ -87,18 +85,20 @@ const ionInfinite = async (event) => {
 </script>
 
 <style scoped>
-
 .video-container {
-  overscroll-behavior-y: contain; /* Can be 'auto', 'contain', or 'none' */
+  overscroll-behavior-y: contain;
+  /* Can be 'auto', 'contain', or 'none' */
 }
 
 .video-container {
-  min-height: 100vh; /* Ensures there is enough height to enable scrolling */
+  min-height: 100vh;
+  /* Ensures there is enough height to enable scrolling */
 }
 
 .infinite-scroll-base {
   margin-top: 10px;
-  margin-bottom: 60px; /* Adds extra space at the bottom for easier triggering */
+  margin-bottom: 60px;
+  /* Adds extra space at the bottom for easier triggering */
 }
 
 .video-list {
@@ -116,11 +116,13 @@ const ionInfinite = async (event) => {
   object-fit: cover;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
@@ -141,7 +143,8 @@ ion-card:hover {
   text-overflow: ellipsis;
 }
 
-ion-card-header, ion-card-content {
+ion-card-header,
+ion-card-content {
   padding-inline: 0px;
 }
 </style>

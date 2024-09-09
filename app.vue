@@ -3,9 +3,15 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <div class="flex justify-center items-center mt-8 mb-4">
-          <NuxtLink to="/">
-            <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="40" />
-          </NuxtLink>        
+          <NuxtLink v-if="isDarkMode" to="/">
+            <!-- <nuxt-img provider="cloudinary" src="/v1725881494/qqd3idfq7cyehkocoxm0.png" height="40" /> -->
+            <nuxt-img src="/pmi_logo_white.png" class="h-10" />
+          </NuxtLink>
+          <NuxtLink v-else to="/">
+            <!-- <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="40" /> -->
+            <nuxt-img src="/physicalmind-logo-french-blue-transparent.png" class="h-10" />
+          </NuxtLink>
+
         </div>
       </ion-toolbar>
     </ion-header>
@@ -40,13 +46,16 @@
       <ion-toolbar class="flex justify-center items-center w-full">
         <div class="flex justify-center items-center w-full gap-14">
           <NuxtLink to="/">
-            <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" :style="iconStyle('/')" class="text-2xl"></ion-icon>
+            <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" :style="iconStyle('/')"
+              class="text-2xl"></ion-icon>
           </NuxtLink>
           <NuxtLink to="/instructors">
-            <ion-icon :md="ioniconsPeopleOutline" :ios="ioniconsPeopleOutline" :style="iconStyle('/instructors')" class="text-2xl"></ion-icon>
+            <ion-icon :md="ioniconsPeopleOutline" :ios="ioniconsPeopleOutline" :style="iconStyle('/instructors')"
+              class="text-2xl"></ion-icon>
           </NuxtLink>
           <NuxtLink to="/help">
-            <ion-icon :md="ioniconsHelpCircleOutline" :ios="ioniconsHelpCircleOutline" :style="iconStyle('/help')" class="text-2xl"></ion-icon>
+            <ion-icon :md="ioniconsHelpCircleOutline" :ios="ioniconsHelpCircleOutline" :style="iconStyle('/help')"
+              class="text-2xl"></ion-icon>
           </NuxtLink>
         </div>
       </ion-toolbar>
@@ -55,15 +64,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const themeToggle = ref(false);
 const route = useRoute();
 
+
+const isDarkMode = ref(false);
+
+onMounted(() => {
+  // Check if the 'dark' class is present on the body when the component mounts
+  isDarkMode.value = document.body.classList.contains('dark');
+});
+
 const toggleChange = (event) => {
-  toggleDarkTheme(event.detail.checked);
-  themeToggle.value = event.detail.checked;
+  // Toggle the dark mode class on the body element
+  const shouldAdd = event.detail.checked;
+  document.body.classList.toggle('dark', shouldAdd);
+  isDarkMode.value = shouldAdd; // Update the reactive state
 };
 
 const toggleDarkTheme = (shouldAdd) => {
@@ -81,6 +100,8 @@ const closeMenu = async () => {
     console.error('Failed to close the menu:', error);
   }
 };
+
+
 </script>
 
 <style>
@@ -91,12 +112,13 @@ ion-item::part(native) {
 ion-footer {
   border-top: 1px solid;
 }
+
 ion-header,
 ion-toolbar {
   /* --background: transparent !important;
   --ion-background-color: transparent !important; 
   --border-color: transparent !important;  */
-  --box-shadow: none !important; 
+  --box-shadow: none !important;
 }
 
 /* .toolbar-background {
@@ -104,25 +126,31 @@ ion-toolbar {
 } */
 
 ion-icon {
-  color: var(--ion-text-color); /* Set the icon color to the default Ionic text color */
+  color: var(--ion-text-color);
+  /* Set the icon color to the default Ionic text color */
 }
 
 .button-native::after {
-    background: currentColor !important;
-    /* opacity: var(--background-hover-opacity, 0); */
+  background: currentColor !important;
+  /* opacity: var(--background-hover-opacity, 0); */
 }
 
 .video-container {
-  overscroll-behavior-y: contain; /* Maintain current behavior settings */
-  padding-bottom: 50px; /* Increase this value if your bottom navbar is taller */
-  overflow: hidden; /* Keeps the layout neat */
-  min-height: 100vh; /* Ensures there is enough height to enable scrolling */
+  overscroll-behavior-y: contain;
+  /* Maintain current behavior settings */
+  padding-bottom: 50px;
+  /* Increase this value if your bottom navbar is taller */
+  overflow: hidden;
+  /* Keeps the layout neat */
+  min-height: 100vh;
+  /* Ensures there is enough height to enable scrolling */
 }
 
 .video-list {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* Maintains aspect ratio for thumbnails */
+  padding-top: 56.25%;
+  /* Maintains aspect ratio for thumbnails */
 }
 
 .video-list .video-placeholder {
@@ -134,11 +162,13 @@ ion-icon {
   object-fit: cover;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
@@ -159,8 +189,8 @@ ion-card:hover {
   text-overflow: ellipsis;
 }
 
-ion-card-header, ion-card-content {
+ion-card-header,
+ion-card-content {
   padding-inline: 0px;
 }
-
 </style>
