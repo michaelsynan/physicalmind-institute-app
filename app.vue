@@ -4,10 +4,10 @@
       <ion-toolbar>
         <div class="flex justify-center items-center mt-8 mb-4">
           <NuxtLink v-if="isDarkMode" to="/">
-            <NuxtImg preload src="/pmi_logo_white.png" height="40px" />
+            <img src="/pmi_logo_white.png" class="w-28" />
           </NuxtLink>
           <NuxtLink v-else to="/">
-            <NuxtImg preload src="/physicalmind-logo-french-blue-transparent.png" height="40px" />
+            <img src="/physicalmind-logo-french-blue-transparent.png" class="w-28" />
           </NuxtLink>
         </div>
       </ion-toolbar>
