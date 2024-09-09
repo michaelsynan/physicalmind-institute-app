@@ -4,14 +4,11 @@
       <ion-toolbar>
         <div class="flex justify-center items-center mt-8 mb-4">
           <NuxtLink v-if="isDarkMode" to="/">
-            <!-- <nuxt-img provider="cloudinary" src="/v1725881494/qqd3idfq7cyehkocoxm0.png" height="40" /> -->
-            <nuxt-img src="/pmi_logo_white.png" class="h-10" />
+            <nuxt-img src="pmi_logo_white.png" class="h-10" />
           </NuxtLink>
           <NuxtLink v-else to="/">
-            <!-- <nuxt-img provider="cloudinary" src="/v1708006480/physicalmind-logo-french-blue_hoitel.png" height="40" /> -->
-            <nuxt-img src="/physicalmind-logo-french-blue-transparent.png" class="h-10" />
+            <nuxt-img src="physicalmind-logo-french-blue-transparent.png" class="h-10" />
           </NuxtLink>
-
         </div>
       </ion-toolbar>
     </ion-header>
