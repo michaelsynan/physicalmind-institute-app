@@ -24,8 +24,7 @@
       <div v-else class="ion-padding">
         <p>Sorry, no videos exist for this query.</p>
       </div>
-      <ion-infinite-scroll @ionInfinite="ionInfinite" :disabled="!infiniteScrollEnabled" threshold="20px"
-        class="-mt-20">
+      <ion-infinite-scroll @ionInfinite="ionInfinite" :disabled="!infiniteScrollEnabled" threshold="20px" class="mt-10">
         <ion-infinite-scroll-content loading-spinner="bubbles">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
@@ -34,55 +33,76 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import { videoData } from '~/data/videoData.js';
 
 const props = defineProps({
   tag: String,
-  instructor: String
 });
 
 const allVideos = ref(videoData);
 const visibleVideos = ref([]);
 const infiniteScrollEnabled = ref(true);
+const filteredVideos = ref([]);
 
-const filteredVideos = computed(() => {
-  return allVideos.value.filter(video =>
-    (!props.tag || props.tag === 'all videos' || video.tags.includes(props.tag)) &&
-    (!props.instructor || props.instructor === 'All' || video.instructor === props.instructor)
-  );
-});
+const addVideos = (count = 1) => {
+  const currentCount = visibleVideos.value.length;
 
-const addVideos = (count = 4) => {
-  const startIndex = visibleVideos.value.length;
-  const endIndex = Math.min(startIndex + count, filteredVideos.value.length);
-  while (visibleVideos.value.length < endIndex) {
-    visibleVideos.value.push(filteredVideos.value[visibleVideos.value.length]);
-  }
-
-  if (visibleVideos.value.length >= filteredVideos.value.length) {
-    infiniteScrollEnabled.value = false;
+  // Check if the tag is not "all" to decide which video list to use
+  if (props.tag && props.tag !== 'all') {
+    console.log("inside add filtered videos");
+    const videosToAdd = filteredVideos.value.slice(currentCount, currentCount + count);
+    visibleVideos.value.push(...videosToAdd);
+    // Disable infinite scroll if all videos are displayed
+    if (visibleVideos.value.length === filteredVideos.value.length) {
+      infiniteScrollEnabled.value = false;
+    }
+  } else {
+    console.log("inside show all videos");
+    const videosToAdd = allVideos.value.slice(currentCount, currentCount + count);
+    visibleVideos.value.push(...videosToAdd);
+    // Disable infinite scroll if all videos are displayed
+    if (visibleVideos.value.length === allVideos.value.length) {
+      infiniteScrollEnabled.value = false;
+    }
   }
 };
+
+watch(() => props.tag, (newVal, oldVal) => {
+  // visibleVideos.value = [];
+  // filteredVideos.value = [];
+  // Log on tag change and filter videos based on the new tag value
+  if (newVal && newVal !== 'all') {
+    infiniteScrollEnabled.value = true;
+    visibleVideos.value = [];
+    const filtered = allVideos.value.filter(video => video.tags.includes(newVal));
+    filteredVideos.value = filtered;
+    console.log("THESE ARE THE FILTERED VIDEOS:", filteredVideos.value);
+    console.log(`Tag changed from ${oldVal} to ${newVal}`);
+    addVideos(6);
+  } else {
+    infiniteScrollEnabled.value = true;
+    addVideos(6);
+    console.log(`Tag changed from ${oldVal} to ${newVal}: Showing all videos.`);
+  }
+}, { immediate: true });
 
 onMounted(() => {
-  addVideos(6);
+  addVideos(2); // Load initial 6 videos
 });
 
-watch(filteredVideos, () => {
-  visibleVideos.value = []; // Reset visibleVideos when the filter changes
-  addVideos(8); // Add initial set of videos again after resetting
-  infiniteScrollEnabled.value = true; // Re-enable infinite scroll
-});
+
 
 const ionInfinite = async (event) => {
-  addVideos();
+  addVideos(); // Add more videos upon reaching the scroll threshold
+  console.log("infinite scroll enabled and videos added", infiniteScrollEnabled.value)
   setTimeout(() => {
     event.target.complete();
-    event.target.disabled = !infiniteScrollEnabled.value;
-  }, 500);
+  }, 2000);
 };
 </script>
+
+
 
 <style scoped>
 .video-container {

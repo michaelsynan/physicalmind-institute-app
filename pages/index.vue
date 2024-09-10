@@ -19,7 +19,7 @@
           <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">New
           </UBadge>
-          <UBadge @click="updateSelectedBadge('all videos')" :class="badgeClass('all videos')"
+          <UBadge @click="updateSelectedBadge('all')" :class="badgeClass('all')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">All
             Videos</UBadge>
           <UBadge @click="updateSelectedBadge('pilates')" :class="badgeClass('pilates')"
@@ -56,7 +56,7 @@ import { instructorData } from '/data/instructorData.js';
 
 const route = useRoute();
 
-const selectedBadge = ref('all videos');
+const selectedBadge = ref('all');
 const selectedInstructor = ref('All');
 
 const handleInstructorQueryParam = () => {
@@ -80,7 +80,7 @@ watch(() => route.query.instructor, (newValue) => {
 
 
 watch(() => route.query, () => {
-  selectedBadge.value = 'all videos';
+  selectedBadge.value = 'all';
 });
 
 const updateSelectedBadge = (badgeLabel: string) => {
