@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { videoData } from '~/data/videoData.js';
 
 const props = defineProps({
@@ -88,37 +88,30 @@ watch(() => props.tag, (newVal, oldVal) => {
 }, { immediate: true });
 
 onMounted(() => {
-  addVideos(2); // Load initial 6 videos
+  addVideos(5);
 });
 
-
-
 const ionInfinite = async (event) => {
-  addVideos(); // Add more videos upon reaching the scroll threshold
+  addVideos();
   console.log("infinite scroll enabled and videos added", infiniteScrollEnabled.value)
   setTimeout(() => {
     event.target.complete();
-  }, 2000);
+  }, 200);
 };
 </script>
-
-
 
 <style scoped>
 .video-container {
   overscroll-behavior-y: contain;
-  /* Can be 'auto', 'contain', or 'none' */
 }
 
 .video-container {
   min-height: 100vh;
-  /* Ensures there is enough height to enable scrolling */
 }
 
 .infinite-scroll-base {
   margin-top: 10px;
   margin-bottom: 60px;
-  /* Adds extra space at the bottom for easier triggering */
 }
 
 .video-list {

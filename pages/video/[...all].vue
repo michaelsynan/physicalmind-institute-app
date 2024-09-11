@@ -58,7 +58,7 @@ import { useScreenOrientation } from '/composables/useScreenOrientation';
 const route = useRoute();
 const isLoading = ref(true);
 const isVideoPlaying = ref(false);
-const playInitiated = ref(false); // Track whether the play has been initiated
+const playInitiated = ref(false);
 const videoElement = ref(null);
 const { lockToLandscape, unlockOrientation } = useScreenOrientation();
 
@@ -71,7 +71,6 @@ const video = computed(() => videoData.find(v => v.videoid === videoId.value));
 
 const videoUrl = computed(() => video?.value?.s3Url || '');
 
-console.log('blah' + instructorData)
 const onVideoLoaded = () => {
   isLoading.value = false;
   console.log('Video Loaded');
@@ -88,7 +87,7 @@ const onVideoPaused = () => {
 };
 
 const playVideo = () => {
-  playInitiated.value = true; // Mark play as initiated
+  playInitiated.value = true;
   videoElement.value?.play();
 };
 
@@ -108,16 +107,13 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('fullscreenchange', handleFullScreenChange);
 });
-
 </script>
-
 
 <style scoped>
 .video-responsive {
   position: relative;
   width: 100%;
   padding-top: 56.25%;
-  /* 16:9 Aspect Ratio */
   overflow: hidden;
 }
 
@@ -128,7 +124,6 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Maintain aspect ratio */
 }
 
 .custom-play-button {
@@ -141,7 +136,6 @@ onBeforeUnmount(() => {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  /* Semi-transparent background */
   cursor: pointer;
   z-index: 10;
 }
@@ -159,15 +153,12 @@ onBeforeUnmount(() => {
 .play-icon {
   color: #f1f1f1;
   font-size: 60px;
-  /* Increased size */
   z-index: 20;
   position: absolute;
 }
 
 .save-icon {
   font-size: 40px !important;
-  /* Increased size */
-
   color: white;
   z-index: 20;
   position: absolute;
@@ -179,18 +170,13 @@ onBeforeUnmount(() => {
 
 ion-card {
   background: transparent;
-  /* Remove default background */
   border: none;
-  /* Remove borders if any */
   box-shadow: none;
-  /* Remove shadows */
 }
 
-/* Ensure the text and other elements within the card are styled appropriately */
 ion-card-header,
 ion-card-content {
   background: transparent;
-  /* Ensure headers and content don't have different background */
 }
 
 .video-element {
@@ -200,8 +186,6 @@ ion-card-content {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Maintain aspect ratio */
   border: 1px solid #ccc;
-  /* Add a light grey border */
 }
 </style>

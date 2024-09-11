@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header  class="ion-no-border border-b bg-white">
+    <ion-header class="ion-no-border border-b bg-white">
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/" text=""></ion-back-button>
@@ -11,20 +11,19 @@
     <ion-content>
       <div id="container" class="my-10 max-w-2xl mx-auto">
         <ion-card type="medium" v-if="instructor" class="p-3 relative overflow-hidden">
-          <!-- Gradient Background -->
-          <!-- <div class="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-br from-purple-600 to-[#6095d8]"></div> -->
-
-<!-- Instructor Photo -->
-<img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo" class="mt-2 border border-opacity-50 border-stone-400 w-40 h-40 mx-auto block rounded-full object-cover relative z-10">
-
+          <!-- Instructor Photo -->
+          <img :src="instructor.photo ? instructor.photo : '/images/default/image.jpg'" alt="Instructor's Photo"
+            class="mt-2 border border-opacity-50 border-stone-400 w-40 h-40 mx-auto block rounded-full object-cover relative z-10">
           <ion-card-header class="relative z-10">
             <ion-card-title class="font-bold">{{ instructor.fullName }}</ion-card-title>
             <div class="flex flex-row mx-auto gap-2 mt-1.5">
               <div>
-                <a :href="instructor.website" target="_blank"> <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end" class="text-xl"></ion-icon></a>
+                <a :href="instructor.website" target="_blank"> <ion-icon :md="ioniconsGlobeOutline"
+                    :ios="ioniconsGlobeOutline" slot="end" class="text-xl"></ion-icon></a>
               </div>
               <div>
-                <a :href="instructor.ig" target="_blank"> <ion-icon :md="ioniconsLogoInstagram" :ios="ioniconsLogoInstagram" slot="end" class="text-xl"></ion-icon></a>
+                <a :href="instructor.ig" target="_blank"> <ion-icon :md="ioniconsLogoInstagram"
+                    :ios="ioniconsLogoInstagram" slot="end" class="text-xl"></ion-icon></a>
               </div>
             </div>
           </ion-card-header>
@@ -32,15 +31,12 @@
             <div class="text-base">
               {{ instructor.bio }}
             </div>
-            <!-- Watch Videos Link (assuming a route to videos exists) -->
             <div class="my-4"></div>
           </ion-card-content>
-          <NuxtLink :to="`/instructors/${instructor.slug}/videos`">
-  <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
-</NuxtLink>
-
+          <NuxtLink :to="`/instructors/videos?instructor=${instructor.slug}`">
+            <ion-button expand="block" color="primary" class="font-bold">Watch Videos</ion-button>
+          </NuxtLink>
         </ion-card>
-      
         <p v-else class="text-center">Instructor not found.</p>
       </div>
     </ion-content>
@@ -50,7 +46,7 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { instructorData } from '/data/instructorData.js'; // Ensure the path is correct
+import { instructorData } from '/data/instructorData.js';
 
 const route = useRoute();
 
@@ -73,7 +69,7 @@ const instructor = computed(() => {
 });
 
 // Optionally, add error handling or a reactive property to indicate if the instructor was not found
-const instructorFound = computed(() => !!instructor.value);
+// const instructorFound = computed(() => !!instructor.value);
 
 onMounted(() => {
   if (!instructorFound.value) {
@@ -82,6 +78,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-/* Add any additional styles for your instructor detail page here */
-</style>
+<style scoped></style>

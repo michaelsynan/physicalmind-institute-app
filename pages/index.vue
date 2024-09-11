@@ -17,66 +17,73 @@
         <div id="filter-tags"
           class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide overflow-visible px-4 mt-4 md:mt-0 mb-4 w-full">
           <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
-            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">New
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
+            New
           </UBadge>
           <UBadge @click="updateSelectedBadge('all')" :class="badgeClass('all')"
-            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">All
-            Videos</UBadge>
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
+            All Videos
+          </UBadge>
           <UBadge @click="updateSelectedBadge('pilates')" :class="badgeClass('pilates')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
-            Pilates</UBadge>
+            Pilates
+          </UBadge>
           <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
-            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Dance
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
+            Dance
           </UBadge>
           <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
-            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Golf
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
+            Golf
           </UBadge>
           <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
-            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Yoga
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
+            Yoga
           </UBadge>
           <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Posture
           </UBadge>
           <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
-            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">Active
-            Aging
+            class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
+            Active Aging
           </UBadge>
         </div>
-        <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto" />
+        <VideoList :tag="selectedBadge" class="max-w-5xl mx-auto" />
+        <!-- <VideoList :tag="selectedBadge" :instructor="selectedInstructor" class="max-w-5xl mx-auto" /> -->
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { instructorData } from '/data/instructorData.js';
+// import { instructorData } from '/data/instructorData.js';
 
 const route = useRoute();
 
 const selectedBadge = ref('all');
-const selectedInstructor = ref('All');
+// const selectedInstructor = ref('All');
 
-const handleInstructorQueryParam = () => {
-  const instructorQueryParam = route.query.instructor;
-  if (instructorQueryParam) {
-    console.log('URL instructor parameter value:', instructorQueryParam);
-    selectedInstructor.value = instructorQueryParam;
-  } else {
-    console.log('No instructor query parameter found.');
-  }
-};
+// const handleInstructorQueryParam = () => {
+//   const instructorQueryParam = route.query.instructor;
+//   if (instructorQueryParam) {
+//     console.log('URL instructor parameter value:', instructorQueryParam);
+//     selectedInstructor.value = instructorQueryParam;
+//   } else {
+//     console.log('No instructor query parameter found.');
+//   }
+// };
 
-onMounted(() => {
-  handleInstructorQueryParam();
-});
+// onMounted(() => {
+//   handleInstructorQueryParam();
+// });
 
-watch(() => route.query.instructor, (newValue) => {
-  console.log('URL instructor parameter value changed to:', newValue);
-  selectedInstructor.value = newValue || 'All';
-});
+// watch(() => route.query.instructor, (newValue) => {
+//   console.log('URL instructor parameter value changed to:', newValue);
+//   selectedInstructor.value = newValue || 'All';
+// });
 
 
 watch(() => route.query, () => {
@@ -96,11 +103,8 @@ const badgeClass = (badgeLabel: string) => {
 <style>
 .video-container {
   min-height: 100vh;
-  /* Adjust based on actual content height */
   overflow-y: auto;
-  /* Ensure scrolling is enabled */
 }
-
 
 .custom-select .select-wrapper-inner {
   background-color: #290303;
@@ -108,7 +112,6 @@ const badgeClass = (badgeLabel: string) => {
   border-radius: 8px;
   padding: 10px;
 }
-
 
 .badge-default {
   background-color: white !important;
@@ -166,10 +169,6 @@ ion-item.item-interactive:item-interactive-hover {
   --background: transparent;
   --ion-item-background-hover: transparent;
 }
-
-/* ion-menu-button::part(icon) {
-  font-size: 48px !important;
-} */
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
