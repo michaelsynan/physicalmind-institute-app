@@ -56,7 +56,7 @@ export const videoData = [
       "Office Desk Exercises with TYE4X. Taught by PhysicalMind Instructor Yuu Fujita.",
     instructor: "Yuu Fujita",
     slug: "yuu-fujita",
-    tags: ["pilates"],
+    tags: ["pilates", "aging"],
     new: false,
   },
   {
@@ -86,7 +86,7 @@ export const videoData = [
       "Circular Pilates with Jill. Taught by PhysicalMind Instructor Jill Johnson.",
     instructor: "Jill Johnson",
     slug: "jill-johnson",
-    tags: ["pilates"],
+    tags: ["pilates", "posture"],
     new: false,
   },
   {
@@ -161,7 +161,7 @@ export const videoData = [
       "Intro to Vectors. Taught by PhysicalMind Instructor Elaine de Markondes.",
     instructor: "Elaine de Markondes",
     slug: "elaine-de-markondes",
-    tags: ["pilates"],
+    tags: ["pilates", "posture"],
     new: false,
   },
   {
@@ -191,7 +191,7 @@ export const videoData = [
       "Class on Fascia Front Body Vector. Taught by PhysicalMind Instructor Elaine de Markondes.",
     instructor: "Michelle Hoyos",
     slug: "michelle-hoyos",
-    tags: ["pilates"],
+    tags: ["pilates", "posture"],
     new: false,
   },
   {
@@ -206,7 +206,7 @@ export const videoData = [
       "Class on Fascia Front Body Vector. Taught by PhysicalMind Instructor Elaine de Markondes.",
     instructor: "Joan Breibart",
     slug: "joan-breibart",
-    tags: ["pilates"],
+    tags: ["pilates", "aging"],
     new: false,
   },
   {

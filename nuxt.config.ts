@@ -2,6 +2,9 @@ export default defineNuxtConfig({
   head: {
     title: "PhysicalMind Institute",
   },
+  colorMode: {
+    preference: "light",
+  },
 
   devtools: {
     enabled: true,

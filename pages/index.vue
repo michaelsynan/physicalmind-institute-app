@@ -40,11 +40,11 @@
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Yoga
           </UBadge>
-          <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
+          <UBadge @click="updateSelectedBadge('posture')" :class="badgeClass('posture')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Posture
           </UBadge>
-          <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
+          <UBadge @click="updateSelectedBadge('aging')" :class="badgeClass('aging')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Active Aging
           </UBadge>
