@@ -33,6 +33,7 @@
     "@nuxt/image": "^1.3.0",
     "@nuxt/image-edge": "^1.3.0-28452769.547f442",
     "@nuxtjs/ionic": "^0.13.1",
+    "@nuxtjs/supabase": "^1.4.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "nuxt": "^3.12.4"
   }

@@ -22,6 +22,8 @@
           <ion-item @click="closeMenu" href="https://google.com" class="cursor-pointer" target="_blank">
             <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> Shop
           </ion-item>
+          <ion-item @click="logout" router-link="/login" class="cursor-pointer">Logout</ion-item>
+
         </ion-list>
         <div>
           <ion-list lines="full" class="border-t">
@@ -63,9 +65,24 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+const client = useSupabaseClient()
+
 
 const isDarkMode = ref(false);
 const route = useRoute();
+
+const logout = async () => {
+  console.log("Logout function called");
+  const { error } = await client.auth.signOut();
+  if (!error) {
+    closeMenu();
+    navigateTo('/login');  // Redirect to login page
+  } else {
+    console.error('Logout Failed:', error);
+  }
+}
+
+
 
 onMounted(() => {
   // Check if the 'dark' class is present on the body when the component mounts

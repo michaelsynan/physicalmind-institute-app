@@ -2,6 +2,7 @@ export default defineNuxtConfig({
   head: {
     title: "PhysicalMind Institute",
   },
+  serverMiddleware: ["~/middleware/auth.ts"],
   colorMode: {
     preference: "light",
   },
@@ -16,8 +17,17 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/ui",
     "nuxt-swiper",
+    "@nuxtjs/supabase",
   ],
   css: ["/theme/variables.css", "/assets/css/main.css"],
+
+  redirectOptions: {
+    login: "/login",
+    callback: "/confirm",
+    include: undefined,
+    exclude: [],
+    cookieRedirect: false,
+  },
 
   ionic: {
     integrations: {},
