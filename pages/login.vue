@@ -7,9 +7,12 @@ const password = ref('')
 const isSignUp = ref(false)
 const client = useSupabaseClient()
 const user = useSupabaseUser()
+const errorMessage = ref('')
 
 const signUp = async () => {
+  loading.value = true
   console.log("signUp function called")
+  errorMessage.value = ''  // Clear previous errors
   const { data, error } = await client.auth.signUp(
     {
       email: email.value,
@@ -17,17 +20,38 @@ const signUp = async () => {
     }
   )
   console.log(data.user, error)
+  if (error) {
+
+    errorMessage.value = error.message  // Display other error messages as is
+
+  } else if (data.user) {
+    navigateTo('/login')  // Navigate on successful login
+  }
+  loading.value = false
 }
 
+
 const login = async () => {
+  loading.value = true
   console.log("login function called")
-  const { data, error } = await client.auth.signInWithPassword(
-    {
-      email: email.value,
-      password: password.value
-    }
+  errorMessage.value = ''  // Clear previous errors
+  const { data, error } = await client.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+
+  }
   )
   console.log(data.user, error)
+  if (error) {
+    if (error.message === "Invalid login credentials") {
+      errorMessage.value = "Your email or password is incorrect. Please try again."
+    } else {
+      errorMessage.value = error.message  // Display other error messages as is
+    }
+  } else if (data.user) {
+    navigateTo('/')  // Navigate on successful login
+  }
+  loading.value = false
 }
 
 const logout = async () => {
@@ -96,9 +120,9 @@ onMounted(() => {
                     </NuxtLink>
                   </div>
 
-                  <div class="mt-2 text-xs" :class="isSignUp ? 'text-indigo-600' : 'text-red-600'"><span
-                      class="font-bold">Debugging:</span> Debugging: isSignUp is {{ isSignUp
-                    }}</div>
+
+
+                  <div v-if="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
                 </form>
 
               </ion-card-content>
