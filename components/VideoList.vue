@@ -34,13 +34,31 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { videoData } from '~/data/videoData.js';
+
+const supabase = useSupabaseClient()
+
+const fetchVideos = async () => {
+  const { data, error } = await supabase
+    .from('videos')
+    .select(`name, videoid, placeholder, description, tags`)
+
+  if (error) {
+    console.error('Error fetching videos:', error)
+  } else {
+    console.log('Fetched videos:', data)
+    allVideos.value = data
+    console.log('All videos from database:', allVideos.value)
+    addVideos(6); // Ensure videos are added initially
+  }
+}
+
+fetchVideos()
 
 const props = defineProps({
   tag: String,
 });
 
-const allVideos = ref(videoData);
+const allVideos = ref([]);
 const visibleVideos = ref([]);
 const infiniteScrollEnabled = ref(true);
 const filteredVideos = ref([]);
@@ -82,6 +100,7 @@ watch(() => props.tag, (newVal, oldVal) => {
     addVideos(6);
   } else {
     infiniteScrollEnabled.value = true;
+    visibleVideos.value = [];
     addVideos(6);
     console.log(`Tag changed from ${oldVal} to ${newVal}: Showing all videos.`);
   }

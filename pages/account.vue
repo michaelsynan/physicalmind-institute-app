@@ -13,12 +13,14 @@
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
-            <ion-text>
-              <h2>Account</h2>
-            </ion-text>
+            <Account />
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-content>
+    <!-- add something cool in a neo brutalist style -->
+
+
+
   </ion-page>
 </template>
