@@ -68,7 +68,7 @@ const videoId = computed(() => {
 });
 
 const video = computed(() => videoData.find(v => v.videoid === videoId.value));
-
+console.log('Video:', video.value);
 const videoUrl = computed(() => video?.value?.s3Url || '');
 
 const onVideoLoaded = () => {

@@ -1,28 +1,33 @@
 <template>
   <div class="video-container">
     <ion-grid>
-      <div v-if="visibleVideos.length > 0" class="">
-        <transition-group name="fade" tag="ion-row">
-          <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
-            <ion-card>
-              <NuxtLink :to="`/video/${video.videoid}`">
-                <div class="video-list cursor-pointer border-2 rounded-lg">
-                  <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
-                    class="video-placeholder rounded-lg">
-                </div>
-                <ion-card-header class="pt-3 pb-0">
-                  <ion-card-title class="text-lg md:text-xl text-left">{{ video.name }}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content class="text-left pb-1">
-                  <p class="text-base truncate text-left">{{ video.description }}</p>
-                </ion-card-content>
-              </NuxtLink>
-            </ion-card>
-          </ion-col>
-        </transition-group>
+      <div v-if="loading" class="loading-screen">
+        <p>Loading...</p>
       </div>
-      <div v-else class="ion-padding">
-        <p>Sorry, no videos exist for this query.</p>
+      <div v-else>
+        <div v-if="visibleVideos.length > 0" class="">
+          <transition-group name="fade" tag="ion-row">
+            <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
+              <ion-card>
+                <NuxtLink :to="`/video/${video.videoid}`">
+                  <div class="video-list cursor-pointer border-2 rounded-lg">
+                    <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
+                      class="video-placeholder rounded-lg">
+                  </div>
+                  <ion-card-header class="pt-3 pb-0">
+                    <ion-card-title class="text-lg md:text-xl text-left">{{ video.name }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="text-left pb-1">
+                    <p class="text-base truncate text-left">{{ video.description }}</p>
+                  </ion-card-content>
+                </NuxtLink>
+              </ion-card>
+            </ion-col>
+          </transition-group>
+        </div>
+        <div v-else class="ion-padding">
+          <p>Sorry, no videos exist for this query.</p>
+        </div>
       </div>
       <ion-infinite-scroll @ionInfinite="ionInfinite" :disabled="!infiniteScrollEnabled" threshold="20px" class="mt-10">
         <ion-infinite-scroll-content loading-spinner="bubbles">
@@ -37,6 +42,8 @@ import { ref, watch, onMounted } from 'vue';
 
 const supabase = useSupabaseClient()
 
+const loading = ref(true); // Add loading state
+
 const fetchVideos = async () => {
   const { data, error } = await supabase
     .from('videos')
@@ -50,6 +57,7 @@ const fetchVideos = async () => {
     console.log('All videos from database:', allVideos.value)
     addVideos(6); // Ensure videos are added initially
   }
+  loading.value = false; // Set loading to false after fetching
 }
 
 fetchVideos()
@@ -107,7 +115,8 @@ watch(() => props.tag, (newVal, oldVal) => {
 }, { immediate: true });
 
 onMounted(() => {
-  addVideos(5);
+  infiniteScrollEnabled.value = true; // Ensure infinite scroll is enabled on mount
+  addVideos(6); // Load initial set of videos
 });
 
 const ionInfinite = async (event) => {
@@ -178,5 +187,10 @@ ion-card:hover {
 ion-card-header,
 ion-card-content {
   padding-inline: 0px;
+}
+
+.loading-screen {
+  text-align: center;
+  padding: 20px;
 }
 </style>

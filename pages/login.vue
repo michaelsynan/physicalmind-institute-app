@@ -1,5 +1,8 @@
 <script setup>
+import { useAuthStore } from '~/stores/auth.js'
 const supabase = useSupabaseClient()
+
+const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
 
 const loading = ref(false)
 const email = ref('')
@@ -49,6 +52,7 @@ const login = async () => {
       errorMessage.value = error.message  // Display other error messages as is
     }
   } else if (data.user) {
+    logIn() // Call Pinia action to update login state
     navigateTo('/')  // Navigate on successful login
   }
   loading.value = false
@@ -58,6 +62,9 @@ const logout = async () => {
   console.log("logout function called")
   const { error } = await client.auth.signOut()
   console.log(user.value, error.value)
+  if (!error) {
+    logOut() // Call Pinia action to update logout state
+  }
 }
 
 onMounted(() => {
