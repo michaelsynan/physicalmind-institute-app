@@ -2,7 +2,6 @@ export default defineNuxtConfig({
   head: {
     title: "PhysicalMind Institute",
   },
-  serverMiddleware: ["~/middleware/auth.ts"],
   colorMode: {
     preference: "light",
   },

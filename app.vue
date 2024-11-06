@@ -64,10 +64,13 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth.js'
+const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
+
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 const client = useSupabaseClient()
-
+const user = useSupabaseUser()
 
 const isDarkMode = ref(false);
 const route = useRoute();
@@ -77,13 +80,12 @@ const logout = async () => {
   const { error } = await client.auth.signOut();
   if (!error) {
     closeMenu();
+    logOut() // Call Pinia action to update logout state
     navigateTo('/login');  // Redirect to login page
   } else {
     console.error('Logout Failed:', error);
   }
 }
-
-
 
 onMounted(() => {
   // Check if the 'dark' class is present on the body when the component mounts

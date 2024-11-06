@@ -1,21 +1,19 @@
 <script setup>
 import { useAuthStore } from '~/stores/auth.js'
-const supabase = useSupabaseClient()
 
+const client = useSupabaseClient()
+const user = useSupabaseUser()
 const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
-
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
 const isSignUp = ref(false)
-const client = useSupabaseClient()
-const user = useSupabaseUser()
 const errorMessage = ref('')
 
 const signUp = async () => {
   loading.value = true
   console.log("signUp function called")
-  errorMessage.value = ''  // Clear previous errors
+  errorMessage.value = ''
   const { data, error } = await client.auth.signUp(
     {
       email: email.value,
@@ -25,10 +23,10 @@ const signUp = async () => {
   console.log(data.user, error)
   if (error) {
 
-    errorMessage.value = error.message  // Display other error messages as is
+    errorMessage.value = error.message
 
   } else if (data.user) {
-    navigateTo('/login')  // Navigate on successful login
+    navigateTo('/login')
   }
   loading.value = false
 }
@@ -41,7 +39,6 @@ const login = async () => {
   const { data, error } = await client.auth.signInWithPassword({
     email: email.value,
     password: password.value
-
   }
   )
   console.log(data.user, error)
@@ -53,7 +50,7 @@ const login = async () => {
     }
   } else if (data.user) {
     logIn() // Call Pinia action to update login state
-    navigateTo('/')  // Navigate on successful login
+    //  navigateTo('/')  // Redirect to home page temporarily removed
   }
   loading.value = false
 }
@@ -67,13 +64,13 @@ const logout = async () => {
   }
 }
 
-onMounted(() => {
-  watchEffect(() => {
-    if (user.value) {
-      navigateTo('/')
-    }
-  })
+// onMounted(() => {
+watchEffect(() => {
+  if (user.value) {
+    navigateTo('/')
+  }
 })
+// })
 
 </script>
 

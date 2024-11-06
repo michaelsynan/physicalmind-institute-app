@@ -1,0 +1,19 @@
+// import { onMounted } from "vue";
+
+// export default defineNuxtRouteMiddleware((to, from) => {
+//   const user = useSupabaseUser();
+
+//   onMounted(async () => {
+//     while (user.value === undefined) {
+//       // Pause a short time to wait for the user status to settle
+//       await new Promise((resolve) => setTimeout(resolve, 100));
+//     }
+
+//     console.log("Middleware working! User logged in:", !!user.value);
+
+//     if (!user.value && to.path !== "/login") {
+//       console.log("Navigating to login because user is not logged in.");
+//       return navigateTo("/login");
+//     }
+//   });
+// });
