@@ -1,6 +1,18 @@
 export default defineNuxtConfig({
   head: {
     title: "PhysicalMind Institute",
+    link: [
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/logo.png", // path to your logo image in the public folder
+      },
+      {
+        rel: "apple-touch-icon",
+        type: "image/png",
+        href: "/logo.png", // for iOS and other devices
+      },
+    ],
   },
   colorMode: {
     preference: "light",
