@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/ui",
     "@nuxtjs/supabase",
-    "@vueuse/nuxt",
+    // "@vueuse/nuxt",
     "@pinia/nuxt",
   ],
   css: ["/theme/variables.css", "/assets/css/main.css"],
