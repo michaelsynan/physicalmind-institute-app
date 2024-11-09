@@ -50,7 +50,7 @@ const login = async () => {
     }
   } else if (data.user) {
     logIn() // Call Pinia action to update login state
-    //  navigateTo('/')  // Redirect to home page temporarily removed
+    navigateTo('/')  // Redirect to home page temporarily removed
   }
   loading.value = false
 }
@@ -64,13 +64,13 @@ const logout = async () => {
   }
 }
 
-// onMounted(() => {
-watchEffect(() => {
+onMounted(() => {
+
   if (user.value) {
     navigateTo('/')
   }
+
 })
-// })
 
 </script>
 

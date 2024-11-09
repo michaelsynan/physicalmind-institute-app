@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "light",
   },
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.BASE_URL || "http://localhost:3000",
+    },
+  },
 
   devtools: {
     enabled: true,
@@ -24,9 +29,9 @@ export default defineNuxtConfig({
   redirectOptions: {
     login: "/login",
     callback: "/confirm",
-    include: undefined,
-    exclude: [],
-    cookieRedirect: false,
+    // include: undefined,
+    // exclude: [],
+    // cookieRedirect: false,
   },
 
   ionic: {
