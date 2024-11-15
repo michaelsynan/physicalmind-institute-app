@@ -49,8 +49,8 @@ const login = async () => {
       errorMessage.value = error.message  // Display other error messages as is
     }
   } else if (data.user) {
-    logIn() // Call Pinia action to update login state
-    navigateTo('/')  // Redirect to home page temporarily removed
+    //   logIn() // Call Pinia action to update login state
+    await navigateTo('/')
   }
   loading.value = false
 }
@@ -60,7 +60,7 @@ const logout = async () => {
   const { error } = await client.auth.signOut()
   console.log(user.value, error.value)
   if (!error) {
-    logOut() // Call Pinia action to update logout state
+    //  logOut() // Call Pinia action to update logout state
   }
 }
 
@@ -71,6 +71,12 @@ onMounted(() => {
   }
 
 })
+
+// watchEffect(() => {
+//   if (user.value) {
+//     navigateTo('/')
+//   }
+// })
 
 </script>
 
@@ -85,13 +91,22 @@ onMounted(() => {
 
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
+    <ion-content class="ion-padding ">
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-card class="max-w-lg mx-auto !border-2 !border-stone-950 bg-stone-100 p-4">
               <ion-card-header class="text-center flex flex-col justify-between">
-                <ion-card-title class="flex flex-col justify-center">PhysicalMind Institute</ion-card-title>
+                <ion-card-title class="flex flex-col justify-center">
+                  <div class="flex justify-center items-center mb-4 mt-2 mx-4">
+                    <div v-if="isDarkMode" to="/">
+                      <img src="/pmi_logo_white.png" class="max-w-xs w-full" />
+                    </div>
+                    <div v-else to=" /">
+                      <img src="/physicalmind-logo-french-blue-transparent.png" class="max-w-xs w-full" />
+                    </div>
+                  </div>
+                </ion-card-title>
                 <ion-card-subtitle v-if="user" class="w-full justify-end">
                   <ion-button @click="logout" size="small" fill="clear">Logout</ion-button>
 
