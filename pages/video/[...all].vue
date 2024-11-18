@@ -1,30 +1,23 @@
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
-// import { videoData } from '/data/videoData.js';
-// import { instructorData } from '/data/instructorData.js';
 import { useScreenOrientation } from '/composables/useScreenOrientation';
 
 const route = useRoute();
+const supabase = useSupabaseClient()
+const { lockToLandscape, unlockOrientation } = useScreenOrientation();
+
 const isLoading = ref(true);
 const isVideoPlaying = ref(false);
 const playInitiated = ref(false);
 const videoElement = ref(null);
-const supabase = useSupabaseClient()
-const { lockToLandscape, unlockOrientation } = useScreenOrientation();
+const video = ref(null);
+const videoUrl = ref(null);
 
 const videoId = computed(() => {
   const pathArray = route.params.all || [];
   return Number(pathArray[pathArray.length - 1]);
 });
-console.log('Video ID new updated:', videoId.value);
-
-/* Get rid of this and use supabase instead */
-// const video = computed(() => videoData.find(v => v.videoid === videoId.value));
-
-/* converting to supabase instead of local data */
-
-const video = ref(null);
 
 const fetchVideoData = async () => {
   const { data, error } = await supabase
@@ -32,7 +25,6 @@ const fetchVideoData = async () => {
     .select('videoid, name, description, instructor, tags, s3url, placeholder')
     .eq('videoid', videoId.value)
     .single();
-
   if (error) {
     console.error('Error fetching video data:', error);
   } else {
@@ -41,20 +33,13 @@ const fetchVideoData = async () => {
 };
 
 fetchVideoData();
-const videoUrl = ref('');
 
 const loadVideoData = async () => {
   await fetchVideoData();
-  console.log('Fetched video from supabase:', video.value);
-  console.log('Video URL:', video.value?.s3url);
   videoUrl.value = video.value?.s3url || '';
-  console.log('Video URL set to:', videoUrl.value);
 };
 
 loadVideoData();
-
-/**********************************************/
-
 
 const onVideoLoaded = () => {
   isLoading.value = false;
@@ -74,6 +59,7 @@ const onVideoPaused = () => {
 const playVideo = () => {
   playInitiated.value = true;
   videoElement.value?.play();
+  console.log('Play Video pressed');
 };
 
 const handleFullScreenChange = () => {
@@ -108,7 +94,7 @@ onBeforeUnmount(() => {
       <div id="container" class="max-w-5xl mx-auto">
         <ion-card type="medium">
           <div class="video-responsive bg-stone-300 border-2 rounded-lg">
-            <!-- Custom Play Button Overlay -->
+            <!-- Custom Play Button -->
             <div v-if="!playInitiated" class="custom-play-button" @click="playVideo">
               <img v-if="video?.placeholder" :src="video.placeholder" alt="Placeholder" class="placeholder-img" />
               <ion-icon :md="ioniconsPlayCircleOutline" :ios="ioniconsPlayCircleOutline" name="play-circle"
@@ -121,7 +107,7 @@ onBeforeUnmount(() => {
               Your browser does not support the video tag.
             </video>
           </div>
-          <!-- Display video details if available -->
+          <!-- Video Details -->
           <ion-card-header v-if="video" class="px-0 mx-0">
             <div class="flex flex-col items-start w-full gap-1">
               <div class="flex flex-wrap">
@@ -132,7 +118,6 @@ onBeforeUnmount(() => {
               </div>
               <ion-card-title>{{ video.name }}</ion-card-title>
               <ion-card-subtitle class="text-left">{{ video.instructor }}</ion-card-subtitle>
-
             </div>
           </ion-card-header>
           <ion-card-content class="text-left text-base mx-0 px-0 border-t" v-if="video">
