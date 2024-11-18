@@ -1,3 +1,89 @@
+<script setup>
+import { ref, watch, onMounted } from 'vue';
+
+const supabase = useSupabaseClient()
+const loading = ref(true);
+const allVideos = ref([]);
+const visibleVideos = ref([]);
+const infiniteScrollEnabled = ref(true);
+const filteredVideos = ref([]);
+
+const props = defineProps({
+  tag: String,
+});
+
+const fetchVideos = async () => {
+  const { data, error } = await supabase
+    .from('videos')
+    .select(`name, videoid, placeholder, description, tags`)
+
+  if (error) {
+    console.error('Error fetching videos:', error)
+  } else {
+    console.log('Fetched videos:', data)
+    allVideos.value = data
+    console.log('All videos from database:', allVideos.value)
+    addVideos(6);
+  }
+  loading.value = false;
+}
+
+fetchVideos()
+
+const addVideos = (count = 1) => {
+  const currentCount = visibleVideos.value.length;
+
+  // Check if the tag is not "all" to decide which video list to use
+  if (props.tag && props.tag !== 'all') {
+    console.log("inside add filtered videos");
+    const videosToAdd = filteredVideos.value.slice(currentCount, currentCount + count);
+    visibleVideos.value.push(...videosToAdd);
+    // Disable infinite scroll if all videos are displayed
+    if (visibleVideos.value.length === filteredVideos.value.length) {
+      infiniteScrollEnabled.value = false;
+    }
+  } else {
+    console.log("inside show all videos");
+    const videosToAdd = allVideos.value.slice(currentCount, currentCount + count);
+    visibleVideos.value.push(...videosToAdd);
+    // Disable infinite scroll if all videos are displayed
+    if (visibleVideos.value.length === allVideos.value.length) {
+      infiniteScrollEnabled.value = false;
+    }
+  }
+};
+
+watch(() => props.tag, (newVal, oldVal) => {
+  if (newVal && newVal !== 'all') {
+    infiniteScrollEnabled.value = true;
+    visibleVideos.value = [];
+    const filtered = allVideos.value.filter(video => video.tags.includes(newVal));
+    filteredVideos.value = filtered;
+    console.log("THESE ARE THE FILTERED VIDEOS:", filteredVideos.value);
+    console.log(`Tag changed from ${oldVal} to ${newVal}`);
+    addVideos(6);
+  } else {
+    infiniteScrollEnabled.value = true;
+    visibleVideos.value = [];
+    addVideos(6);
+    console.log(`Tag changed from ${oldVal} to ${newVal}: Showing all videos.`);
+  }
+}, { immediate: true });
+
+onMounted(() => {
+  infiniteScrollEnabled.value = true;
+  addVideos(6);
+});
+
+const ionInfinite = async (event) => {
+  addVideos();
+  console.log("infinite scroll enabled and videos added", infiniteScrollEnabled.value)
+  setTimeout(() => {
+    event.target.complete();
+  }, 200);
+};
+</script>
+
 <template>
   <div class="video-container">
     <ion-grid>
@@ -36,97 +122,6 @@
     </ion-grid>
   </div>
 </template>
-
-<script setup>
-import { ref, watch, onMounted } from 'vue';
-
-const supabase = useSupabaseClient()
-
-const loading = ref(true); // Add loading state
-
-const fetchVideos = async () => {
-  const { data, error } = await supabase
-    .from('videos')
-    .select(`name, videoid, placeholder, description, tags`)
-
-  if (error) {
-    console.error('Error fetching videos:', error)
-  } else {
-    console.log('Fetched videos:', data)
-    allVideos.value = data
-    console.log('All videos from database:', allVideos.value)
-    addVideos(6); // Ensure videos are added initially
-  }
-  loading.value = false; // Set loading to false after fetching
-}
-
-fetchVideos()
-
-const props = defineProps({
-  tag: String,
-});
-
-const allVideos = ref([]);
-const visibleVideos = ref([]);
-const infiniteScrollEnabled = ref(true);
-const filteredVideos = ref([]);
-
-const addVideos = (count = 1) => {
-  const currentCount = visibleVideos.value.length;
-
-  // Check if the tag is not "all" to decide which video list to use
-  if (props.tag && props.tag !== 'all') {
-    console.log("inside add filtered videos");
-    const videosToAdd = filteredVideos.value.slice(currentCount, currentCount + count);
-    visibleVideos.value.push(...videosToAdd);
-    // Disable infinite scroll if all videos are displayed
-    if (visibleVideos.value.length === filteredVideos.value.length) {
-      infiniteScrollEnabled.value = false;
-    }
-  } else {
-    console.log("inside show all videos");
-    const videosToAdd = allVideos.value.slice(currentCount, currentCount + count);
-    visibleVideos.value.push(...videosToAdd);
-    // Disable infinite scroll if all videos are displayed
-    if (visibleVideos.value.length === allVideos.value.length) {
-      infiniteScrollEnabled.value = false;
-    }
-  }
-};
-
-watch(() => props.tag, (newVal, oldVal) => {
-  // visibleVideos.value = [];
-  // filteredVideos.value = [];
-  // Log on tag change and filter videos based on the new tag value
-  if (newVal && newVal !== 'all') {
-    infiniteScrollEnabled.value = true;
-    visibleVideos.value = [];
-    const filtered = allVideos.value.filter(video => video.tags.includes(newVal));
-    filteredVideos.value = filtered;
-    console.log("THESE ARE THE FILTERED VIDEOS:", filteredVideos.value);
-    console.log(`Tag changed from ${oldVal} to ${newVal}`);
-    addVideos(6);
-  } else {
-    infiniteScrollEnabled.value = true;
-    visibleVideos.value = [];
-    addVideos(6);
-    console.log(`Tag changed from ${oldVal} to ${newVal}: Showing all videos.`);
-  }
-}, { immediate: true });
-
-onMounted(() => {
-  infiniteScrollEnabled.value = true; // Ensure infinite scroll is enabled on mount
-  addVideos(6); // Load initial set of videos
-});
-
-const ionInfinite = async (event) => {
-  addVideos();
-  console.log("infinite scroll enabled and videos added", infiniteScrollEnabled.value)
-  setTimeout(() => {
-    event.target.complete();
-  }, 200);
-};
-</script>
 
 <style scoped>
 .video-container {

@@ -1,3 +1,99 @@
+<script setup>
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+import { useRoute } from 'vue-router';
+// import { videoData } from '/data/videoData.js';
+// import { instructorData } from '/data/instructorData.js';
+import { useScreenOrientation } from '/composables/useScreenOrientation';
+
+const route = useRoute();
+const isLoading = ref(true);
+const isVideoPlaying = ref(false);
+const playInitiated = ref(false);
+const videoElement = ref(null);
+const supabase = useSupabaseClient()
+const { lockToLandscape, unlockOrientation } = useScreenOrientation();
+
+const videoId = computed(() => {
+  const pathArray = route.params.all || [];
+  return Number(pathArray[pathArray.length - 1]);
+});
+console.log('Video ID new updated:', videoId.value);
+
+/* Get rid of this and use supabase instead */
+// const video = computed(() => videoData.find(v => v.videoid === videoId.value));
+
+/* converting to supabase instead of local data */
+
+const video = ref(null);
+
+const fetchVideoData = async () => {
+  const { data, error } = await supabase
+    .from('videos')
+    .select('videoid, name, description, instructor, tags, s3url, placeholder')
+    .eq('videoid', videoId.value)
+    .single();
+
+  if (error) {
+    console.error('Error fetching video data:', error);
+  } else {
+    return video.value = data;
+  }
+};
+
+fetchVideoData();
+const videoUrl = ref('');
+
+const loadVideoData = async () => {
+  await fetchVideoData();
+  console.log('Fetched video from supabase:', video.value);
+  console.log('Video URL:', video.value?.s3url);
+  videoUrl.value = video.value?.s3url || '';
+  console.log('Video URL set to:', videoUrl.value);
+};
+
+loadVideoData();
+
+/**********************************************/
+
+
+const onVideoLoaded = () => {
+  isLoading.value = false;
+  console.log('Video Loaded');
+};
+
+const onVideoPlaying = () => {
+  isVideoPlaying.value = true;
+  console.log('Video Playing');
+};
+
+const onVideoPaused = () => {
+  isVideoPlaying.value = false;
+  console.log('Video Paused');
+};
+
+const playVideo = () => {
+  playInitiated.value = true;
+  videoElement.value?.play();
+};
+
+const handleFullScreenChange = () => {
+  if (document.fullscreenElement) {
+    lockToLandscape();
+  } else {
+    unlockOrientation();
+  }
+};
+
+onMounted(() => {
+  videoElement.value = document.querySelector('.video-element');
+  document.addEventListener('fullscreenchange', handleFullScreenChange);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('fullscreenchange', handleFullScreenChange);
+});
+</script>
+
 <template>
   <ion-page>
     <ion-header class="ion-no-border border-b bg-white">
@@ -47,67 +143,6 @@
     </ion-content>
   </ion-page>
 </template>
-
-<script setup>
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
-import { useRoute } from 'vue-router';
-import { videoData } from '/data/videoData.js';
-import { instructorData } from '/data/instructorData.js';
-import { useScreenOrientation } from '/composables/useScreenOrientation';
-
-const route = useRoute();
-const isLoading = ref(true);
-const isVideoPlaying = ref(false);
-const playInitiated = ref(false);
-const videoElement = ref(null);
-const { lockToLandscape, unlockOrientation } = useScreenOrientation();
-
-const videoId = computed(() => {
-  const pathArray = route.params.all || [];
-  return Number(pathArray[pathArray.length - 1]);
-});
-
-const video = computed(() => videoData.find(v => v.videoid === videoId.value));
-console.log('Video:', video.value);
-const videoUrl = computed(() => video?.value?.s3Url || '');
-
-const onVideoLoaded = () => {
-  isLoading.value = false;
-  console.log('Video Loaded');
-};
-
-const onVideoPlaying = () => {
-  isVideoPlaying.value = true;
-  console.log('Video Playing');
-};
-
-const onVideoPaused = () => {
-  isVideoPlaying.value = false;
-  console.log('Video Paused');
-};
-
-const playVideo = () => {
-  playInitiated.value = true;
-  videoElement.value?.play();
-};
-
-const handleFullScreenChange = () => {
-  if (document.fullscreenElement) {
-    lockToLandscape();
-  } else {
-    unlockOrientation();
-  }
-};
-
-onMounted(() => {
-  videoElement.value = document.querySelector('.video-element');
-  document.addEventListener('fullscreenchange', handleFullScreenChange);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener('fullscreenchange', handleFullScreenChange);
-});
-</script>
 
 <style scoped>
 .video-responsive {
