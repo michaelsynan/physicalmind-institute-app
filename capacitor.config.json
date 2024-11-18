@@ -1,4 +1,4 @@
-run{
+{
   "appId": "com.physicalmind.institute",
   "appName": "PhysicalMind Institute",
   "webDir": "./dist",
