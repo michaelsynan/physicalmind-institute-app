@@ -2,7 +2,7 @@
 import { ref, watch, onMounted } from 'vue';
 
 const supabase = useSupabaseClient()
-const loading = ref(true);
+const loading = ref('');
 const allVideos = ref([]);
 const visibleVideos = ref([]);
 const infiniteScrollEnabled = ref(true);
@@ -13,6 +13,7 @@ const props = defineProps({
 });
 
 const fetchVideos = async () => {
+  loading.value = true;
   const { data, error } = await supabase
     .from('videos')
     .select(`name, videoid, placeholder, description, tags`)
@@ -87,11 +88,14 @@ const ionInfinite = async (event) => {
 <template>
   <div class="video-container">
     <ion-grid>
-      <div v-if="loading" class="loading-screen">
-        <p>Loading...</p>
+      <div v-if="loading" class="loading-screen flex justify-center items-center inset-0 fixed h-full w-full">
+        <ion-spinner name="lines"></ion-spinner>
       </div>
+
       <div v-else>
         <div v-if="visibleVideos.length > 0" class="">
+
+
           <transition-group name="fade" tag="ion-row">
             <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
               <ion-card>

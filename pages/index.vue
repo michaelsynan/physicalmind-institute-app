@@ -15,10 +15,9 @@
       </ion-header>
 
       <!-- Show loading while data is being fetched -->
-      <div v-if="loading" class="my-4 flex items-center justify-center">
-        <p>Loading...</p>
+      <div v-if="loading" class="loading-screen flex justify-center items-center inset-0 fixed h-full w-full">
+        <ion-spinner name="lines"></ion-spinner>
       </div>
-
       <!-- Show LimitedAccess if access is denied -->
       <LimitedAccess v-else-if="!access" class="my-4" />
 
