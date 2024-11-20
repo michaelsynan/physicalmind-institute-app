@@ -20,7 +20,5 @@
     </ion-content>
     <!-- add something cool in a neo brutalist style -->
 
-
-
   </ion-page>
 </template>

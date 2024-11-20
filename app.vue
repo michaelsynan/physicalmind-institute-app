@@ -1,5 +1,52 @@
-<template>
+<script setup lang="ts">
+// import { ref, onMounted } from 'vue';
+import { useAuthStore } from '~/stores/auth.js'
 
+const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
+const client = useSupabaseClient()
+const user = useSupabaseUser()
+const isDarkMode = ref();
+const route = useRoute();
+
+const logout = async () => {
+  console.log("Logout function called");
+  const { error } = await client.auth.signOut();
+  if (!error) {
+    closeMenu();
+    logOut() // Call Pinia action to update logout state
+    navigateTo('/login');  // Redirect to login page
+  } else {
+    console.error('Logout Failed:', error);
+  }
+}
+
+onMounted(() => {
+  // Check if the 'dark' class is present on the body when the component mounts
+  isDarkMode.value = document.body.classList.contains('dark');
+
+});
+
+const toggleChange = (event) => {
+  // Toggle the dark mode class on the body element
+  const shouldAdd = event.detail.checked;
+  document.body.classList.toggle('dark', shouldAdd);
+  isDarkMode.value = shouldAdd; // Update the reactive state
+};
+
+const iconStyle = (path) => ({
+  color: route.path === path ? 'var(--ion-color-primary)' : 'var(--ion-text-color)',
+});
+
+const closeMenu = async () => {
+  try {
+    await menuController.close();
+  } catch (error) {
+    console.error('Failed to close the menu:', error);
+  }
+};
+</script>
+
+<template>
   <ion-menu content-id="main-content">
     <ion-header class="ion-no-border">
       <ion-toolbar>
@@ -28,6 +75,8 @@
 
         </ion-list>
         <div>
+          <div>COLOR MODE: {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}</div>
+
           <ion-list lines="full" class="border-t">
             <ion-item>
               <ion-icon v-if="isDarkMode" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
@@ -63,55 +112,6 @@
     </ion-footer>
   </ion-app>
 </template>
-
-<script setup lang="ts">
-import { useAuthStore } from '~/stores/auth.js'
-const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
-
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-
-const isDarkMode = ref(false);
-const route = useRoute();
-
-const logout = async () => {
-  console.log("Logout function called");
-  const { error } = await client.auth.signOut();
-  if (!error) {
-    closeMenu();
-    logOut() // Call Pinia action to update logout state
-    navigateTo('/login');  // Redirect to login page
-  } else {
-    console.error('Logout Failed:', error);
-  }
-}
-
-onMounted(() => {
-  // Check if the 'dark' class is present on the body when the component mounts
-  isDarkMode.value = document.body.classList.contains('dark');
-});
-
-const toggleChange = (event) => {
-  // Toggle the dark mode class on the body element
-  const shouldAdd = event.detail.checked;
-  document.body.classList.toggle('dark', shouldAdd);
-  isDarkMode.value = shouldAdd; // Update the reactive state
-};
-
-const iconStyle = (path) => ({
-  color: route.path === path ? 'var(--ion-color-primary)' : 'var(--ion-text-color)',
-});
-
-const closeMenu = async () => {
-  try {
-    await menuController.close();
-  } catch (error) {
-    console.error('Failed to close the menu:', error);
-  }
-};
-</script>
 
 <style>
 ion-item::part(native) {

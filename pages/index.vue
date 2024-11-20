@@ -1,3 +1,65 @@
+<script setup lang="ts">
+// import { ref, watch } from 'vue';
+// import { useRoute } from 'vue-router';
+// import { instructorData } from '/data/instructorData.js';
+// import { useVideoData } from '~/composables/useVideoData';
+
+// const videos = ref([]); // To store the fetched video data
+// const { fetchVideoData } = useVideoData(); // Use your composable
+const user = useSupabaseUser()
+const client = useSupabaseClient()
+const route = useRoute();
+
+const access = ref('');
+const selectedBadge = ref('all');
+const loading = ref(); // Initialize loading as true
+
+onMounted(async () => {
+  loading.value = true;
+
+  try {
+    //   videos.value = await fetchVideoData(); 
+    //   console.log('Fetched videos:', videos.value);
+    await fetchUserProfile(); // Fetch user profile
+  } catch (error) {
+    console.error('Error during data fetching:', error);
+  } finally {
+    loading.value = false;
+  }
+});
+
+async function fetchUserProfile() {
+  if (user.value) {
+    const { data, error } = await client
+      .from('profiles')
+      .select('access')
+      .eq('id', user.value.id)
+      .single();  // Assumes there is only one profile per user
+
+    if (error) {
+      console.error('Error fetching profile:', error);
+      return;
+    }
+
+    access.value = data.access;
+  }
+}
+
+onMounted(fetchUserProfile);
+
+watch(() => route.query, () => {
+  selectedBadge.value = 'all';
+});
+
+const updateSelectedBadge = (badgeLabel: string) => {
+  selectedBadge.value = badgeLabel;
+};
+
+const badgeClass = (badgeLabel: string) => {
+  return selectedBadge.value === badgeLabel ? 'badge-selected' : 'badge-default';
+};
+</script>
+
 <template>
   <ion-page>
     <ion-header class="ion-no-border border-b bg-white">
@@ -64,68 +126,6 @@
     </ion-content>
   </ion-page>
 </template>
-
-<script setup lang="ts">
-// import { ref, watch } from 'vue';
-// import { useRoute } from 'vue-router';
-// import { instructorData } from '/data/instructorData.js';
-// import { useVideoData } from '~/composables/useVideoData';
-
-// const videos = ref([]); // To store the fetched video data
-// const { fetchVideoData } = useVideoData(); // Use your composable
-const user = useSupabaseUser()
-const client = useSupabaseClient()
-const route = useRoute();
-
-const access = ref('');
-const selectedBadge = ref('all');
-const loading = ref(); // Initialize loading as true
-
-onMounted(async () => {
-  loading.value = true; // Set loading to true before fetching data
-
-  try {
-    //   videos.value = await fetchVideoData(); 
-    //   console.log('Fetched videos:', videos.value);
-    await fetchUserProfile(); // Fetch user profile
-  } catch (error) {
-    console.error('Error during data fetching:', error);
-  } finally {
-    loading.value = false; // Set loading to false after fetching is done
-  }
-});
-
-async function fetchUserProfile() {
-  if (user.value) {
-    const { data, error } = await client
-      .from('profiles')
-      .select('access')
-      .eq('id', user.value.id)
-      .single();  // Assumes there is only one profile per user
-
-    if (error) {
-      console.error('Error fetching profile:', error);
-      return;
-    }
-
-    access.value = data.access;
-  }
-}
-
-onMounted(fetchUserProfile);
-
-watch(() => route.query, () => {
-  selectedBadge.value = 'all';
-});
-
-const updateSelectedBadge = (badgeLabel: string) => {
-  selectedBadge.value = badgeLabel;
-};
-
-const badgeClass = (badgeLabel: string) => {
-  return selectedBadge.value === badgeLabel ? 'badge-selected' : 'badge-default';
-};
-</script>
 
 <style>
 ion-item {
