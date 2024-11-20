@@ -79,15 +79,6 @@ const login = async () => {
   loading.value = false
 }
 
-const logout = async () => {
-  console.log("logout function called")
-  const { error } = await client.auth.signOut()
-  console.log(user.value, error.value)
-  if (!error) {
-    //  logOut() // Call Pinia action to update logout state
-  }
-}
-
 onMounted(() => {
 
   if (user.value) {
@@ -131,14 +122,8 @@ onMounted(() => {
                     </div>
                   </div>
                 </ion-card-title>
-                <ion-card-subtitle v-if="user" class="w-full justify-end">
-                  <ion-button @click="logout" size="small" fill="clear">Logout</ion-button>
-
-                </ion-card-subtitle>
               </ion-card-header>
               <ion-card-content>
-                <div>COLOR MODE: {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}
-                </div>
                 <form @submit.prevent="() => (isSignUp ? signUp() : login())" class="w-full max-w-sm mx-auto">
                   <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>

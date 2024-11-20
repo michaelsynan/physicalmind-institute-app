@@ -75,8 +75,6 @@ const closeMenu = async () => {
 
         </ion-list>
         <div>
-          <div>COLOR MODE: {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}</div>
-
           <ion-list lines="full" class="border-t">
             <ion-item>
               <ion-icon v-if="isDarkMode" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
