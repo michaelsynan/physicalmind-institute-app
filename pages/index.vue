@@ -66,14 +66,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+// import { ref, watch } from 'vue';
+// import { useRoute } from 'vue-router';
 // import { instructorData } from '/data/instructorData.js';
-import { useVideoData } from '~/composables/useVideoData';
+// import { useVideoData } from '~/composables/useVideoData';
 
 const loading = ref(true); // Initialize loading as true
-const videos = ref([]); // To store the fetched video data
-const { fetchVideoData } = useVideoData(); // Use your composable
+// const videos = ref([]); // To store the fetched video data
+// const { fetchVideoData } = useVideoData(); // Use your composable
 const user = useSupabaseUser()
 const client = useSupabaseClient()
 const route = useRoute();
@@ -83,8 +83,8 @@ onMounted(async () => {
   loading.value = true; // Set loading to true before fetching data
 
   try {
-    videos.value = await fetchVideoData(); // Fetch video data
-    console.log('Fetched videos:', videos.value);
+    //   videos.value = await fetchVideoData(); 
+    //   console.log('Fetched videos:', videos.value);
     await fetchUserProfile(); // Fetch user profile
   } catch (error) {
     console.error('Error during data fetching:', error);
