@@ -9,21 +9,31 @@ const email = ref('')
 const password = ref('')
 const isSignUp = ref(false)
 const errorMessage = ref('')
-const isDarkMode = ref();
+const isDarkMode = ref(false); // It's good practice to initialize it with a default value.
+
 const checkDarkMode = () => {
   isDarkMode.value = document.body.classList.contains('dark');
 };
 
-
 onMounted(() => {
-  // Initial check
   checkDarkMode();
 
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === "attributes" && mutation.attributeName === "class") {
+        checkDarkMode();
+      }
+    });
+  });
 
+  observer.observe(document.body, {
+    attributes: true // Only observe attribute changes
+  });
 
+  onBeforeUnmount(() => {
+    observer.disconnect(); // Clean up the observer when the component unmounts
+  });
 });
-
-
 
 const signUp = async () => {
   loading.value = true
