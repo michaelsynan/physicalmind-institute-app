@@ -71,13 +71,15 @@
 // import { instructorData } from '/data/instructorData.js';
 // import { useVideoData } from '~/composables/useVideoData';
 
-const loading = ref(true); // Initialize loading as true
 // const videos = ref([]); // To store the fetched video data
 // const { fetchVideoData } = useVideoData(); // Use your composable
 const user = useSupabaseUser()
 const client = useSupabaseClient()
 const route = useRoute();
+
 const access = ref('');
+const selectedBadge = ref('all');
+const loading = ref(); // Initialize loading as true
 
 onMounted(async () => {
   loading.value = true; // Set loading to true before fetching data
@@ -112,8 +114,6 @@ async function fetchUserProfile() {
 
 onMounted(fetchUserProfile);
 
-const selectedBadge = ref('all');
-
 watch(() => route.query, () => {
   selectedBadge.value = 'all';
 });
@@ -128,6 +128,12 @@ const badgeClass = (badgeLabel: string) => {
 </script>
 
 <style>
+ion-item {
+  --background: transparent;
+  --ion-item-background: transparent;
+  --border-color: transparent;
+}
+
 ion-backdrop {
   background: var(--ion-color-dark);
   opacity: 0.3;
@@ -201,11 +207,6 @@ ion-select {
   --placeholder-color: #888888;
 }
 
-ion-item {
-  --background: transparent;
-  --ion-item-background: transparent;
-  --border-color: transparent;
-}
 
 ion-item:hover,
 ion-item:active,

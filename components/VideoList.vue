@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+// import { ref, watch, onMounted } from 'vue';
 
 const supabase = useSupabaseClient()
 const loading = ref('');
@@ -91,11 +91,8 @@ const ionInfinite = async (event) => {
       <div v-if="loading" class="loading-screen flex justify-center items-center inset-0 fixed h-full w-full">
         <ion-spinner name="lines"></ion-spinner>
       </div>
-
       <div v-else>
         <div v-if="visibleVideos.length > 0" class="">
-
-
           <transition-group name="fade" tag="ion-row">
             <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
               <ion-card>
