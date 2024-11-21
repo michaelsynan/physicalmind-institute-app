@@ -99,10 +99,6 @@ onMounted(() => {
   <ion-page>
     <ion-header class="ion-no-border border-b bg-white">
       <ion-toolbar>
-        <ion-buttons slot="start" class="absolute">
-          <ion-back-button defaultHref="/"></ion-back-button>
-        </ion-buttons>
-        <ion-title class="justify-center text-center"></ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding ">
@@ -128,15 +124,7 @@ onMounted(() => {
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !text-red-500"
-                      :ui="{
-                        color: {
-                          white: {
-                            outline: '!text-green-500 dark:!text-red-500'
-
-                          }
-                        }
-                      }" />
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !text-red-500" />
                   </div>
                   <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
@@ -161,10 +149,8 @@ onMounted(() => {
                   </div>
                   <div v-if="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
                 </form>
-
               </ion-card-content>
             </ion-card>
-
           </ion-col>
         </ion-row>
       </ion-grid>

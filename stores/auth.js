@@ -1,6 +1,8 @@
 // stores/auth.js
 import { defineStore } from "pinia";
 
+console.log("auth store loaded");
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     isLoggedIn: false, // Boolean to track if user is logged in
