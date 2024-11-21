@@ -14,9 +14,9 @@ export default defineNuxtConfig({
       },
     ],
   },
-  // colorMode: {
-  //   preference: "light",
-  // },
+  colorMode: {
+    preference: "light",
+  },
   runtimeConfig: {
     public: {
       baseUrl: process.env.BASE_URL || "http://localhost:3000",

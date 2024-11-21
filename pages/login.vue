@@ -9,7 +9,7 @@ const email = ref('')
 const password = ref('')
 const isSignUp = ref(false)
 const errorMessage = ref('')
-const isDarkMode = ref(false); // It's good practice to initialize it with a default value.
+const isDarkMode = ref(false);
 
 const checkDarkMode = () => {
   isDarkMode.value = document.body.classList.contains('dark');
@@ -27,11 +27,11 @@ onMounted(() => {
   });
 
   observer.observe(document.body, {
-    attributes: true // Only observe attribute changes
+    attributes: true
   });
 
   onBeforeUnmount(() => {
-    observer.disconnect(); // Clean up the observer when the component unmounts
+    observer.disconnect();
   });
 });
 
@@ -59,7 +59,7 @@ const signUp = async () => {
 const login = async () => {
   loading.value = true
   console.log("login function called")
-  errorMessage.value = ''  // Clear previous errors
+  errorMessage.value = ''
   const { data, error } = await client.auth.signInWithPassword({
     email: email.value,
     password: password.value
@@ -70,7 +70,7 @@ const login = async () => {
     if (error.message === "Invalid login credentials") {
       errorMessage.value = "Your email or password is incorrect. Please try again."
     } else {
-      errorMessage.value = error.message  // Display other error messages as is
+      errorMessage.value = error.message
     }
   } else if (data.user) {
     //   logIn() // Call Pinia action to update login state
@@ -103,7 +103,6 @@ onMounted(() => {
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title class="justify-center text-center"></ion-title>
-
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding ">
@@ -127,12 +126,22 @@ onMounted(() => {
                 <form @submit.prevent="() => (isSignUp ? signUp() : login())" class="w-full max-w-sm mx-auto">
                   <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <UInput type="email" id="email" placeholder="Enter your email" v-model="email" required
-                      class=" placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
+                      required
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !text-red-500"
+                      :ui="{
+                        color: {
+                          white: {
+                            outline: '!text-green-500 dark:!text-red-500'
+
+                          }
+                        }
+                      }" />
                   </div>
                   <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <UInput type="password" id="password" placeholder="Enter your password" v-model="password" required
+                    <UInput color="primary" variant="outline" type="password" id="password"
+                      placeholder="Enter your password" v-model="password" required
                       class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                   </div>
                   <UButton v-if="!isSignUp" type="submit" :disabled="loading" color="primary"
@@ -160,7 +169,15 @@ onMounted(() => {
         </ion-row>
       </ion-grid>
     </ion-content>
-
-
   </ion-page>
 </template>
+
+<style scoped>
+input {
+  color: #333;
+}
+
+body.dark input {
+  color: white;
+}
+</style>
