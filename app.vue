@@ -1,39 +1,39 @@
 <script setup lang="ts">
-// import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '~/stores/auth.js'
+import { useRoute, useRouter } from 'vue-router';
+import { menuController } from '@ionic/vue';
 
-const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-const isDarkMode = ref();
+const { isLoggedIn, signOut } = useAuthStore();
+const client = useSupabaseClient();
+const user = useSupabaseUser();
+const isDarkMode = ref<boolean>(false);
 const route = useRoute();
+const router = useRouter();
 
 const logout = async () => {
   console.log("Logout function called");
-  const { error } = await client.auth.signOut();
+  const { error } = await signOut(); // Call Pinia action to handle logout
   if (!error) {
     closeMenu();
-    logOut() // Call Pinia action to update logout state
-    navigateTo('/login');  // Redirect to login page
+    router.push('/login'); // Redirect to login page
+    console.log("Logout successful");
   } else {
     console.error('Logout Failed:', error);
   }
 }
 
 onMounted(() => {
-  // Check if the 'dark' class is present on the body when the component mounts
   isDarkMode.value = document.body.classList.contains('dark');
-
 });
 
-const toggleChange = (event) => {
-  // Toggle the dark mode class on the body element
+const toggleChange = (event: CustomEvent) => {
   const shouldAdd = event.detail.checked;
   document.body.classList.toggle('dark', shouldAdd);
   isDarkMode.value = shouldAdd; // Update the reactive state
 };
 
-const iconStyle = (path) => ({
+const iconStyle = (path: string) => ({
   color: route.path === path ? 'var(--ion-color-primary)' : 'var(--ion-text-color)',
 });
 

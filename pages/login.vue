@@ -1,14 +1,14 @@
 <script setup>
-import { useAuthStore } from '~/stores/auth.js'
+import { ref, onMounted } from 'vue';
+import { useAuthStore } from '~/stores/auth.js';
 
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-const { isLoggedIn, logIn, logOut, checkUser } = useAuthStore()
-const loading = ref(false)
-const email = ref('')
-const password = ref('')
-const isSignUp = ref(false)
-const errorMessage = ref('')
+const { signIn, signOut } = useAuthStore();
+const user = useSupabaseUser(); // This still auto-imported via Nuxt's module
+const loading = ref(false);
+const email = ref('');
+const password = ref('');
+const isSignUp = ref(false);
+const errorMessage = ref('');
 const isDarkMode = ref(false);
 
 const checkDarkMode = () => {
@@ -33,66 +33,44 @@ onMounted(() => {
   onBeforeUnmount(() => {
     observer.disconnect();
   });
+
+  if (user.value) {
+    navigateTo('/');
+  }
 });
 
 const signUp = async () => {
-  loading.value = true
-  console.log("signUp function called")
-  errorMessage.value = ''
-  const { data, error } = await client.auth.signUp(
-    {
-      email: email.value,
-      password: password.value
-    }
-  )
-  console.log(data.user, error)
-  if (error) {
-
-    errorMessage.value = error.message
-
-  } else if (data.user) {
-    navigateTo('/login')
-  }
-  loading.value = false
-}
-
-const login = async () => {
-  loading.value = true
-  console.log("login function called")
-  errorMessage.value = ''
-  const { data, error } = await client.auth.signInWithPassword({
+  loading.value = true;
+  console.log("signUp function called from login.vue");
+  errorMessage.value = '';
+  const { error } = await useSupabaseClient().auth.signUp({
     email: email.value,
     password: password.value
+  });
+  if (error) {
+    errorMessage.value = error.message;
+  } else {
+    navigateTo('/login');
   }
-  )
-  console.log(data.user, error)
+  loading.value = false;
+};
+
+const login = async () => {
+  loading.value = true;
+  console.log("login function called from login.vue");
+  errorMessage.value = '';
+  const { error } = await signIn(email.value, password.value);
   if (error) {
     if (error.message === "Invalid login credentials") {
-      errorMessage.value = "Your email or password is incorrect. Please try again."
+      errorMessage.value = "Your email or password is incorrect. Please try again.";
     } else {
-      errorMessage.value = error.message
+      errorMessage.value = error.message;
     }
-  } else if (data.user) {
-    //   logIn() // Call Pinia action to update login state
-    await navigateTo('/')
+  } else {
+    navigateTo('/');
   }
-  loading.value = false
-}
-
-onMounted(() => {
-
-  if (user.value) {
-    navigateTo('/')
-  }
-
-})
-
-// watchEffect(() => {
-//   if (user.value) {
-//     navigateTo('/')
-//   }
-// })
-
+  loading.value = false;
+};
 </script>
 
 <template>
@@ -119,12 +97,12 @@ onMounted(() => {
                 </ion-card-title>
               </ion-card-header>
               <ion-card-content>
-                <form @submit.prevent="() => (isSignUp ? signUp() : login())" class="w-full max-w-sm mx-auto">
+                <form @submit.prevent="isSignUp ? signUp() : login()" class="w-full max-w-sm mx-auto">
                   <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !text-red-500" />
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                   </div>
                   <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
@@ -134,12 +112,12 @@ onMounted(() => {
                   </div>
                   <UButton v-if="!isSignUp" type="submit" :disabled="loading" color="primary"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300">
-                    {{ loading ? 'Loading...' : 'login' }}
+                    {{ loading ? 'Loading...' : 'Login' }}
                   </UButton>
                   <UButton v-else type="submit" :disabled="loading"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300"
                     color="primary">
-                    {{ loading ? 'Loading...' : 'sign up' }}
+                    {{ loading ? 'Loading...' : 'Sign Up' }}
                   </UButton>
                   <div class="mt-4">
                     {{ isSignUp ? 'Already have an account?' : 'Need an account?' }}
@@ -160,10 +138,10 @@ onMounted(() => {
 
 <style scoped>
 input {
-  color: #333;
+  color: #333 !important;
 }
 
 body.dark input {
-  color: white;
+  color: white !important;
 }
 </style>
