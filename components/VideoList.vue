@@ -1,6 +1,4 @@
 <script setup>
-// import { ref, watch, onMounted } from 'vue';
-
 const supabase = useSupabaseClient()
 const loading = ref('');
 const allVideos = ref([]);
@@ -96,7 +94,7 @@ const ionInfinite = async (event) => {
           <transition-group name="fade" tag="ion-row">
             <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
               <ion-card>
-                <NuxtLink :to="`/video/${video.videoid}`">
+                <NuxtLink prefetch :to="`/video/${video.videoid}`">
                   <div class="video-list cursor-pointer border-2 rounded-lg">
                     <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
                       class="video-placeholder rounded-lg">

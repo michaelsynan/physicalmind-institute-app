@@ -1,28 +1,3 @@
-// // stores/auth.js
-// import { defineStore } from "pinia";
-
-// console.log("auth store loaded");
-
-// export const useAuthStore = defineStore("auth", {
-//   state: () => ({
-//     isLoggedIn: false, // Boolean to track if user is logged in
-//   }),
-//   actions: {
-//     logIn() {
-//       this.isLoggedIn = true; // Set login state to true
-//       console.log("User logged in FROM PINIA");
-//     },
-//     logOut() {
-//       this.isLoggedIn = false; // Set login state to false
-//       console.log("User logged out FROM PINIA");
-//     },
-//     checkUser(user) {
-//       this.isLoggedIn = !!user; // Update login state based on user presence
-//     },
-//   },
-// });
-
-// stores/auth.js
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", {
@@ -46,7 +21,6 @@ export const useAuthStore = defineStore("auth", {
       }
       return { data, error };
     },
-    // Inside your Pinia store
     async signOut() {
       try {
         const client = useSupabaseClient();
@@ -56,7 +30,7 @@ export const useAuthStore = defineStore("auth", {
         return { error: null };
       } catch (error) {
         console.error("Sign out error:", error.message);
-        return { error: error.message }; // Make sure to return an error message
+        return { error: error.message };
       }
     },
     checkUser(user) {

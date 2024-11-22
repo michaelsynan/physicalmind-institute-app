@@ -5,12 +5,12 @@ export default defineNuxtConfig({
       {
         rel: "icon",
         type: "image/png",
-        href: "/logo.png", // path to your logo image in the public folder
+        href: "/logo.png",
       },
       {
         rel: "apple-touch-icon",
         type: "image/png",
-        href: "/logo.png", // for iOS and other devices
+        href: "/logo.png",
       },
     ],
   },

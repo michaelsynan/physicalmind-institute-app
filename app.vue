@@ -51,12 +51,12 @@ const closeMenu = async () => {
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <div class="flex justify-center items-center mt-8 mb-4">
-          <NuxtLink v-if="isDarkMode" to="/">
+          <div v-if="isDarkMode">
             <img src="/pmi_logo_white.png" class="w-28" />
-          </NuxtLink>
-          <NuxtLink v-else to="/">
+          </div>
+          <div v-else>
             <img src="/physicalmind-logo-french-blue-transparent.png" class="w-28" />
-          </NuxtLink>
+          </div>
         </div>
       </ion-toolbar>
     </ion-header>
