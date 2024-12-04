@@ -120,7 +120,9 @@ const badgeClass = (badgeLabel: string) => {
             Active Aging
           </UBadge>
         </div>
-        <VideoList :tag="selectedBadge" class="max-w-5xl mx-auto" />
+        <KeepAlive>
+          <VideoList :tag="selectedBadge" class="max-w-5xl mx-auto" />
+        </KeepAlive>
 
       </div>
     </ion-content>

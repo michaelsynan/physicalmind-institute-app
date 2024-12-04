@@ -1,12 +1,12 @@
 <template>
   <ion-page>
-    <ion-header  class="ion-no-border border-b bg-white">
+    <ion-header class="ion-no-border border-b bg-white">
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-     
-      <ion-title class="justify-center text-center">About</ion-title>
+
+        <ion-title class="justify-center text-center font-bold">About</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">

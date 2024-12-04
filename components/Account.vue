@@ -55,24 +55,41 @@ async function updateProfile() {
 </script>
 
 <template>
-  <ion-card class="max-w-xl p-4 border-2 border-stone-500 bg-stone-100 mx-auto">
+  <ion-card class="max-w-xl p-4 border-2 !border-stone-500 mx-auto">
     <form class="form-widget" @submit.prevent="updateProfile">
-      <div>Hello {{ full_name }}</div>
-      <div>add password update</div>
-      <ion-item>
-        <ion-label position="stacked" for="email">Email</ion-label>
-        <ion-input color="primary" id="email" type="text" :value="user.email" readonly fill="solid"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked" for="website">Website</ion-label>
-        <ion-input id="website" type="url" v-model="website" fill="outline"></ion-input>
-      </ion-item>
-      <ion-item lines="none">
+      <div class="mb-2">Hello {{ full_name }}</div>
+
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="user.email" required
+          class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Password</label>
+        <UInput color="primary" type="email" id="email" placeholder="***********" required
+          class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <template #trailing>
+            <span class="text-gray-500 dark:text-gray-400 text-xs">
+              <UIcon name="i-mdi-pencil" class="w-5 h-5" />
+            </span>
+          </template>
+        </UInput>
+      </div>
+
+
+
+
+
+
+
+      <div>
         <ion-button v-if="isEditing" type="submit" expand="block" :disabled="loading">
           {{ loading ? 'Loading ...' : 'Update' }}
         </ion-button>
         <ion-button v-else @click="editProfile" expand="block" :disabled="loading">Edit Profile</ion-button>
-      </ion-item>
+      </div>
     </form>
   </ion-card>
 </template>

@@ -4,9 +4,7 @@ import { useAuthStore } from '~/stores/auth.js'
 import { useRoute, useRouter } from 'vue-router';
 import { menuController } from '@ionic/vue';
 
-const { isLoggedIn, signOut } = useAuthStore();
-const client = useSupabaseClient();
-const user = useSupabaseUser();
+const { signOut } = useAuthStore();
 const isDarkMode = ref<boolean>(false);
 const route = useRoute();
 const router = useRouter();
@@ -66,9 +64,10 @@ const closeMenu = async () => {
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
           <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item>
           <ion-item @click="closeMenu" router-link="/certification" class="cursor-pointer">Certification</ion-item>
-          <ion-item @click="closeMenu" router-link="/help" class="cursor-pointer">FAQ</ion-item>
+          <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
           <ion-item @click="closeMenu" router-link="/account" class="cursor-pointer">Account</ion-item>
-          <ion-item @click="closeMenu" href="https://google.com" class="cursor-pointer" target="_blank">
+          <ion-item @click="closeMenu" href="https://shop.physicalmindinstitute.com" class="cursor-pointer"
+            target="_blank">
             <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> Shop
           </ion-item>
           <ion-item @click="logout" router-link="/login" class="cursor-pointer">Logout</ion-item>

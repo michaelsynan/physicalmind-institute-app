@@ -14,7 +14,7 @@
         <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center">Certification FAQ</ion-title>
+        <ion-title class="justify-center text-center font-bold">Certification FAQ</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
