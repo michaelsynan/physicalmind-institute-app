@@ -7,9 +7,11 @@ const user = useSupabaseUser(); // This still auto-imported via Nuxt's module
 const loading = ref(false);
 const email = ref('');
 const password = ref('');
+const confirmPassword = ref('');
 const isSignUp = ref(false);
 const errorMessage = ref('');
 const isDarkMode = ref(false);
+const passwordMatch = ref(false);
 
 const checkDarkMode = () => {
   isDarkMode.value = document.body.classList.contains('dark');
@@ -55,6 +57,11 @@ const signUp = async () => {
   loading.value = false;
 };
 
+
+watch([password, confirmPassword], () => {
+  passwordMatch.value = password.value === confirmPassword.value;
+}, { immediate: true });
+
 const login = async () => {
   loading.value = true;
   console.log("login function called from login.vue");
@@ -98,23 +105,42 @@ const login = async () => {
               </ion-card-header>
               <ion-card-content>
                 <form @submit.prevent="isSignUp ? signUp() : login()" class="w-full max-w-sm mx-auto">
-                  <div class="mb-4">
+                  <div v-if="!isSignUp" class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
                       class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                   </div>
-                  <div class="mb-4">
+                  <div v-if="isSignUp" class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Enter your email address</label>
+                    <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
+                      required
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                  </div>
+                  <div v-if="!isSignUp" class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <UInput color="primary" variant="outline" type="password" id="password"
                       placeholder="Enter your password" v-model="password" required
+                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                  </div>
+                  <div v-if="isSignUp" class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Choose a password</label>
+                    <UInput color="primary" variant="outline" type="password" id="password"
+                      placeholder="Enter your password" v-model="password" required
+                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                  </div>
+                  <div v-if="isSignUp" class="mb-4">
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm your
+                      password</label>
+                    <UInput color="primary" variant="outline" type="password" id="confirmPassword"
+                      placeholder="Enter your password" v-model="confirmPassword" required
                       class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                   </div>
                   <UButton v-if="!isSignUp" type="submit" :disabled="loading" color="primary"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300">
                     {{ loading ? 'Loading...' : 'Login' }}
                   </UButton>
-                  <UButton v-else type="submit" :disabled="loading"
+                  <UButton v-else type="submit" :disabled="loading || !passwordMatch"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300"
                     color="primary">
                     {{ loading ? 'Loading...' : 'Sign Up' }}
