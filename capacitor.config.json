@@ -1,6 +1,6 @@
 {
-  "appId": "com.physicalmind.institute",
-  "appName": "PhysicalMind Institute",
+  "appId": "com.physicalmindstudio.pilates",
+  "appName": "PhysicalMind Studio",
   "webDir": "./dist",
   "server": {
     "androidScheme": "https"
