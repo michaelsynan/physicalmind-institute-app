@@ -160,11 +160,11 @@ const login = async () => {
 </template>
 
 <style scoped>
-input {
+/* input {
   color: #333 !important;
 }
 
 body.dark input {
   color: white !important;
-}
+} */
 </style>
