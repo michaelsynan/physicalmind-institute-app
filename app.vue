@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { menuController } from '@ionic/vue';
 
 const { signOut } = useAuthStore();
-const isDarkMode = ref<boolean>(false);
+const isDarkMode = ref<boolean>();
 const route = useRoute();
 const router = useRouter();
 

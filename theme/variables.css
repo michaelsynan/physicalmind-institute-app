@@ -92,6 +92,7 @@ http://ionicframework.com/docs/theming/ */
        */
 
 body.dark {
+    --ion-background-color: green;
   --ion-color-primary: #A65294;
   --ion-color-primary-rgb: 166, 82, 148; /* Updated RGB equivalent */
   --ion-color-primary-contrast: #ffffff; /* No change, white remains suitable */
