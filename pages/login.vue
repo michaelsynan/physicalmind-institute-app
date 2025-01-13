@@ -94,12 +94,9 @@ const login = async () => {
               <ion-card-header class="text-center flex flex-col justify-between">
                 <ion-card-title class="flex flex-col justify-center">
                   <div class="flex justify-center items-center mb-4 mt-2 mx-4">
-                    <div v-if="isDarkMode">
-                      <img src="/pmi_logo_white.png" class="max-w-xs w-2/3 mx-auto" />
-                    </div>
-                    <div v-else>
-                      <img src="/physicalmind-logo-french-blue-transparent.png" class="max-w-xs w-2/3 mx-auto" />
-                    </div>
+                    <img
+                      :src="$colorMode.preference === 'dark' ? '/pmi_logo_white.png' : '/physicalmind-logo-french-blue-transparent.png'"
+                      class="max-w-xs w-2/3 mx-auto" />
                   </div>
                 </ion-card-title>
               </ion-card-header>
@@ -109,32 +106,32 @@ const login = async () => {
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
                   </div>
                   <div v-if="isSignUp" class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Enter your email address</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
                   </div>
                   <div v-if="!isSignUp" class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <UInput color="primary" variant="outline" type="password" id="password"
                       placeholder="Enter your password" v-model="password" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
                   </div>
                   <div v-if="isSignUp" class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Choose a password</label>
                     <UInput color="primary" variant="outline" type="password" id="password"
                       placeholder="Enter your password" v-model="password" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
                   </div>
                   <div v-if="isSignUp" class="mb-4">
                     <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm your
                       password</label>
                     <UInput color="primary" variant="outline" type="password" id="confirmPassword"
-                      placeholder="Enter your password" v-model="confirmPassword" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                      placeholder="Enter your password again" v-model="confirmPassword" required
+                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
                   </div>
                   <UButton v-if="!isSignUp" type="submit" :disabled="loading" color="primary"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300">
