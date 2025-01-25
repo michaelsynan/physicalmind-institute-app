@@ -15,7 +15,7 @@ const fetchVideos = async () => {
   loading.value = true;
   const { data, error } = await supabase
     .from('videos')
-    .select(`name, videoid, placeholder, description, tags, visible`)
+    .select(`name, id, placeholder, description, tags, visible, isNew`)
 
   if (error) {
     console.error('Error fetching videos:', error);
@@ -29,10 +29,15 @@ const fetchVideos = async () => {
 }
 
 fetchVideos()
-
 const showAllVideos = () => {
   const videosToShow = allVideos.value.filter(video => video.visible);
-  if (props.tag !== 'all') {
+
+  // Condition for "new" should come before checking props.tag against "all"
+  if (props.tag === 'new') {
+    console.log("Filtering by new status");
+    const newVideos = videosToShow.filter(video => video.isNew); // Ensure correct casing and variable names
+    visibleVideos.value = [...newVideos];
+  } else if (props.tag !== 'all') {
     console.log("Filtering videos by tag:", props.tag);
     const filteredVideos = videosToShow.filter(video => video.tags.includes(props.tag));
     visibleVideos.value = [...filteredVideos];
@@ -41,6 +46,7 @@ const showAllVideos = () => {
     visibleVideos.value = [...videosToShow];
   }
 };
+
 
 // Watcher to update visible videos when 'tag' prop changes
 watch(() => props.tag, (newVal, oldVal) => {
@@ -61,9 +67,9 @@ watch(() => props.tag, (newVal, oldVal) => {
         <transition-group name="fade">
           <ion-grid>
             <ion-row class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <ion-col size="12" v-for="(video) in visibleVideos" :key="video.videoid">
+              <ion-col size="12" v-for="(video) in visibleVideos" :key="video.id">
                 <ion-card>
-                  <NuxtLink prefetch :to="`/video/${video.videoid}`">
+                  <NuxtLink prefetch :to="`/video/${video.id}`">
                     <div class="video-list cursor-pointer border-2 rounded-lg">
                       <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
                         class="video-placeholder rounded-lg">

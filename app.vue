@@ -62,7 +62,7 @@ const closeMenu = async () => {
       <div class="flex flex-col h-full justify-between border-t">
         <ion-list class="mt-2">
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
-          <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item>
+          <!-- <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item> -->
           <ion-item @click="closeMenu" router-link="/certification" class="cursor-pointer">Certification</ion-item>
           <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
           <ion-item @click="closeMenu" router-link="/account" class="cursor-pointer">Account</ion-item>
@@ -96,8 +96,8 @@ const closeMenu = async () => {
             <ion-icon :md="ioniconsHomeOutline" :ios="ioniconsHomeOutline" :style="iconStyle('/')"
               class="text-2xl"></ion-icon>
           </NuxtLink>
-          <NuxtLink to="/instructors">
-            <ion-icon :md="ioniconsPeopleOutline" :ios="ioniconsPeopleOutline" :style="iconStyle('/instructors')"
+          <NuxtLink to="/account">
+            <ion-icon :md="ioniconsPersonOutline" :ios="ioniconsPersonOutline" :style="iconStyle('/account')"
               class="text-2xl"></ion-icon>
           </NuxtLink>
           <NuxtLink to="/help">

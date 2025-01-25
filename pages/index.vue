@@ -87,7 +87,7 @@ const badgeClass = (badgeLabel: string) => {
       <div v-else id="container" class="max-w-full mx-auto mt-10">
         <div id="filter-tags"
           class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide overflow-visible px-4 mt-2 md:mt-0 mb-2 w-full">
-          <UBadge @click="updateSelectedBadge('New')" :class="badgeClass('New')"
+          <UBadge @click="updateSelectedBadge('new')" :class="badgeClass('New')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             New
           </UBadge>
@@ -103,14 +103,14 @@ const badgeClass = (badgeLabel: string) => {
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Dance
           </UBadge>
-          <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
+          <!-- <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Golf
-          </UBadge>
-          <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
+          </UBadge> -->
+          <!-- <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Yoga
-          </UBadge>
+          </UBadge> -->
           <UBadge @click="updateSelectedBadge('posture')" :class="badgeClass('posture')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Posture

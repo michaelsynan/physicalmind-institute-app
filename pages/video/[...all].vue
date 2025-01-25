@@ -22,8 +22,8 @@ const videoId = computed(() => {
 const fetchVideoData = async () => {
   const { data, error } = await supabase
     .from('videos')
-    .select('videoid, name, description, instructor, tags, s3url, placeholder')
-    .eq('videoid', videoId.value)
+    .select('id, name, description, instructor, tags, s3url, placeholder')
+    .eq('id', videoId.value)
     .single();
   if (error) {
     console.error('Error fetching video data:', error);
@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
                 </UBadge>
               </div>
               <ion-card-title>{{ video.name }}</ion-card-title>
-              <ion-card-subtitle class="text-left">{{ video.instructor }}</ion-card-subtitle>
+              <ion-card-subtitle v-if="video.instructor" class="text-left">{{ video.instructor }}</ion-card-subtitle>
             </div>
           </ion-card-header>
           <ion-card-content class="text-left text-base mx-0 px-0 border-t" v-if="video">
