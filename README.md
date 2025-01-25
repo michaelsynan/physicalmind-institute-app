@@ -1,6 +1,12 @@
-# Nuxt 3 Minimal Starter
+## PhysicalMind Studio App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+### To-Do
+- [x] Parasetter Pilates video
+- [x] Headfloater workshop
+- [ ] Cadillac video
+- [ ] Body mind animated video
+- [x] Bungee wrap library
+- [x] Ballet enrichment program
 
 ## Setup
 

@@ -3,122 +3,92 @@ const supabase = useSupabaseClient()
 const loading = ref('');
 const allVideos = ref([]);
 const visibleVideos = ref([]);
-const infiniteScrollEnabled = ref(true);
-const filteredVideos = ref([]);
 
 const props = defineProps({
-  tag: String,
+  tag: {
+    type: String,
+    default: 'all',
+  },
 });
 
 const fetchVideos = async () => {
   loading.value = true;
   const { data, error } = await supabase
     .from('videos')
-    .select(`name, videoid, placeholder, description, tags`)
+    .select(`name, videoid, placeholder, description, tags, visible`)
 
   if (error) {
-    console.error('Error fetching videos:', error)
+    console.error('Error fetching videos:', error);
   } else {
-    console.log('Fetched videos:', data)
-    allVideos.value = data
-    console.log('All videos from database:', allVideos.value)
-    addVideos(6);
+    console.log('Fetched videos:', data);
+    allVideos.value = data.filter(video => video.visible === true);
+    console.log('All visible videos from database:', allVideos.value);
+    showAllVideos();
   }
   loading.value = false;
 }
 
 fetchVideos()
 
-const addVideos = (count = 1) => {
-  const currentCount = visibleVideos.value.length;
-
-  // Check if the tag is not "all" to decide which video list to use
-  if (props.tag && props.tag !== 'all') {
-    console.log("inside add filtered videos");
-    const videosToAdd = filteredVideos.value.slice(currentCount, currentCount + count);
-    visibleVideos.value.push(...videosToAdd);
-    // Disable infinite scroll if all videos are displayed
-    if (visibleVideos.value.length === filteredVideos.value.length) {
-      infiniteScrollEnabled.value = false;
-    }
+const showAllVideos = () => {
+  const videosToShow = allVideos.value.filter(video => video.visible);
+  if (props.tag !== 'all') {
+    console.log("Filtering videos by tag:", props.tag);
+    const filteredVideos = videosToShow.filter(video => video.tags.includes(props.tag));
+    visibleVideos.value = [...filteredVideos];
   } else {
-    console.log("inside show all videos");
-    const videosToAdd = allVideos.value.slice(currentCount, currentCount + count);
-    visibleVideos.value.push(...videosToAdd);
-    // Disable infinite scroll if all videos are displayed
-    if (visibleVideos.value.length === allVideos.value.length) {
-      infiniteScrollEnabled.value = false;
-    }
+    console.log("Showing all visible videos");
+    visibleVideos.value = [...videosToShow];
   }
 };
 
+// Watcher to update visible videos when 'tag' prop changes
 watch(() => props.tag, (newVal, oldVal) => {
-  if (newVal && newVal !== 'all') {
-    infiniteScrollEnabled.value = true;
-    visibleVideos.value = [];
-    const filtered = allVideos.value.filter(video => video.tags.includes(newVal));
-    filteredVideos.value = filtered;
-    console.log("THESE ARE THE FILTERED VIDEOS:", filteredVideos.value);
-    console.log(`Tag changed from ${oldVal} to ${newVal}`);
-    addVideos(6);
-  } else {
-    infiniteScrollEnabled.value = true;
-    visibleVideos.value = [];
-    addVideos(6);
-    console.log(`Tag changed from ${oldVal} to ${newVal}: Showing all videos.`);
-  }
+  console.log(`Tag changed from ${oldVal} to ${newVal}`);
+  showAllVideos(); // Call showAllVideos to update the video list based on the new tag
 }, { immediate: true });
 
-onMounted(() => {
-  infiniteScrollEnabled.value = true;
-  addVideos(6);
-});
-
-const ionInfinite = async (event) => {
-  addVideos();
-  console.log("infinite scroll enabled and videos added", infiniteScrollEnabled.value)
-  setTimeout(() => {
-    event.target.complete();
-  }, 200);
-};
 </script>
+
 
 <template>
   <div class="video-container">
-    <ion-grid>
-      <div v-if="loading" class="loading-screen flex justify-center items-center inset-0 fixed h-full w-full">
-        <ion-spinner name="lines"></ion-spinner>
+    <div v-if="loading" class="loading-screen flex justify-center items-center inset-0 fixed h-full w-full">
+      <ion-spinner name="lines"></ion-spinner>
+    </div>
+    <div v-else>
+      <div v-if="visibleVideos.length > 0" class="">
+        <transition-group name="fade">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
+                <ion-card>
+                  <NuxtLink prefetch :to="`/video/${video.videoid}`">
+                    <div class="video-list cursor-pointer border-2 rounded-lg">
+                      <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
+                        class="video-placeholder rounded-lg">
+                    </div>
+                    <ion-card-header class="pt-3 pb-0">
+                      <ion-card-title class="text-lg md:text-xl text-left">{{ video.name }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content class="text-left pb-1">
+                      <p class="text-base truncate text-left">{{ video.description }}</p>
+                    </ion-card-content>
+                  </NuxtLink>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </transition-group>
       </div>
-      <div v-else>
-        <div v-if="visibleVideos.length > 0" class="">
-          <transition-group name="fade" tag="ion-row">
-            <ion-col size="12" size-md="6" v-for="(video, index) in visibleVideos" :key="video.videoid">
-              <ion-card>
-                <NuxtLink prefetch :to="`/video/${video.videoid}`">
-                  <div class="video-list cursor-pointer border-2 rounded-lg">
-                    <img v-if="video.placeholder" :src="video.placeholder" :alt="video.name"
-                      class="video-placeholder rounded-lg">
-                  </div>
-                  <ion-card-header class="pt-3 pb-0">
-                    <ion-card-title class="text-lg md:text-xl text-left">{{ video.name }}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content class="text-left pb-1">
-                    <p class="text-base truncate text-left">{{ video.description }}</p>
-                  </ion-card-content>
-                </NuxtLink>
-              </ion-card>
-            </ion-col>
-          </transition-group>
-        </div>
-        <div v-else class="ion-padding">
-          <p>Sorry, no videos exist for this query.</p>
-        </div>
+      <div v-else class="ion-padding">
+        <p>Sorry, no videos exist for this query.</p>
       </div>
-      <ion-infinite-scroll @ionInfinite="ionInfinite" :disabled="!infiniteScrollEnabled" threshold="20px" class="mt-10">
-        <ion-infinite-scroll-content loading-spinner="bubbles">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ion-grid>
+    </div>
+    <!-- <ion-infinite-scroll @ionInfinite="ionInfinite" :disabled="!infiniteScrollEnabled" threshold="20px" class="mt-10">
+      <ion-infinite-scroll-content loading-spinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
   </div>
 </template>
 
@@ -138,7 +108,7 @@ const ionInfinite = async (event) => {
 
 .video-list {
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   padding-top: 56.25%;
 }
 
