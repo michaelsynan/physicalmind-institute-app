@@ -27,42 +27,35 @@ function validatePassword(value) {
 
 async function updatePassword() {
   if (!editingPassword.value) {
-    editingPassword.value = true
-    password.value = ''
-    return
+    editingPassword.value = true;
+    password.value = '';
+    return;
   }
 
   if (!Object.values(requirements.value).every(Boolean)) {
-    message.value = 'Password does not meet the requirements'
-    return
+    message.value = 'Password does not meet the requirements';
+    return;
   }
 
   try {
-    loading.value = true
+    loading.value = true;
 
-    // Mock update request
-    const updates = {
-      id: user.value.id,
-      updated_at: new Date(),
-      // Replace with actual password update logic
-    }
-    const { error } = await supabase
-      .from('profiles')
-      .update(updates)
-      .eq('id', user.value.id)
-      .single()
+    const { error } = await supabase.auth.updateUser({
+      password: password.value
+    });
 
-    if (error) throw error
+    if (error) throw error;
 
-    message.value = 'Password updated successfully.'
-    editingPassword.value = false
-    password.value = '***********'
+    message.value = 'Password updated successfully.';
+    editingPassword.value = false;
+    password.value = '***********'; // Reset password input field
   } catch (error) {
-    message.value = error.message
+    message.value = error.message;
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
+
 </script>
 
 <template>

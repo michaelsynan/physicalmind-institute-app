@@ -19,12 +19,12 @@
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-text>
               <h2>About PhysicalMind Studio</h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+              <div class="grid grid-cols-2 gap-4 my-4">
                 <img src="/studio-1-compressed.jpg" class="rounded-sm" />
                 <img src="/studio-2-compressed.jpg" class="rounded-sm" />
 
               </div>
-              <p>
+              <p class="mb-4">
                 The PhysicalMind Studio app is for individuals who own PhysicalMind Institute equipment and would like
                 to watch instructional content. If you are interested in being certified by PhysicalMind Institute,
                 please contact us at <a href="mailto:info@pmiemail.com">info@pmiemail.com</a>.

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '~/stores/auth.js';
 
@@ -12,10 +12,32 @@ const isSignUp = ref(false);
 const errorMessage = ref('');
 const isDarkMode = ref(false);
 const passwordMatch = ref(false);
+const resetting = ref(false);
+import { OverlayEventDetail } from '@ionic/core/components';
 
 const checkDarkMode = () => {
   isDarkMode.value = document.body.classList.contains('dark');
 };
+
+/* modal logic */
+
+const modal = ref();
+const input = ref();
+
+const cancel = () => modal.value.$el.dismiss(null, 'cancel');
+
+const confirm = () => {
+  const name = input.value.$el.value;
+  modal.value.$el.dismiss(name, 'confirm');
+};
+
+const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
+  if (event.detail.role === 'confirm') {
+    message.value = `Hello, ${event.detail.data}!`;
+  }
+};
+
+/* end modal logic */
 
 onMounted(() => {
   checkDarkMode();
@@ -78,6 +100,15 @@ const login = async () => {
   }
   loading.value = false;
 };
+
+const resetPassword = function () {
+  resetting.value = true;
+  console.log("resetting value is " + resetting.value)
+  console.log("resetting password!")
+  resetting.value = false;
+  console.log("resetting value is " + resetting.value)
+
+}
 </script>
 
 <template>
@@ -119,6 +150,30 @@ const login = async () => {
                     <UInput color="primary" variant="outline" type="password" id="password"
                       placeholder="Enter your password" v-model="password" required
                       class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
+                    <div class="w-full text-right pt-1 cursor-pointer" id="open-modal">Forgot your password?
+                    </div>
+
+                    <!-- Modal area -->
+                    <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">
+                      <ion-header>
+                        <ion-toolbar>
+                          <ion-buttons slot="start">
+                            <ion-button @click="cancel()">Cancel</ion-button>
+                          </ion-buttons>
+                          <ion-title>Reset your password</ion-title>
+                          <ion-buttons slot="end">
+                            <ion-button :strong="true" @click="confirm()">Confirm</ion-button>
+                          </ion-buttons>
+                        </ion-toolbar>
+                      </ion-header>
+                      <ion-content class="ion-padding">
+                        <ion-item>
+                          <ion-input label="Enter your name" label-placement="stacked" ref="input" type="text"
+                            placeholder="Your name"></ion-input>
+                        </ion-item>
+                      </ion-content>
+                    </ion-modal>
+                    <!-- end Modal area -->
                   </div>
                   <div v-if="isSignUp" class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Choose a password</label>

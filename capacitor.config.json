@@ -3,10 +3,12 @@
   "appName": "PhysicalMind Studio",
   "version": "1.0.1",
   "ios": {
-    "buildNumber": 2
+    "buildNumber": 2,
+    "scheme": "physicalmindstudio"
   },
   "android": {
-    "buildNumber": 2
+    "buildNumber": 2,
+    "scheme": "physicalmindstudio"
   },
   "webDir": "./dist",
   "server": {
