@@ -22,7 +22,7 @@ const videoId = computed(() => {
 const fetchVideoData = async () => {
   const { data, error } = await supabase
     .from('videos')
-    .select('id, name, description, instructor, tags, s3url, placeholder')
+    .select('id, name, description, instructor, tags, s3url, placeholder, associatedAssets')
     .eq('id', videoId.value)
     .single();
   if (error) {
@@ -122,12 +122,18 @@ onBeforeUnmount(() => {
           </ion-card-header>
           <ion-card-content class="text-left text-base mx-0 px-0 border-t" v-if="video">
             <div class="mt-4">{{ video.description }}</div>
+            <!-- Display Download Link for Manual -->
+            <div class="pt-4" v-if="video.associatedAssets">
+              <span>Associated Assets: </span>
+              <a :href="video.associatedAssets[0]" download="Parasetter_Manual.pdf">Manual (PDF)</a>
+            </div>
           </ion-card-content>
         </ion-card>
       </div>
     </ion-content>
   </ion-page>
 </template>
+
 
 <style scoped>
 .video-responsive {
