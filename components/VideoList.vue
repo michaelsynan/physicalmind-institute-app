@@ -66,7 +66,7 @@ watch(() => props.tag, (newVal, oldVal) => {
       <div v-if="visibleVideos.length > 0" class="">
         <transition-group name="fade">
           <ion-grid>
-            <ion-row class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <ion-row class="grid grid-cols-1 md:grid-cols-2 gap-1">
               <ion-col size="12" v-for="(video) in visibleVideos" :key="video.id">
                 <ion-card>
                   <NuxtLink prefetch :to="`/video/${video.id}`">
