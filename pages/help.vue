@@ -21,16 +21,19 @@
               </p>
 
             </ion-text>
+            <div class="!bottom-0 pt-6 flex-grow mt-auto mx-auto flex flex-col gap-0.5">
+              <ion-button expand="block" href="tel:+12123432150" class="">
+                <ion-icon slot="start" :md="ioniconsCall" :ios="ioniconsCall"
+                  class="text-white pr-1 -ml-1"></ion-icon>Call</ion-button>
+              <ion-button expand="block" href="mailto:info@pmiemail.com">
+                <ion-icon slot="start" :md="ioniconsMail" :ios="ioniconsMail"
+                  class="text-white pr-1"></ion-icon>Email</ion-button>
+            </div>
           </ion-col>
         </ion-row>
+
       </ion-grid>
-      <div class="!bottom-0 pt-4 flex-grow max-w-2xl mt-auto mx-auto">
-        <ion-button expand="block" href="tel:+12123432150">
-          <ion-icon slot="start" :md="ioniconsPhonePortrait" :ios="ioniconsPhonePortrait"
-            class="text-white"></ion-icon>Call</ion-button>
-        <ion-button expand="block" href="mailto:info@pmiemail.com">
-          <ion-icon slot="start" :md="ioniconsMail" :ios="ioniconsMail" class="text-white"></ion-icon>Email</ion-button>
-      </div>
+
 
     </ion-content>
 

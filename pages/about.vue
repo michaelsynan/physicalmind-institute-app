@@ -14,12 +14,11 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-text>
-              <h2>TYE4 & TYE4X</h2>
+              <h2>About PhysicalMind Studio</h2>
               <p>
-                The TYE4 and TYE4X are innovative projects developed by the PhysicalMind Institute...
-              </p>
-              <p>
-                This app, provided for free by the PhysicalMind Institute...
+                The PhysicalMind Studio app is for individuals who own PhysicalMind Institute equipment and would like
+                to
+                watch instructional content in order to learn proper usage.
               </p>
             </ion-text>
           </ion-col>

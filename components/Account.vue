@@ -1,96 +1,94 @@
 <script setup>
+import { ref } from 'vue'
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
-const loading = ref(true)
-const website = ref('')
-const avatar_path = ref('')
-const full_name = ref('')
+const password = ref('***********')
+const editingPassword = ref(false)
+const message = ref('')
+const loading = ref(false)
 
-const isEditing = ref(false)
+const requirements = ref({
+  length: false,
+  uppercase: false,
+  lowercase: false,
+  number: false
+})
 
-function editProfile() {
-  isEditing.value = !isEditing.value
+function validatePassword(value) {
+  requirements.value.length = value.length >= 8
+  requirements.value.uppercase = /[A-Z]/.test(value)
+  requirements.value.lowercase = /[a-z]/.test(value)
+  requirements.value.number = /[0-9]/.test(value)
+
+  const allValid = Object.values(requirements.value).every(Boolean)
+  message.value = allValid ? '' : 'Password must include:'
 }
 
-loading.value = true
+async function updatePassword() {
+  if (!editingPassword.value) {
+    editingPassword.value = true
+    password.value = ''
+    return
+  }
 
-const { data } = await supabase
-  .from('profiles')
-  .select(`full_name, website, avatar_url`)
-  .eq('id', user.value.id)
-  .single()
+  if (!Object.values(requirements.value).every(Boolean)) {
+    message.value = 'Password does not meet the requirements'
+    return
+  }
 
-if (data) {
-  website.value = data.website
-  avatar_path.value = data.avatar_url
-  full_name.value = data.full_name
-}
-
-loading.value = false
-
-async function updateProfile() {
   try {
     loading.value = true
 
+    // Mock update request
     const updates = {
       id: user.value.id,
-
-      website: website.value,
-      avatar_url: avatar_path.value,
       updated_at: new Date(),
+      // Replace with actual password update logic
     }
+    const { error } = await supabase
+      .from('profiles')
+      .update(updates)
+      .eq('id', user.value.id)
+      .single()
 
-    const { error } = await supabase.from('profiles').upsert(updates, {
-      returning: 'minimal', // Don't return the value after inserting
-    })
     if (error) throw error
+
+    message.value = 'Password updated successfully.'
+    editingPassword.value = false
+    password.value = '***********'
   } catch (error) {
-    alert(error.message)
+    message.value = error.message
   } finally {
     loading.value = false
   }
 }
-
 </script>
 
 <template>
   <ion-card class="max-w-xl p-4 border-2 !border-stone-500 mx-auto">
-    <form class="form-widget" @submit.prevent="updateProfile">
-      <div class="mb-2">Hello {{ full_name }}</div>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <ion-text>{{ user.email }}</ion-text>
+    </div>
 
-
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="user.email" required
-          class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+      <UInput color="primary" type="password" id="password" v-model="password" :readonly="!editingPassword"
+        @input="validatePassword(password)"
+        class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      <div class="mt-2 text-xs text-gray-500 cursor-pointer" @click="updatePassword">
+        {{ editingPassword ? 'Save Password' : 'Update Password' }}
       </div>
 
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-medium text-gray-700">Password</label>
-        <UInput color="primary" type="email" id="email" placeholder="***********" required
-          class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          <template #trailing>
-            <span class="text-gray-500 dark:text-gray-400 text-xs">
-              <UIcon name="i-mdi-pencil" class="w-5 h-5" />
-            </span>
-          </template>
-        </UInput>
-      </div>
-
-
-
-
-
-
-
-      <div>
-        <ion-button v-if="isEditing" type="submit" expand="block" :disabled="loading">
-          {{ loading ? 'Loading ...' : 'Update' }}
-        </ion-button>
-        <ion-button v-else @click="editProfile" expand="block" :disabled="loading">Edit Profile</ion-button>
-      </div>
-    </form>
+      <div v-if="message" class="text-xs text-red-500 mt-1">{{ message }}</div>
+      <ul v-if="editingPassword" class="text-xs text-gray-500 mt-1">
+        <li :class="requirements.length ? 'text-green-500' : 'text-red-500'">- At least 8 characters</li>
+        <li :class="requirements.uppercase ? 'text-green-500' : 'text-red-500'">- At least one uppercase letter</li>
+        <li :class="requirements.lowercase ? 'text-green-500' : 'text-red-500'">- At least one lowercase letter</li>
+        <li :class="requirements.number ? 'text-green-500' : 'text-red-500'">- At least one number</li>
+      </ul>
+    </div>
   </ion-card>
 </template>
 
