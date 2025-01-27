@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 <template>
 
   <div id="container" class="max-w-5xl mx-auto">
-    <ion-card type="medium">
+    <div type="medium">
       <div class="video-responsive bg-stone-300 border-2 rounded-lg">
         <!-- Custom Play Button -->
         <div v-if="!playInitiated" class="custom-play-button" @click="playVideo">
@@ -116,7 +116,7 @@ onBeforeUnmount(() => {
           <a :href="video.associatedAssets[0]" download="Parasetter_Manual.pdf">Manual (PDF)</a>
         </div>
       </ion-card-content>
-    </ion-card>
+    </div>
   </div>
 </template>
 
