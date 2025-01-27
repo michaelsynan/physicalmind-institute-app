@@ -20,8 +20,8 @@
             <ion-text>
               <h2>About PhysicalMind Studio</h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-                <NuxtImg class="rounded-sm" src="./studio-1-compressed.jpg" />
-                <NuxtImg class="rounded-sm" src="./studio-2-compressed.jpg" />
+                <NuxtImg class="rounded-sm" src="/studio-1-compressed.jpg" />
+                <NuxtImg class="rounded-sm" src="/studio-2-compressed.jpg" />
 
               </div>
               <p>

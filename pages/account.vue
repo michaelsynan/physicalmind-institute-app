@@ -5,7 +5,7 @@
         <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title class="justify-center text-center"></ion-title>
+        <ion-title class="justify-center text-center">Account</ion-title>
 
       </ion-toolbar>
     </ion-header>
