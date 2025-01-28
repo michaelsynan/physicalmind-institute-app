@@ -14,7 +14,7 @@ const videoElement = ref(null);
 const video = ref(null);
 const videoUrl = ref(null);
 
-const videoId = 16
+const videoId = ref("16")
 
 const fetchVideoData = async () => {
   const { data, error } = await supabase
@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 <template>
 
   <div id="container" class="max-w-5xl mx-auto">
-    <div type="medium">
+    <div>
       <div class="video-responsive bg-stone-300 border-2 rounded-lg">
         <!-- Custom Play Button -->
         <div v-if="!playInitiated" class="custom-play-button" @click="playVideo">
@@ -96,7 +96,7 @@ onBeforeUnmount(() => {
         </video>
       </div>
       <!-- Video Details -->
-      <ion-card-header v-if="video" class="px-0 mx-0">
+      <!-- <ion-card-header v-if="video" class="px-0 mx-0">
         <div class="flex flex-col items-start w-full gap-1">
           <div class="flex flex-wrap">
             <UBadge v-for="tag in video.tags" :key="tag"
@@ -107,15 +107,14 @@ onBeforeUnmount(() => {
           <ion-card-title>{{ video.name }}</ion-card-title>
           <ion-card-subtitle v-if="video.instructor" class="text-left">{{ video.instructor }}</ion-card-subtitle>
         </div>
-      </ion-card-header>
-      <ion-card-content class="text-left text-base mx-0 px-0 border-t" v-if="video">
+      </ion-card-header> -->
+      <!-- <ion-card-content class="text-left text-base mx-0 px-0 border-t" v-if="video">
         <div class="mt-4">{{ video.description }}</div>
-        <!-- Display Download Link for Manual -->
         <div class="pt-4" v-if="video.associatedAssets">
           <span>Associated Assets: </span>
           <a :href="video.associatedAssets[0]" download="Parasetter_Manual.pdf">Manual (PDF)</a>
         </div>
-      </ion-card-content>
+      </ion-card-content> -->
     </div>
   </div>
 </template>

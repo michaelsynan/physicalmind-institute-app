@@ -1,12 +1,32 @@
 <script setup lang="ts">
 
-// access to public tables
 const client = useSupabaseClient();
 
-// access to authenticated user
 const user = useSupabaseUser();
+import { OverlayEventDetail } from '@ionic/core/components';
 
 const access = ref('');
+
+/* modal logic */
+
+const modal = ref();
+const input = ref();
+
+const cancel = () => modal.value.$el.dismiss(null, 'cancel');
+
+const confirm = () => {
+  const name = input.value.$el.value;
+  modal.value.$el.dismiss(name, 'confirm');
+};
+
+const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
+  if (event.detail.role === 'confirm') {
+    message.value = `Hello, ${event.detail.data}!`;
+  }
+};
+
+/* end modal logic */
+
 
 
 async function fetchUserProfile() {
@@ -39,27 +59,45 @@ onMounted(fetchUserProfile);
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-text>
               <SingleVideo />
-              <h2>To gain access to this material please confirm that you have purchased TYE4X or Parasetter</h2>
-
+              <div class="flex flex-row my-4 gap-2.5 items-center rounded-lg p-1.5 bg-stone-200">
+                <ion-icon class="text-5xl text-rose-500" :md="ioniconsAlertCircleOutline"
+                  :ios="ioniconsAlertCircleOutline"></ion-icon>
+                <p class="text-sm">To gain access to additional content please submit your TYE4/X order number.</p>
+              </div>
             </ion-text>
             <ion-text>
               <p>
-                To gain access you can upload a photo, supply the email address used to purchase the product, if from
-                amazon
-                you may provide your Purchase Number, or call our office.
+                Access to the full PhysicalMind Studio app requires the purchase of TYE4 or TYE4X. Please submit your
+                order number below and allow 48 hours to confirm. If you are still unable to access the content please
+                see <ion-text router-link="/help" class="cursor-pointer">support</ion-text>.
               </p>
+              <ion-button id="open-modal" expand="block" class="mt-4">Submit Order Number</ion-button>
 
             </ion-text>
-            <ion-list class="mt-10">
-              <ion-item>
-                <ion-select placeholder="Select a Fruit">
-                  <div slot="label">Select Verification Method</div>
-                  <ion-select-option value="apple">Upload Photo</ion-select-option>
-                  <ion-select-option value="banana">Provide Email Address</ion-select-option>
-                  <ion-select-option value="orange">Call Us</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
+            <!-- Modal area -->
+            <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">
+              <ion-header>
+                <ion-toolbar>
+                  <ion-buttons slot="start">
+                    <ion-button @click="cancel()">Cancel</ion-button>
+                  </ion-buttons>
+                  <ion-title>Submit Order Number</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button :strong="true" @click="confirm()">Confirm</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                <ion-item class="pt-3 overflow-visible flex-col flex">
+                  <ion-input class="custom" ref="input" type="text" placeholder="Your order number"
+                    fill="outline"></ion-input>
+                </ion-item>
+                <div class="px-3">
+                  <ion-button id="open-modal" expand="block" class="mt-4">Submit</ion-button>
+                </div>
+              </ion-content>
+            </ion-modal>
+            <!-- end Modal area -->
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -67,4 +105,24 @@ onMounted(fetchUserProfile);
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+::v-deep input.sc-ion-input-md {
+  padding-inline: 10px !important;
+}
+
+::v-deep input.label-text {
+  padding-inline: 10px !important;
+}
+
+/* ion-input.custom {
+  --background: #373737;
+  --color: #fff;
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 0.8;
+
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px;
+} */
+</style>
