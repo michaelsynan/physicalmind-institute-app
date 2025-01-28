@@ -59,8 +59,8 @@ onMounted(fetchUserProfile);
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-text>
               <SingleVideo />
-              <div class="flex flex-row my-4 gap-2.5 items-center rounded-lg p-1.5 bg-stone-200">
-                <ion-icon class="text-5xl text-rose-500" :md="ioniconsAlertCircleOutline"
+              <div class="flex flex-row my-4 gap-2.5 items-center rounded-lg p-1.5 bg-stone-200 bg-opacity-50">
+                <ion-icon class="text-5xl text-rose-400" :md="ioniconsAlertCircleOutline"
                   :ios="ioniconsAlertCircleOutline"></ion-icon>
                 <p class="text-sm">To gain access to additional content please submit your TYE4/X order number.</p>
               </div>
@@ -81,15 +81,16 @@ onMounted(fetchUserProfile);
                   <ion-buttons slot="start">
                     <ion-button @click="cancel()">Cancel</ion-button>
                   </ion-buttons>
-                  <ion-title>Submit Order Number</ion-title>
-                  <ion-buttons slot="end">
-                    <ion-button :strong="true" @click="confirm()">Confirm</ion-button>
-                  </ion-buttons>
+                  <ion-title></ion-title>
+
                 </ion-toolbar>
               </ion-header>
               <ion-content class="ion-padding">
-                <ion-item class="pt-3 overflow-visible flex-col flex">
-                  <ion-input class="custom" ref="input" type="text" placeholder="Your order number"
+                <h2 class="w-full block px-4 py-2">Enter Your Order Number</h2>
+                <ion-item class="pt-0 overflow-visible !flex !flex-col">
+
+
+                  <ion-input class="custom w-full" ref="input" type="text" placeholder="Your order number"
                     fill="outline"></ion-input>
                 </ion-item>
                 <div class="px-3">
@@ -108,6 +109,10 @@ onMounted(fetchUserProfile);
 <style scoped>
 ::v-deep input.sc-ion-input-md {
   padding-inline: 10px !important;
+}
+
+::v-deep .sc-ion-input-md .label-text-wrapper {
+  transform: translateY(-25px) !important;
 }
 
 ::v-deep input.label-text {
