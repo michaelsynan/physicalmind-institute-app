@@ -59,10 +59,12 @@ onMounted(fetchUserProfile);
           <ion-col size-md="8" size-lg="6" size-xs="12">
             <ion-text>
               <SingleVideo />
-              <div class="flex flex-row my-4 gap-2.5 items-center rounded-lg p-1.5 bg-stone-200 bg-opacity-50">
+              <div
+                class="flex flex-row my-4 gap-2.5 items-center rounded-lg p-1.5 bg-stone-200 dark:bg-stone-800 bg-opacity-50">
                 <ion-icon class="text-5xl text-rose-400" :md="ioniconsAlertCircleOutline"
                   :ios="ioniconsAlertCircleOutline"></ion-icon>
-                <p class="text-sm">To gain access to additional content please submit your TYE4/X order number.</p>
+                <p class="text-sm dark:text-white">To gain access to additional content please submit your TYE4/X order
+                  number.</p>
               </div>
             </ion-text>
             <ion-text>
@@ -72,7 +74,7 @@ onMounted(fetchUserProfile);
                 see <ion-text router-link="/help" class="cursor-pointer">support</ion-text>.
               </p>
               <ion-button id="open-modal" expand="block" class="mt-4">Submit Order Number</ion-button>
-
+              <p class="pt-2">Need more help?</p>
             </ion-text>
             <!-- Modal area -->
             <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">
@@ -86,7 +88,7 @@ onMounted(fetchUserProfile);
                 </ion-toolbar>
               </ion-header>
               <ion-content class="ion-padding">
-                <h2 class="w-full block px-4 py-2">Enter Your Order Number</h2>
+                <h2 class="w-full block px-4 py-2">Enter Your TYE4/X Order Number</h2>
                 <ion-item class="pt-0 overflow-visible !flex !flex-col">
 
 

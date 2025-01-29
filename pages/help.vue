@@ -2,11 +2,11 @@
   <ion-page>
     <ion-header class="ion-no-border border-b bg-white">
       <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
 
-        <ion-title class="justify-center text-center font-bold">Support</ion-title>
+        <ion-title class="justify-center text-center">Support</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
