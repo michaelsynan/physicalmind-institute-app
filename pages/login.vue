@@ -16,7 +16,13 @@ const resetting = ref(false);
 import { OverlayEventDetail } from '@ionic/core/components';
 
 const checkDarkMode = () => {
-  isDarkMode.value = document.body.classList.contains('dark');
+  const isDarkMode = document.body.classList.contains('dark');
+  if (isDarkMode) {
+    document.body.classList.remove('dark');
+    console.log('Dark mode was active; \'dark\' class removed.');
+  } else {
+    console.log('Dark mode was not active; no class removed.');
+  }
 };
 
 /* modal logic */
