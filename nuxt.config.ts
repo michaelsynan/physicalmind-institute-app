@@ -1,6 +1,9 @@
 export default defineNuxtConfig({
   head: {
     title: "PhysicalMind Institute",
+    ui: {
+      colorMode: false,
+    },
     link: [
       {
         rel: "icon",

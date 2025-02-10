@@ -5,7 +5,6 @@
         <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-
         <ion-title class="justify-center text-center">Support</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -19,7 +18,6 @@
                 Do you have questions or need help with the PhysicalMind Studio app or any of the content? Please feel
                 free to call during business hours or send an email.
               </p>
-
             </ion-text>
             <div class="!bottom-0 pt-6 flex-grow mt-auto mx-auto flex flex-col gap-0.5">
               <ion-button expand="block" href="tel:+12123432150" class="">
@@ -31,11 +29,7 @@
             </div>
           </ion-col>
         </ion-row>
-
       </ion-grid>
-
-
     </ion-content>
-
   </ion-page>
 </template>

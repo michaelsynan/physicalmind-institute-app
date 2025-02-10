@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <ion-page>
     <ion-header class="ion-no-border border-b bg-white">
@@ -9,7 +5,6 @@
         <ion-buttons slot="start" class="absolute">
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-
         <ion-title class="justify-center text-center">About</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -22,14 +17,12 @@
               <div class="grid grid-cols-2 gap-4 my-4">
                 <img src="/studio-1-compressed.jpg" class="rounded-sm" />
                 <img src="/studio-2-compressed.jpg" class="rounded-sm" />
-
               </div>
               <p class="mb-4">
                 The PhysicalMind Studio app is for individuals who own PhysicalMind Institute equipment and would like
                 to watch instructional content. If you are interested in being certified by PhysicalMind Institute,
                 please contact us at <a href="mailto:info@pmiemail.com">info@pmiemail.com</a>.
               </p>
-
             </ion-text>
           </ion-col>
         </ion-row>

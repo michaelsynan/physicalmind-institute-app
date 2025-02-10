@@ -6,7 +6,6 @@
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title class="justify-center text-center">Account</ion-title>
-
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
@@ -18,7 +17,5 @@
         </ion-row>
       </ion-grid>
     </ion-content>
-    <!-- add something cool in a neo brutalist style -->
-
   </ion-page>
 </template>
