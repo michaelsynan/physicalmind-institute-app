@@ -143,19 +143,19 @@ const resetPassword = function () {
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm " />
+                      class="placeholder-gray-400 !text-black focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm " />
                   </div>
                   <div v-if="isSignUp" class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Enter your email address</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
                       required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm " />
+                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !text-black" />
                   </div>
                   <div v-if="!isSignUp" class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <UInput color="primary" variant="outline" type="password" id="password"
                       placeholder="Enter your password" v-model="password" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
+                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  !text-black" />
                     <div class="w-full text-right pt-1 cursor-pointer" id="open-modal">Forgot your password?
                     </div>
 

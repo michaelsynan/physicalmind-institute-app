@@ -74,7 +74,7 @@ const closeMenu = async () => {
 
         </ion-list>
         <div>
-          <ion-list lines="full" class="border-t">
+          <!-- <ion-list lines="full" class="border-t">
             <ion-item>
               <ion-icon v-if="isDarkMode" :md="ioniconsMoon" :ios="ioniconsMoon" slot="start"></ion-icon>
               <ion-icon v-else :md="ioniconsSunnyOutline" :ios="ioniconsSunnyOutline" slot="start"></ion-icon>
@@ -82,7 +82,7 @@ const closeMenu = async () => {
                 {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}
               </ion-toggle>
             </ion-item>
-          </ion-list>
+          </ion-list> -->
         </div>
       </div>
     </ion-content>

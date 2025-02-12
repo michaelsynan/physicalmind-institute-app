@@ -85,7 +85,7 @@ const badgeClass = (badgeLabel: string) => {
 
       <!-- Show videos if access is granted -->
       <div v-else id="container" class="max-w-full mx-auto mt-10">
-        <div id="filter-tags"
+        <!-- <div id="filter-tags"
           class="z-10 m-auto flex flex-row gap-2 justify-start md:justify-center pr-4 items-center flex-grow overflow-x-auto scrollbar-hide overflow-visible px-4 mt-2 md:mt-0 mb-2 w-full">
           <UBadge @click="updateSelectedBadge('new')" :class="badgeClass('New')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
@@ -102,16 +102,16 @@ const badgeClass = (badgeLabel: string) => {
           <UBadge @click="updateSelectedBadge('dance')" :class="badgeClass('dance')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Dance
-          </UBadge>
-          <!-- <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
+          </UBadge> -->
+        <!-- <UBadge @click="updateSelectedBadge('golf')" :class="badgeClass('golf')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Golf
           </UBadge> -->
-          <!-- <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
+        <!-- <UBadge @click="updateSelectedBadge('yoga')" :class="badgeClass('yoga')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Yoga
           </UBadge> -->
-          <UBadge @click="updateSelectedBadge('posture')" :class="badgeClass('posture')"
+        <!-- <UBadge @click="updateSelectedBadge('posture')" :class="badgeClass('posture')"
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Posture
           </UBadge>
@@ -119,7 +119,7 @@ const badgeClass = (badgeLabel: string) => {
             class="cursor-pointer py-2 px-4 rounded-full border-2 tracking-wide whitespace-nowrap text-stone-600">
             Active Aging
           </UBadge>
-        </div>
+        </div> -->
         <KeepAlive>
           <VideoList :tag="selectedBadge" class="max-w-5xl mx-auto" />
         </KeepAlive>
