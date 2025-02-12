@@ -68,10 +68,17 @@ onMounted(fetchUserProfile);
               </div>
             </ion-text>
             <ion-text>
-              <p>
-                Access to the full PhysicalMind Studio app requires the purchase of TYE4 or TYE4X. Please submit your
-                order number below and allow 48 hours to confirm. If you are still unable to access the content please
-                see <ion-text router-link="/help" class="cursor-pointer">support</ion-text>.
+              <p class="mb-2">
+                It’s for those who own a TYE4® or Tye4X™ with BLACK BUNGEES. If you do not already have this "Wearable
+                Reformer," get one ASAP because this product is your passport to FREE Content: access to a $140.00
+                Parasetter PILATES class: 55-minute video & 36-page Exercise Manual AND a $75.00 Head Floater Workshop®:
+                25-minute video & 13-page Manual. A month later, you will have FREE access to 25 Original Reformer
+                EXERCISES transferred to the Mat using PMI props. PHYSICALMINDSTUDIO APP access is with your email and a
+                password. Our database can verify your purchase on Amazon or our PMI site. </p>
+              <p class="mb-4">
+                Any log-in issues, contact
+                <a href="mailto:info@pmiemail.com">info@pmiemail.com</a>.
+
               </p>
               <ion-button id="open-modal" expand="block" class="mt-4">Submit Order Number</ion-button>
               <p class="pt-2">Need more help?</p>
