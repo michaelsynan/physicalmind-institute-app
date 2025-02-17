@@ -29,6 +29,7 @@ const checkDarkMode = () => {
 
 const modal = ref();
 const input = ref();
+const isLoggingIn = ref(false);
 
 const cancel = () => modal.value.$el.dismiss(null, 'cancel');
 
@@ -131,14 +132,14 @@ const resetPassword = function () {
               <ion-card-header class="text-center flex flex-col justify-between">
                 <ion-card-title class="flex flex-col justify-center">
                   <div class="flex justify-center items-center mb-4 mt-2 mx-4">
-                    <img
-                      :src="$colorMode.preference === 'dark' ? '/pmi_logo_white.png' : '/physicalmind-logo-french-blue-transparent.png'"
-                      class="max-w-xs w-2/3 mx-auto" />
+                    <img src="/logo-pmi-studio.png" class="max-w-xs w-[300px] mx-auto" />
                   </div>
                 </ion-card-title>
               </ion-card-header>
               <ion-card-content>
-                <form @submit.prevent="isSignUp ? signUp() : login()" class="w-full max-w-sm mx-auto">
+                <LoginAbout v-if="!isLoggingIn" />
+                <form v-if="isLoggingIn" @submit.prevent="isSignUp ? signUp() : login()"
+                  class="w-full max-w-sm mx-auto">
                   <div v-if="!isSignUp" class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
@@ -211,6 +212,8 @@ const resetPassword = function () {
                   </div>
                   <div v-if="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
                 </form>
+                <ion-button v-if="!isLoggingIn" @click="isLoggingIn = true" expand="block" class="mt-4 mb-10 ls">Login /
+                  Signup</ion-button>
               </ion-card-content>
             </ion-card>
           </ion-col>

@@ -53,7 +53,7 @@ const closeMenu = async () => {
             <img src="/pmi_logo_white.png" class="w-28" />
           </div>
           <div v-else>
-            <img src="/physicalmind-logo-french-blue-transparent.png" class="w-28" />
+            <img src="/logo.jpg" class="w-28" />
           </div>
         </div>
       </ion-toolbar>
