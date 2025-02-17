@@ -9,11 +9,7 @@
       25-minute video & 13-page Manual. A month later, you will have FREE access to 25 Original Reformer
       EXERCISES transferred to the Mat using PMI props. PHYSICALMINDSTUDIO APP access is with your email and a
       password. Our database can verify your purchase on Amazon or our PMI site. </p>
-    <p class="mb-4 !text-xl text-black pt-2">
-      Any log-in issues, contact
-      <a href="mailto:info@pmiemail.com">info@pmiemail.com</a>.
 
-    </p>
 
   </div>
 </template>

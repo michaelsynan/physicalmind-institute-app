@@ -57,29 +57,16 @@ onMounted(fetchUserProfile);
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
-            <ion-text>
-              <SingleVideo />
-              <div
-                class="flex flex-row my-4 gap-2.5 items-center rounded-lg p-1.5 bg-stone-200 dark:bg-stone-800 bg-opacity-50">
-                <ion-icon class="text-5xl text-rose-400" :md="ioniconsAlertCircleOutline"
-                  :ios="ioniconsAlertCircleOutline"></ion-icon>
-                <p class="text-sm dark:text-white">To gain access to additional content please submit your TYE4/X order
-                  number.</p>
-              </div>
-            </ion-text>
+
             <ion-text>
               <p class="mb-2">
-                It’s for those who own a TYE4® or Tye4X™ with BLACK BUNGEES. If you do not already have this "Wearable
-                Reformer," get one ASAP because this product is your passport to FREE Content: access to a $140.00
-                Parasetter PILATES class: 55-minute video & 36-page Exercise Manual AND a $75.00 Head Floater Workshop®:
-                25-minute video & 13-page Manual. A month later, you will have FREE access to 25 Original Reformer
-                EXERCISES transferred to the Mat using PMI props. PHYSICALMINDSTUDIO APP access is with your email and a
-                password. Our database can verify your purchase on Amazon or our PMI site. </p>
-              <p class="mb-4">
-                Any log-in issues, contact
-                <a href="mailto:info@pmiemail.com">info@pmiemail.com</a>.
+                To gain full access to this app, you must submit your TYE4/X order number. If you do not have your order
+                number or it doesn't work, you can submit photo proof of you and your TYE4/X to <a
+                  href="mailto:info@pmiemail.com">info@pmiemail.com</a>.
+                <br />
 
               </p>
+
               <ion-button id="open-modal" expand="block" class="mt-4">Submit Order Number</ion-button>
               <p class="pt-2">Need more help?</p>
             </ion-text>

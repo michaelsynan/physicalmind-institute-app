@@ -212,8 +212,8 @@ const resetPassword = function () {
                   </div>
                   <div v-if="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
                 </form>
-                <ion-button v-if="!isLoggingIn" @click="isLoggingIn = true" expand="block" class="mt-4 mb-10 ls">Login /
-                  Signup</ion-button>
+                <ion-button v-if="!isLoggingIn" @click="isLoggingIn = true" expand="block"
+                  class="mt-4 mb-10 ls">Next</ion-button>
               </ion-card-content>
             </ion-card>
           </ion-col>
