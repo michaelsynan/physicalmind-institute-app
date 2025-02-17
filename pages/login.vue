@@ -124,7 +124,7 @@ const resetPassword = function () {
       <ion-toolbar>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding ">
+    <ion-content class="">
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
           <ion-col size-md="8" size-lg="6" size-xs="12">
@@ -132,7 +132,7 @@ const resetPassword = function () {
               <ion-card-header class="text-center flex flex-col justify-between">
                 <ion-card-title class="flex flex-col justify-center">
                   <div class="flex justify-center items-center mb-4 mt-2 mx-4">
-                    <img src="/logo-pmi-studio.png" class="max-w-xs w-[300px] mx-auto" />
+                    <img src="/logo-pmi-studio.png" class="max-w-xs w-[200px] mx-auto" />
                   </div>
                 </ion-card-title>
               </ion-card-header>
