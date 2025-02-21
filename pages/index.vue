@@ -14,6 +14,11 @@ const access = ref('');
 const selectedBadge = ref('all');
 const loading = ref(); // Initialize loading as true
 
+const handleAccessGranted = () => {
+  console.log('Access granted!');
+  access.value = true;
+};
+
 onMounted(async () => {
   loading.value = true;
 
@@ -81,7 +86,7 @@ const badgeClass = (badgeLabel: string) => {
         <ion-spinner name="lines"></ion-spinner>
       </div>
       <!-- Show LimitedAccess if access is denied -->
-      <LimitedAccess v-else-if="!access" class="my-4" />
+      <LimitedAccess v-else-if="!access" class="my-4" @accessGranted="handleAccessGranted" />
 
       <!-- Show videos if access is granted -->
       <div v-else id="container" class="max-w-full mx-auto mt-10">

@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { OverlayEventDetail } from '@ionic/core/components';
 
+
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const message = ref('');
@@ -16,9 +17,12 @@ const input = ref();
 
 const cancel = () => modal.value.$el.dismiss(null, 'cancel');
 
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['accessGranted']);
+
 const confirm = async () => {
   const orderNumber = input.value.$el.value.trim();
-
   if (!orderNumber) {
     message.value = 'Please enter a valid order number.';
     success.value = false;
@@ -28,11 +32,12 @@ const confirm = async () => {
   try {
     console.log('Checking order number:', orderNumber);
 
+    // Step 1: Verify the order exists
     const { data, error } = await client
       .from('order_numbers')
       .select('order_no')
       .eq('order_no', orderNumber)
-      .maybeSingle(); // Avoids 406 error if multiple or zero rows are found
+      .maybeSingle();
 
     if (error) {
       console.error('Supabase query error:', error);
@@ -44,8 +49,25 @@ const confirm = async () => {
       success.value = false;
     } else {
       console.log('Order found:', data);
-      message.value = 'Congratulations, you are now confirmed.';
-      success.value = true;
+
+      // Step 2: Update the user's profile
+      const { error: updateError } = await client
+        .from('profiles')
+        .update({ order_no: orderNumber })
+        .eq('id', user.value.id);
+
+      if (updateError) {
+        console.error('Error updating profile:', updateError);
+        message.value = 'Order verified, but we couldn’t update your profile. Contact support.';
+        success.value = false;
+      } else {
+        console.log('Profile updated successfully.');
+        message.value = 'Congratulations, your order is confirmed and saved!';
+        success.value = true;
+
+        // Emit event to notify parent
+        emit('accessGranted');
+      }
     }
   } catch (err) {
     console.error('Unexpected error:', err);
@@ -55,7 +77,6 @@ const confirm = async () => {
 
   modal.value.$el.dismiss();
 };
-
 
 
 
