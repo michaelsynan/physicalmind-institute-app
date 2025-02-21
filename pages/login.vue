@@ -81,6 +81,7 @@ const signUp = async () => {
   if (error) {
     errorMessage.value = error.message;
   } else {
+    isSignUp.value = false;
     navigateTo('/login');
   }
   loading.value = false;
