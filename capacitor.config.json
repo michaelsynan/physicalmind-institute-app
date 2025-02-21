@@ -1,13 +1,13 @@
 {
   "appId": "com.physicalmindstudio.pilates",
   "appName": "PhysicalMind Studio",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "ios": {
-    "buildNumber": 2,
+    "buildNumber": "3",
     "scheme": "physicalmindstudio"
   },
   "android": {
-    "buildNumber": 2,
+    "buildNumber": "3",
     "scheme": "physicalmindstudio"
   },
   "webDir": "./dist",
