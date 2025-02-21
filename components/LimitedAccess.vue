@@ -1,33 +1,69 @@
 <script setup lang="ts">
-
-const client = useSupabaseClient();
-
-const user = useSupabaseUser();
+import { ref, onMounted } from 'vue';
 import { OverlayEventDetail } from '@ionic/core/components';
 
+const client = useSupabaseClient();
+const user = useSupabaseUser();
+const message = ref('');
+const success = ref(false);
+
 const access = ref('');
+const validOrders = ['12345', '67890', '13579']; // Example valid order numbers
 
 /* modal logic */
-
 const modal = ref();
 const input = ref();
 
 const cancel = () => modal.value.$el.dismiss(null, 'cancel');
 
-const confirm = () => {
-  const name = input.value.$el.value;
-  modal.value.$el.dismiss(name, 'confirm');
+const confirm = async () => {
+  const orderNumber = input.value.$el.value.trim();
+
+  if (!orderNumber) {
+    message.value = 'Please enter a valid order number.';
+    success.value = false;
+    return;
+  }
+
+  try {
+    console.log('Checking order number:', orderNumber);
+
+    const { data, error } = await client
+      .from('order_numbers')
+      .select('order_no')
+      .eq('order_no', orderNumber)
+      .maybeSingle(); // Avoids 406 error if multiple or zero rows are found
+
+    if (error) {
+      console.error('Supabase query error:', error);
+      message.value = 'Error verifying order number. Please try again later.';
+      success.value = false;
+    } else if (!data) {
+      console.warn('No matching order found.');
+      message.value = 'We could not find that order number, please contact info@pmiemail.com';
+      success.value = false;
+    } else {
+      console.log('Order found:', data);
+      message.value = 'Congratulations, you are now confirmed.';
+      success.value = true;
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    message.value = 'An unexpected error occurred. Please try again.';
+    success.value = false;
+  }
+
+  modal.value.$el.dismiss();
 };
 
-const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
-  if (event.detail.role === 'confirm') {
-    message.value = `Hello, ${event.detail.data}!`;
-  }
+
+
+
+const onWillDismiss = () => {
+  // Optional cleanup or further actions after modal dismissal
 };
 
 /* end modal logic */
-
-
 
 async function fetchUserProfile() {
   if (user.value) {
@@ -41,33 +77,28 @@ async function fetchUserProfile() {
       console.error('Error fetching profile:', error);
       return;
     }
-
     access.value = data.access;
   }
 }
 
 onMounted(fetchUserProfile);
-
 </script>
 
 <template>
   <div id="limited-container" class="max-w-5xl mx-auto">
-
     <ion-card>
       <ion-grid class="ion-justify-content-center">
         <ion-row class="ion-justify-content-center">
-          <ion-col size-md="8" size-lg="6" size-xs="12">
-
+          <ion-col size-md="12" size-lg="6" size-xs="12">
             <ion-text>
               <p class="mb-2">
                 To gain full access to this app, you must submit your TYE4/X order number. If you do not have your order
                 number or it doesn't work, you can submit photo proof of you and your TYE4/X to <a
                   href="mailto:info@pmiemail.com">info@pmiemail.com</a>.
                 <br />
-
               </p>
-
               <ion-button id="open-modal" expand="block" class="mt-4">Submit Order Number</ion-button>
+              <p v-if="message" :class="{ 'text-green-500': success, 'text-red-500': !success }">{{ message }}</p>
               <p class="pt-2">Need more help?</p>
             </ion-text>
             <!-- Modal area -->
@@ -75,22 +106,18 @@ onMounted(fetchUserProfile);
               <ion-header>
                 <ion-toolbar>
                   <ion-buttons slot="start">
-                    <ion-button @click="cancel()">Cancel</ion-button>
+                    <ion-button @click="cancel">Cancel</ion-button>
                   </ion-buttons>
-                  <ion-title></ion-title>
-
+                  <ion-title>Enter Your Order Number</ion-title>
                 </ion-toolbar>
               </ion-header>
               <ion-content class="ion-padding">
-                <h2 class="w-full block px-4 py-2">Enter Your TYE4/X Order Number</h2>
                 <ion-item class="pt-0 overflow-visible !flex !flex-col">
-
-
                   <ion-input class="custom w-full" ref="input" type="text" placeholder="Your order number"
                     fill="outline"></ion-input>
                 </ion-item>
                 <div class="px-3">
-                  <ion-button id="open-modal" expand="block" class="mt-4">Submit</ion-button>
+                  <ion-button expand="block" class="mt-4" @click="confirm">Submit</ion-button>
                 </div>
               </ion-content>
             </ion-modal>
@@ -101,6 +128,7 @@ onMounted(fetchUserProfile);
     </ion-card>
   </div>
 </template>
+
 
 <style scoped>
 ::v-deep input.sc-ion-input-md {
