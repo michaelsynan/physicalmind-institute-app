@@ -157,8 +157,8 @@ const resetPassword = function () {
                     <UInput color="primary" variant="outline" type="password" id="password"
                       placeholder="Enter your password" v-model="password" required
                       class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  !text-black" />
-                    <div class="w-full text-right pt-1 cursor-pointer" id="open-modal">Forgot your password?
-                    </div>
+                    <!-- <div class="w-full text-right pt-1 cursor-pointer" id="open-modal">Forgot your password? -->
+                    <!-- </div> -->
 
                     <!-- Modal area -->
                     <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">

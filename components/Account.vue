@@ -16,12 +16,14 @@ const requirements = ref({
 })
 
 function validatePassword(value) {
+  // Validate the password and set requirements accordingly
   requirements.value.length = value.length >= 8
   requirements.value.uppercase = /[A-Z]/.test(value)
   requirements.value.lowercase = /[a-z]/.test(value)
   requirements.value.number = /[0-9]/.test(value)
 
-  const allValid = Object.values(requirements.value).every(Boolean)
+  // Check if all requirements are met
+  const allValid = Object.values(requirements.value || {}).every(Boolean)
   message.value = allValid ? '' : 'Password must include:'
 }
 
@@ -32,7 +34,8 @@ async function updatePassword() {
     return;
   }
 
-  if (!Object.values(requirements.value).every(Boolean)) {
+  // Check if all requirements are met before updating the password
+  if (!Object.values(requirements.value || {}).every(Boolean)) {
     message.value = 'Password does not meet the requirements';
     return;
   }
@@ -55,7 +58,6 @@ async function updatePassword() {
     loading.value = false;
   }
 }
-
 </script>
 
 <template>
@@ -70,11 +72,22 @@ async function updatePassword() {
       <UInput color="primary" type="password" id="password" v-model="password" :readonly="!editingPassword"
         @input="validatePassword(password)"
         class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+
       <div class="mt-2 text-xs text-gray-500 cursor-pointer" @click="updatePassword">
         {{ editingPassword ? 'Save Password' : 'Update Password' }}
       </div>
 
-      <div v-if="message" class="text-xs text-red-500 mt-1">{{ message }}</div>
+      <!-- Add ion-button to submit password -->
+      <ion-button v-if="editingPassword" expand="block" @click="updatePassword"
+        :disabled="loading || !Object.values(requirements.value || {}).every(Boolean)">
+        Submit New Password
+      </ion-button>
+
+      <div v-if="message" class="text-xs mt-1"
+        :class="{ 'text-red-500': message !== 'Password updated successfully.', 'text-green-500': message === 'Password updated successfully.' }">
+        {{ message }}
+      </div>
+
       <ul v-if="editingPassword" class="text-xs text-gray-500 mt-1">
         <li :class="requirements.length ? 'text-green-500' : 'text-red-500'">- At least 8 characters</li>
         <li :class="requirements.uppercase ? 'text-green-500' : 'text-red-500'">- At least one uppercase letter</li>
