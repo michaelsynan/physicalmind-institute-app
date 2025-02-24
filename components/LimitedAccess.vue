@@ -120,7 +120,7 @@ onMounted(fetchUserProfile);
               </p>
               <ion-button id="open-modal" expand="block" class="mt-4">Submit Order Number</ion-button>
               <p v-if="message" :class="{ 'text-green-500': success, 'text-red-500': !success }">{{ message }}</p>
-              <p class="pt-2">Need more help?</p>
+              <!--      <p class="pt-2">Need more help?</p> -->
             </ion-text>
             <!-- Modal area -->
             <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">
