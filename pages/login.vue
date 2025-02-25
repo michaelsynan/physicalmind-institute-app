@@ -70,22 +70,47 @@ onMounted(() => {
   }
 });
 
+// const signUp = async () => {
+//   loading.value = true;
+//   console.log("signUp function called from login.vue");
+//   errorMessage.value = '';
+//   const { error } = await useSupabaseClient().auth.signUp({
+//     email: email.value,
+//     password: password.value
+//   });
+//   if (error) {
+//     errorMessage.value = error.message;
+//   } else {
+//     isSignUp.value = false;
+//     navigateTo('/login');
+//   }
+//   loading.value = false;
+// };
+
+const CHECK_EMAIL_CONFIRMATION = "Check your email to confirm your account.";
+const successMessage = ref(null);
+
 const signUp = async () => {
   loading.value = true;
   console.log("signUp function called from login.vue");
   errorMessage.value = '';
+
   const { error } = await useSupabaseClient().auth.signUp({
     email: email.value,
     password: password.value
   });
+
   if (error) {
     errorMessage.value = error.message;
   } else {
     isSignUp.value = false;
-    navigateTo('/login');
+    successMessage.value = CHECK_EMAIL_CONFIRMATION;
+    navigateTo('/login');  // After successful signup, navigate to login
   }
+
   loading.value = false;
 };
+
 
 
 watch([password, confirmPassword], () => {
@@ -93,6 +118,7 @@ watch([password, confirmPassword], () => {
 }, { immediate: true });
 
 const login = async () => {
+  successMessage.value = null;
   loading.value = true;
   console.log("login function called from login.vue");
   errorMessage.value = '';
@@ -197,6 +223,7 @@ const resetPassword = function () {
                       class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
                   </div>
                   <UButton v-if="!isSignUp" type="submit" :disabled="loading" color="primary"
+                    @click="successMessage = null"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300">
                     {{ loading ? 'Loading...' : 'Login' }}
                   </UButton>
@@ -205,13 +232,17 @@ const resetPassword = function () {
                     color="primary">
                     {{ loading ? 'Loading...' : 'Sign Up' }}
                   </UButton>
-                  <div class="mt-4">
+                  <div class="mt-4" @click="errorMessage = null">
                     {{ isSignUp ? 'Already have an account?' : 'Need an account?' }}
                     <span @click="isSignUp = !isSignUp" class="text-indigo-600 cursor-pointer">
                       {{ isSignUp ? 'Login' : 'Sign up' }}
                     </span>
                   </div>
                   <div v-if="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
+                  <div v-if="successMessage" class="mt-4 text-red-500">
+                    {{ successMessage }}
+                  </div>
+
                 </form>
                 <ion-button v-if="!isLoggingIn" @click="isLoggingIn = true" expand="block"
                   class="mt-4 mb-10 ls">Next</ion-button>
@@ -225,11 +256,23 @@ const resetPassword = function () {
 </template>
 
 <style scoped>
-/* input {
-  color: #333 !important;
+input,
+textarea,
+select,
+.UInput {
+  color: black !important;
+  /* Force text color to black */
+  background-color: white !important;
+  /* Ensure background is white */
 }
 
-body.dark input {
-  color: white !important;
-} */
+body.dark input,
+body.dark textarea,
+body.dark select,
+body.dark .UInput {
+  color: black !important;
+  /* Force text color to black in dark mode */
+  background-color: white !important;
+  /* Ensure background is white in dark mode */
+}
 </style>
