@@ -62,6 +62,8 @@ const closeMenu = async () => {
       <div class="flex flex-col h-full justify-between border-t">
         <ion-list class="mt-2">
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
+          <ion-item @click="closeMenu" router-link="/documents" class="cursor-pointer">Document Library</ion-item>
+
           <!-- <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item> -->
           <!-- <ion-item @click="closeMenu" router-link="/certification" class="cursor-pointer">Certification</ion-item> -->
           <ion-item @click="closeMenu" router-link="/about" class="cursor-pointer">About</ion-item>
@@ -69,6 +71,9 @@ const closeMenu = async () => {
           <ion-item @click="closeMenu" href="https://shop.physicalmindinstitute.com" class="cursor-pointer"
             target="_blank">
             <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> Shop
+          </ion-item>
+          <ion-item @click="closeMenu" href="https://80bites.com" class="cursor-pointer" target="_blank">
+            <ion-icon :md="ioniconsGlobeOutline" :ios="ioniconsGlobeOutline" slot="end"></ion-icon> 80Bites
           </ion-item>
           <ion-item @click="logout" router-link="/login" class="cursor-pointer">Logout</ion-item>
 
