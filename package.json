@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@awesome-cordova-plugins/screen-orientation": "^5.37.3",
+    "@capacitor-community/file-opener": "^6.0.0",
     "@capacitor/android": "^6.1.2",
     "@capacitor/app": "^6.0.1",
     "@capacitor/haptics": "^6.0.1",
@@ -24,7 +25,6 @@
     "@nuxt/ui": "^2.13.0",
     "@vimeo/player": "^2.21.0",
     "@vueuse/nuxt": "^11.2.0",
-    "capacitor-pdf-viewer-plugin": "^1.0.0",
     "cordova-plugin-screen-orientation": "^3.0.4",
     "pinia": "^2.2.6",
     "vue": "^3.4.15",

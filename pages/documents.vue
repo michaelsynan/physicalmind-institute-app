@@ -27,11 +27,12 @@
 </template>
 
 <script setup>
-import { PdfViewer } from 'capacitor-pdf-viewer-plugin';
+import { FileOpener } from '@capacitor-community/file-opener';
 
 const viewPdf = async () => {
-  await PdfViewer.show({
-    url: 'https://physicalmindinstitute.s3.us-east-1.amazonaws.com/pdfs/Parasetter%C2%AE_Manual.pdf',
+  await FileOpener.open({
+    filePath: 'https://physicalmindinstitute.s3.us-east-1.amazonaws.com/pdfs/Parasetter%C2%AE_Manual.pdf',
+    contentType: 'application/pdf',
   });
 };
 </script>
