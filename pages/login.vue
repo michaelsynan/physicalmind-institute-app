@@ -2,7 +2,8 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '~/stores/auth.js';
 
-const { signIn, signOut } = useAuthStore();
+const authStore = useAuthStore(); // Get the full store
+const { signIn, signOut, restoreSession } = useAuthStore(); // Destructure needed methods
 const user = useSupabaseUser(); // This still auto-imported via Nuxt's module
 const loading = ref(false);
 const email = ref('');
@@ -46,7 +47,20 @@ const onWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
 
 /* end modal logic */
 
-onMounted(() => {
+onMounted(async () => {
+  // First try to restore the session
+  console.log("Login page mounted, attempting to restore session...");
+  const sessionRestored = await restoreSession();
+  console.log("Session restored:", sessionRestored);
+
+  // Only if session restoration failed, continue with normal login flow
+  if (sessionRestored) {
+    console.log("Session was restored, redirecting to home");
+    navigateTo('/');
+    return;
+  }
+
+  // Rest of your existing onMounted code
   checkDarkMode();
 
   const observer = new MutationObserver((mutations) => {
@@ -65,6 +79,7 @@ onMounted(() => {
     observer.disconnect();
   });
 
+  // This check is still useful as a fallback
   if (user.value) {
     navigateTo('/');
   }
