@@ -26,6 +26,28 @@ onMounted(() => {
 </template>
 
 <style lang="css">
+/* For web component version of Swiper */
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+  color: #810867 !important;
+}
+
+/* Your existing pagination styling works fine */
+:root {
+  --swiper-theme-color: #810867 !important;
+  --swiper-pagination-color: #810867 !important;
+}
+
+.swiper-pagination-bullet {
+  background: #d1d5db !important;
+  opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+  background: #810867 !important;
+  opacity: 1;
+}
+
 swiper-container {
   width: 100%;
   height: auto;
@@ -53,7 +75,7 @@ swiper-slide {
 }
 
 .swiper-button {
-  background-color: #f3f4f6;
+  background-color: #810867;
   border: 1px solid #d1d5db;
   border-radius: 9999px;
   padding: 0.5rem;
@@ -63,7 +85,4 @@ swiper-slide {
   cursor: pointer;
 }
 
-.swiper-button:hover {
-  background-color: #e5e7eb;
-}
 </style>
