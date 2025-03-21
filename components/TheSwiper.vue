@@ -1,119 +1,69 @@
+<script setup lang="ts">
+// Create slides for your images
+const containerRef = ref(null)
+// Change to 4 slides for the 4 images
+const images = ['/1.jpg', '/2.jpg', '/3.jpg', '/4.jpg']
+const slides = ref(images)
+
+const swiper = useSwiper(containerRef)
+
+onMounted(() => {
+  // Access Swiper instance
+  console.log(swiper.instance)
+})
+</script>
+
 <template>
-      <div id="container" class="my-4 max-w-5xl mx-auto p-5">
-        <Swiper 
-        ref="mySwiper"
-  :pagination="true"
-  :modules="[SwiperAutoplay, SwiperEffectCreative, Pagination]"
-  :slides-per-view="1"
-  :loop="true"
-  :effect="'creative'"
-  :autoplay="{
-    delay: 2500,
-    disableOnInteraction: false,
-  }"
-  :creative-effect="{
-    prev: {
-      shadow: false,
-      translate: ['-20%', 0, -1],
-    },
-    next: {
-      translate: ['100%', 0, 0],
-    },
-  }"
->
-<SwiperSlide class="relative bg-cover bg-center text-white" style="background-image: url('/yoga.jpg');">
-  <div class="absolute inset-0 bg-gradient-to-t from-stone-800 to-transparent opacity-90"></div>
-  <strong class="absolute bottom-10 !text-5xl z-10 p-5">YOGA</strong>
-</SwiperSlide>
-<SwiperSlide class="relative bg-cover bg-center text-white" style="background-image: url('/backyard.jpg');">
-  <div class="absolute inset-0 bg-gradient-to-t from-stone-800 to-transparent opacity-90"></div>
-  <strong class="absolute bottom-10 !text-5xl z-10 p-5">PILATES</strong>
-</SwiperSlide>
-<SwiperSlide class="relative bg-cover bg-center text-white" style="background-image: url('/golf.jpg');">
-  <div class="absolute inset-0 bg-gradient-to-t from-stone-800 to-transparent opacity-90"></div>
-  <strong class="absolute bottom-10 !text-5xl z-10 p-5">SHOP</strong>
-</SwiperSlide>
+  <ClientOnly>
+    <swiper-container ref="containerRef" initial-slide="0" pagination="true" navigation="true">
+      <swiper-slide v-for="(image, idx) in slides" :key="idx">
+        <img :src="image" :alt="`Manual page ${idx + 1}`" class="swiper-image" />
+      </swiper-slide>
+    </swiper-container>
+  </ClientOnly>
 
 
-</Swiper>
-
-  </div>
 </template>
 
-<style scoped>
-.swiper-pagination-bullet-active {
-  background: #810867 !important; /* Updated color for active bullet, can adjust if you want a different color for active state */
-}
-
-.swiper {
+<style lang="css">
+swiper-container {
   width: 100%;
-  height: 50vh; /* Default height for larger screens */
-  border-radius: 10px;
+  height: auto;
 }
 
-/* Adjustments for mobile screens */
-@media (max-width: 768px) {
-  .swiper {
-    height: 25vh; /* Smaller height on mobile devices */
-  }
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
+swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
-.swiper-slide img {
-  display: block;
+.swiper-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
+
+.navigation-buttons {
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-size: cover; /* Cover the entire slide */
-  background-position: center bottom; /* Center horizontally and align to bottom */
+  gap: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
+.swiper-button {
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
-/* Custom styles for Swiper pagination bullets */
-.swiper-pagination-bullet-active {background: red !important;}
-
+.swiper-button:hover {
+  background-color: #e5e7eb;
+}
 </style>
-
-<script setup>
-import { Pagination } from 'swiper/modules';
-import { onMounted, ref } from 'vue';
-
-const mySwiper = ref(null);
-
-const route = useRoute();
-
-// Function to update Swiper, can be called after navigation or route change
-const updateSwiper = () => {
-  nextTick(() => {
-    if (mySwiper.value && mySwiper.value.swiper) {
-      mySwiper.value.swiper.update();
-      mySwiper.value.swiper.slideTo(0); // Optional: Reset to first slide
-    }
-  });
-};
-
-onMounted(updateSwiper);
-
-// Re-update Swiper when navigating back to the component
-onBeforeRouteUpdate((to, from, next) => {
-  updateSwiper();
-  next();
-});
-
-</script>

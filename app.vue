@@ -62,7 +62,7 @@ const closeMenu = async () => {
       <div class="flex flex-col h-full justify-between border-t">
         <ion-list class="mt-2">
           <ion-item @click="closeMenu" router-link="/" class="cursor-pointer">Video Library</ion-item>
-          <ion-item @click="closeMenu" router-link="/documents" class="cursor-pointer">Document Library</ion-item>
+          <ion-item @click="closeMenu" router-link="/documents" class="cursor-pointer">Matwork Certification</ion-item>
 
           <!-- <ion-item @click="closeMenu" router-link="/instructors" class="cursor-pointer">Instructors</ion-item> -->
           <!-- <ion-item @click="closeMenu" router-link="/certification" class="cursor-pointer">Certification</ion-item> -->

@@ -38,6 +38,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     // "@vueuse/nuxt",
     "@pinia/nuxt",
+    "nuxt-swiper",
   ],
   css: ["/theme/variables.css", "/assets/css/main.css"],
 
