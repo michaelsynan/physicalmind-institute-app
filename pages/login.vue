@@ -182,61 +182,56 @@ const resetPassword = function () {
                 <LoginAbout v-if="!isLoggingIn" />
                 <form v-if="isLoggingIn" @submit.prevent="isSignUp ? signUp() : login()"
                   class="w-full max-w-sm mx-auto">
+                  <!-- Login email field -->
                   <div v-if="!isSignUp" class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
-                      required
-                      class="placeholder-gray-400 !text-black focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm " />
+                    <ion-item>
+                      <ion-input label-placement="floating" type="email" placeholder="Enter your email" v-model="email"
+                        required>
+                        <div slot="label">Email</div>
+                      </ion-input>
+                    </ion-item>
                   </div>
-                  <div v-if="isSignUp" class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Enter your email address</label>
-                    <UInput color="primary" type="email" id="email" placeholder="Enter your email" v-model="email"
-                      required
-                      class="placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !text-black" />
-                  </div>
-                  <div v-if="!isSignUp" class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <UInput color="primary" variant="outline" type="password" id="password"
-                      placeholder="Enter your password" v-model="password" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm  !text-black" />
-                    <!-- <div class="w-full text-right pt-1 cursor-pointer" id="open-modal">Forgot your password? -->
-                    <!-- </div> -->
 
-                    <!-- Modal area -->
-                    <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">
-                      <ion-header>
-                        <ion-toolbar>
-                          <ion-buttons slot="start">
-                            <ion-button @click="cancel()">Cancel</ion-button>
-                          </ion-buttons>
-                          <ion-title>Reset your password</ion-title>
-                          <ion-buttons slot="end">
-                            <ion-button :strong="true" @click="confirm()">Confirm</ion-button>
-                          </ion-buttons>
-                        </ion-toolbar>
-                      </ion-header>
-                      <ion-content class="ion-padding">
-                        <ion-item>
-                          <ion-input label="Enter your name" label-placement="stacked" ref="input" type="text"
-                            placeholder="Your name"></ion-input>
-                        </ion-item>
-                      </ion-content>
-                    </ion-modal>
-                    <!-- end Modal area -->
-                  </div>
+                  <!-- Signup email field -->
                   <div v-if="isSignUp" class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Choose a password</label>
-                    <UInput color="primary" variant="outline" type="password" id="password"
-                      placeholder="Enter your password" v-model="password" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
+                    <ion-item>
+                      <ion-input label-placement="floating" type="email" placeholder="Enter your email" v-model="email"
+                        required>
+                        <div slot="label">Enter your email address</div>
+                      </ion-input>
+                    </ion-item>
                   </div>
+
+                  <!-- Login password field -->
+                  <div v-if="!isSignUp" class="mb-4">
+                    <ion-item>
+                      <ion-input label-placement="floating" type="password" placeholder="Enter your password"
+                        v-model="password" required>
+                        <div slot="label">Password</div>
+                      </ion-input>
+                    </ion-item>
+                  </div>
+
+                  <!-- Signup password fields -->
                   <div v-if="isSignUp" class="mb-4">
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm your
-                      password</label>
-                    <UInput color="primary" variant="outline" type="password" id="confirmPassword"
-                      placeholder="Enter your password again" v-model="confirmPassword" required
-                      class="shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white text-black" />
+                    <ion-item>
+                      <ion-input label-placement="floating" type="password" placeholder="Enter your password"
+                        v-model="password" required>
+                        <div slot="label">Choose a password</div>
+                      </ion-input>
+                    </ion-item>
                   </div>
+
+                  <div v-if="isSignUp" class="mb-4">
+                    <ion-item>
+                      <ion-input label-placement="floating" type="password" placeholder="Enter your password again"
+                        v-model="confirmPassword" required>
+                        <div slot="label">Confirm your password</div>
+                      </ion-input>
+                    </ion-item>
+                  </div>
+
+                  <!-- Rest of your form remains unchanged -->
                   <UButton v-if="!isSignUp" type="submit" :disabled="loading" color="primary"
                     @click="successMessage = null"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium !text-white focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:bg-gray-300">
@@ -257,7 +252,6 @@ const resetPassword = function () {
                   <div v-if="successMessage" class="mt-4 text-red-500">
                     {{ successMessage }}
                   </div>
-
                 </form>
                 <ion-button v-if="!isLoggingIn" @click="isLoggingIn = true" expand="block"
                   class="mt-4 mb-10 ls">Next</ion-button>
@@ -271,23 +265,56 @@ const resetPassword = function () {
 </template>
 
 <style scoped>
-input,
-textarea,
-select,
-.UInput {
-  color: black !important;
-  /* Force text color to black */
-  background-color: white !important;
-  /* Ensure background is white */
+/* Update styles for ion-input */
+ion-input {
+  --color: black !important;
+  --background: white !important;
+  --placeholder-color: #9ca3af !important;
+  --padding-start: 0.75rem !important;
+  --padding-end: 0.75rem !important;
+  --padding-top: 0.5rem !important;
+  --padding-bottom: 0.5rem !important;
+  margin-top: 0.25rem !important;
 }
 
-body.dark input,
-body.dark textarea,
-body.dark select,
-body.dark .UInput {
-  color: black !important;
-  /* Force text color to black in dark mode */
-  background-color: white !important;
-  /* Ensure background is white in dark mode */
+/* Make sure stacked position works properly */
+ion-item {
+  --background: transparent !important;
+  --border-color: #d1d5db !important;
+  /* Make border visible */
+  --border-width: 0 0 1px 0 !important;
+  /* Only bottom border */
+  --inner-border-width: 0 0 1px 0 !important;
+  /* Inner border as well */
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+  margin-bottom: 1rem !important;
+  --min-height: auto !important;
+}
+
+ion-item::part(native) {
+  padding: 0 !important;
+  min-height: auto !important;
+}
+
+ion-label {
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #374151 !important;
+  margin-bottom: 0.25rem !important;
+  transform: none !important;
+}
+
+/* Make sure label is stacked properly */
+ion-label[position="stacked"] {
+  margin-bottom: 0.25rem !important;
+  transform: none !important;
+  position: relative !important;
+  max-width: 100% !important;
+}
+
+/* Ensure inputs take full width */
+ion-input::part(input) {
+  width: 100% !important;
 }
 </style>
